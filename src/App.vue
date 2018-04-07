@@ -1,13 +1,14 @@
 <template>
   <v-app>
-    
+    <AuthModal :dialog="!loggedId" />
+
     <v-navigation-drawer persistent v-model="drawer" enable-resize-watcher fixed app>
       <UserHeader/>
       <SideNav/>
     </v-navigation-drawer>
     
     <v-toolbar app :clipped-left="clipped">
-            <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
      <!--  <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
       </v-btn>
@@ -36,13 +37,17 @@
 import axios from 'axios'
 import UserHeader from './UserHeader'
 import SideNav from './SideNav'
+import AuthModal from './AuthModal'
+import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
       clipped: false,
       drawer: true,
       fixed: false,
-      title: 'Review Lifter'
+      title: 'Review Lifter',
+      response: ''
     }
   },
   mounted () {
@@ -64,9 +69,19 @@ export default {
     //   this.errors.push(e)
     // }
   },
+  computed: {
+    ...mapGetters([
+      'user'
+    ]),
+    loggedId () {
+      console.log(this.user)
+      return this.user
+    }
+  },
   components: {
     UserHeader,
-    SideNav
+    SideNav,
+    AuthModal
   },
 
   name: 'App'
