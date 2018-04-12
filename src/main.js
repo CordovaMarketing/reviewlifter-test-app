@@ -49,7 +49,7 @@ Vue.use(Vuetify, {
 
 Vue.use(GoogleAuth, {
   client_id:
-    '951992347356-doa0sc977nupoknfgat93elqv53si6n0.apps.googleusercontent.com'
+    '548156398963-gmpe9plbplamq59nlov1d9u0kuuh3q01.apps.googleusercontent.com'
 })
 Vue.googleAuth().load()
 
