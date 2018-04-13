@@ -35,6 +35,7 @@
 <script>
 import Vue from 'vue'
 import axios from 'axios'
+import store from '@/store/store'
 
 export default {
   props: ['dialog'],
@@ -56,8 +57,8 @@ export default {
         if (response.data) {
           var data = response.data
           // Save to vuex
-          this.$store.commit('SET_USER', data.user_data)
-          this.$store.commit('SET_TOKEN', data.token)
+          store.commit('SET_USER', data.user_data)
+          store.commit('SET_TOKEN', data.token)
           // NOTE: This token is the one created for my server's authentication flow, not Google. The user_data is a pass through of what Google sent me.
           // You should be able to pre-load the form with that data for signup.
           //
