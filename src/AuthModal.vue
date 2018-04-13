@@ -1,49 +1,32 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="500px">
-    <v-stepper v-model="e1">
-      <v-stepper-header>
-        <v-stepper-step step="1" :complete="e1 > 1">Name of step 1</v-stepper-step>
-        <v-divider></v-divider>
-        <v-stepper-step step="2" :complete="e1 > 2">Name of step 2</v-stepper-step>
-        <v-divider></v-divider>
-        <v-stepper-step step="3">Name of step 3</v-stepper-step>
-      </v-stepper-header>
-      <v-stepper-items>
-        <v-stepper-content step="1">
-          <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
-          <a id="signin-button" v-on:click="signIn">
-            <i class="fa fa-google-plus-official fa-3x"></i>
-            Sign in with Google
-          </a>
-          <v-btn flat>Cancel</v-btn>
-        </v-stepper-content>
-        <v-stepper-content step="2">
-          <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
-          <v-btn color="primary" @click.native="e1 = 3">Continue</v-btn>
-          <v-btn flat>Cancel</v-btn>
-        </v-stepper-content>
-        <v-stepper-content step="3">
-          <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
-          <v-btn color="primary" @click.native="e1 = 1">Continue</v-btn>
-          <v-btn flat>Cancel</v-btn>
-        </v-stepper-content>
-      </v-stepper-items>
-    </v-stepper>
-  </v-dialog>
+<v-dialog v-if="!user" v-model="visible" persistent max-width="500">
+    <!-- <v-btn color="primary" dark slot="activator">Open Dialog</v-btn> -->
+    <v-card>
+      <v-card-title class="headline">Google Sign-in</v-card-title>
+      <v-card-text>Use your Google account to sign in to Review Lifter. </v-card-text>
+        <!-- <v-btn id="signin-button" color="green darken-1"  v-on:click="$emit('signedIn')">Sign In</v-btn> -->
+        <v-btn id="signin-button" color="green darken-1"  v-on:click="signIn">Sign In</v-btn>
+    </v-card>
+</v-dialog>
 </template>
 
 <script>
 import Vue from 'vue'
 import axios from 'axios'
 import store from '@/store/store'
+import { mapGetters } from 'vuex'
 
 export default {
-  props: ['dialog'],
+  props: ['visible'],
   data () {
     return {
-      e1: 0,
       response: ''
     }
+  },
+  computed: {
+    ...mapGetters([
+      'user'
+    ])
   },
   methods: {
     signIn: function () {
@@ -70,7 +53,7 @@ export default {
           //   window.localStorage.setItem('token', token)
           // }
           // redirect to the dashboard
-          this.dialog = false
+          this.visible = false
           this.$router.push({ name: 'dashboard' })
         }
       }, function (response) {
