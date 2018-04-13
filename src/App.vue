@@ -1,6 +1,7 @@
 <template>
   <v-app>
-    <AuthModal :dialog="!loggedId" />
+    <AuthModal @signedIn="loggedIn = true" :visible="!loggedIn" />
+    <RegisterModal @register="registered = true" :visible="loggedIn && !registered"/>
 
     <v-navigation-drawer persistent v-model="drawer" enable-resize-watcher fixed app>
       <UserHeader/>
@@ -38,6 +39,7 @@ import axios from 'axios'
 import UserHeader from './UserHeader'
 import SideNav from './SideNav'
 import AuthModal from './AuthModal'
+import RegisterModal from './RegisterModal'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -46,6 +48,8 @@ export default {
       clipped: false,
       drawer: true,
       fixed: false,
+      registered: false, // TODO - make computed
+      loggedIn: false, // TODO - make computed
       title: 'Review Lifter',
       response: ''
     }
@@ -72,16 +76,20 @@ export default {
   computed: {
     ...mapGetters([
       'user'
-    ]),
-    loggedId () {
-      console.log(this.user)
-      return this.user
-    }
+    ])
+    // loggedIn () {
+    //   console.log(this.user)
+    //   return this.user
+    // }
+    // registered () {
+    //   TODO - make registered computed
+    // }
   },
   components: {
     UserHeader,
     SideNav,
-    AuthModal
+    AuthModal,
+    RegisterModal
   },
 
   name: 'App'
