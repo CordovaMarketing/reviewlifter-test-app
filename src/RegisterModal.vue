@@ -20,7 +20,8 @@
         <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
       <v-stepper-content step="3">
-        <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
+        <!-- <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card> -->
+        <AddLocation/>
         <v-btn color="primary" @click="$emit('register')">Finish</v-btn>
         <!-- TODO: either send and receive registration info from server here and then emit it back up, 
                    or just emit that finish was clicked, and in root module handle registration -->

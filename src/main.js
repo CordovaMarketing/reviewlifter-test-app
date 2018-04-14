@@ -6,6 +6,9 @@ import router from './router'
 import store from './store/store'
 import GoogleAuth from 'vue-google-auth'
 import Vuex from 'vuex'
+import 'vue-googlemaps/dist/vue-googlemaps.css'
+import VueGoogleMaps from 'vue-googlemaps'
+import AddLocation from '@/components/locations/AddLocation'
 
 import {
   Vuetify,
@@ -47,6 +50,13 @@ Vue.use(Vuetify, {
   }
 })
 
+Vue.use(VueGoogleMaps, {
+  load: {
+    apiKey: 'AIzaSyDe-2Yxn9TgT9fWBc3b_8V8b6tm3-kH-88',
+    libraries: ['places']
+  }
+})
+
 Vue.use(GoogleAuth, {
   client_id:
     '548156398963-gmpe9plbplamq59nlov1d9u0kuuh3q01.apps.googleusercontent.com'
@@ -57,6 +67,7 @@ Vue.use(Vuex)
 
 Vue.config.productionTip = false
 
+Vue.component('AddLocation', AddLocation)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
