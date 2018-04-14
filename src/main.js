@@ -52,7 +52,7 @@ Vue.use(Vuetify, {
 
 Vue.use(VueGoogleMaps, {
   load: {
-    apiKey: 'AIzaSyDe-2Yxn9TgT9fWBc3b_8V8b6tm3-kH-88',
+    apiKey: 'AIzaSyCD85AAKkEHyTKM6MH12SLJJz1zOf_fKHI',
     libraries: ['places']
   }
 })
