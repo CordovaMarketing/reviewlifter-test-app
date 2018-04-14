@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Dashboard from '@/components/Dashboard'
-import Customers from '@/components/Customers'
-import Locations from '@/components/Locations'
-import Settings from '@/components/Settings'
+import Dashboard from '@/components/dashboard/Dashboard'
+import Customers from '@/components/customers/Customers'
+import Locations from '@/components/locations/Locations'
+import Settings from '@/components/settings/Settings'
 
 Vue.use(Router)
 

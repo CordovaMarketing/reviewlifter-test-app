@@ -2,11 +2,11 @@
   <v-dialog v-model="visible" persistent max-width="500px">
   <v-stepper v-model="step">
     <v-stepper-header>
-      <v-stepper-step step="1" :complete="step > 1">Name of step 1</v-stepper-step>
+      <v-stepper-step step="1" :complete="step > 1">Sign Up</v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step step="2" :complete="step > 2">Name of step 2</v-stepper-step>
+      <v-stepper-step step="2" :complete="step > 2">Review Sites</v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step step="3">Name of step 3</v-stepper-step>
+      <v-stepper-step step="3">Locations</v-stepper-step>
     </v-stepper-header>
     <v-stepper-items>
       <v-stepper-content step="1">
