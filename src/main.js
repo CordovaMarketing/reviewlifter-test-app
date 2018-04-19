@@ -9,6 +9,7 @@ import Vuex from 'vuex'
 import 'vue-googlemaps/dist/vue-googlemaps.css'
 import VueGoogleMaps from 'vue-googlemaps'
 import AddLocation from '@/components/locations/AddLocation'
+import VueGmaps from 'vue-gmaps'
 
 import {
   Vuetify,
@@ -26,7 +27,8 @@ import {
   VDialog,
   VSelect,
   VStepper,
-  VDivider
+  VDivider,
+  VTextField
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
@@ -46,7 +48,8 @@ Vue.use(Vuetify, {
     VDialog,
     VSelect,
     VStepper,
-    VDivider
+    VDivider,
+    VTextField
   }
 })
 
@@ -55,6 +58,11 @@ Vue.use(VueGoogleMaps, {
     apiKey: 'AIzaSyCD85AAKkEHyTKM6MH12SLJJz1zOf_fKHI',
     libraries: ['places']
   }
+})
+
+Vue.use(VueGmaps, {
+  key: 'AIzaSyCD85AAKkEHyTKM6MH12SLJJz1zOf_fKHI',
+  libraries: ['places']
 })
 
 Vue.use(GoogleAuth, {

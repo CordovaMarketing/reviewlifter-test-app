@@ -17,6 +17,7 @@
     "axios": "^0.18.0",
     "vue": "^2.5.2",
     "vue-authenticate": "^1.3.4",
+    "vue-gmaps": "^0.2.2",
     "vue-google-auth": "^1.0.5",
     "vue-google-oauth": "^1.0.5",
     "vue-googlemaps": "0.0.6",
