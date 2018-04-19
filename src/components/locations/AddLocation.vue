@@ -1,26 +1,21 @@
 
 <template>
-  <v-container fluid grid-list-md>
-    <v-layout v-bind="binding">
-      <v-flex xs6 >    
+  <v-container  grid-list-md>
+      <v-flex xs6 offset-xs3 >    
     
 <!-- Toolbar -->
-<label>
-      AutoComplete
-      <GmapAutocomplete @place_changed="setPlace">
+      <v-icon large style="width: 4%">search</v-icon>
+      <GmapAutocomplete placeholder="Enter a location..." class="input headline " @place_changed="setPlace">
       </GmapAutocomplete>
-      <button @click="usePlace">Add</button>
-    </label>
     <br/>
 
-    <GmapMap style="width: 600px; height: 300px;" :zoom="1" :center="{lat: 0, lng: 0}">
-      <GmapMarker v-for="(marker, index) in markers"
+    <GmapMap class="map" :zoom="15" :center="center">
+      <!-- <GmapMarker v-for="(marker, index) in markers"
         :key="index"
         :position="marker.position"
-        />
+        /> -->
       <GmapMarker
         v-if="this.place"
-        label="★"
         :position="{
           lat: this.place.geometry.location.lat(),
           lng: this.place.geometry.location.lng(),
@@ -30,8 +25,8 @@
 
 		
 	</v-flex>
-  
-    <v-flex xs6 >
+
+    <v-flex xs6 offset-xs3 >
     <v-layout row wrap>
       <v-flex xs4>
         <v-subheader>Business Name</v-subheader>
@@ -81,7 +76,6 @@
       </v-flex>
     </v-layout>
     </v-flex>
-    </v-layout>  
   </v-container>
 </template>
 
@@ -91,7 +85,6 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     return {
-      markers: [],
       place: null,
       places: [],
       businessName: '',
@@ -120,27 +113,30 @@ export default {
     },
     setPlace (place) {
       this.place = place
-    },
-    usePlace (place) {
-      if (this.place) {
-        this.places.push(this.place)
-        this.markers.push({
-          position: {
-            lat: this.place.geometry.location.lat(),
-            lng: this.place.geometry.location.lng()
-          }
-        })
-        this.place = null
+      this.center = {
+        lat: this.place.geometry.location.lat(),
+        lng: this.place.geometry.location.lng()
       }
     }
+    // usePlace (place) {
+    //   if (this.place) {
+    //     this.places.push(this.place)
+    //     this.markers.push({
+    //       position: {
+    //         lat: this.place.geometry.location.lat(),
+    //         lng: this.place.geometry.location.lng()
+    //       }
+    //     })
+    //     this.place = null
+    //   }
+    // }
   },
   watch: {
-    places: function () {
-      if (this.places.length > 0) {
-        var last = this.places[this.places.length - 1]
-        this.businessName = last.name
-        this.phoneNumber = last.international_phone_number
-        this.address = last.formatted_address
+    place: function () {
+      if (this.place) {
+        this.businessName = this.place.name
+        this.phoneNumber = this.place.international_phone_number
+        this.address = this.place.formatted_address
       }
     }
   },
@@ -165,5 +161,9 @@ export default {
 .map {
   height: 300px;
   width: flex;
+}
+
+.input {
+  width: 95%;
 }
 </style>
