@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="visible" persistent max-width="500px">
+  <v-dialog fullscreen hide-overlay v-model="visible" persistent>  
   <v-stepper v-model="step">
     <v-stepper-header>
       <v-stepper-step step="1" :complete="step > 1">Sign Up</v-stepper-step>

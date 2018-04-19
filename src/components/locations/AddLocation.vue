@@ -1,14 +1,37 @@
 
 <template>
   <v-container fluid grid-list-md>
-    <v-layout row wrap>
-      <v-flex xs4>
-        <v-subheader>Search Locations</v-subheader>
-      </v-flex>
-      <v-flex xs12 sm8>
-	    	<input placeholder="Search" class="headline" v-model=vm.searchPlace v-gmaps-searchbox=vm />
-      </v-flex>
-    </v-layout>
+    <v-layout v-bind="binding">
+      <v-flex xs6 >    
+    
+<!-- Toolbar -->
+<label>
+      AutoComplete
+      <GmapAutocomplete @place_changed="setPlace">
+      </GmapAutocomplete>
+      <button @click="usePlace">Add</button>
+    </label>
+    <br/>
+
+    <GmapMap style="width: 600px; height: 300px;" :zoom="1" :center="{lat: 0, lng: 0}">
+      <GmapMarker v-for="(marker, index) in markers"
+        :key="index"
+        :position="marker.position"
+        />
+      <GmapMarker
+        v-if="this.place"
+        label="★"
+        :position="{
+          lat: this.place.geometry.location.lat(),
+          lng: this.place.geometry.location.lng(),
+        }"
+        />
+    </GmapMap>
+
+		
+	</v-flex>
+  
+    <v-flex xs6 >
     <v-layout row wrap>
       <v-flex xs4>
         <v-subheader>Business Name</v-subheader>
@@ -57,27 +80,8 @@
         ></v-text-field>
       </v-flex>
     </v-layout>
-    	<div class="simple-map demo">
-		<!-- Toolbar -->
-		<!-- Map -->
-		<!-- <googlemaps-map
-      xs12
-			ref="map"
-			class="map"
-      v-if="vm.place"
-			:center.sync="center"
-			:zoom.sync="zoom"> -->
-			<!-- User Position -->
-			<!-- <googlemaps-user-position
-				@update:position="setUserPosition" /> -->
-			
-			<!-- Marker -->
-			 <!-- <googlemaps-marker
-        v-if="vm.place"       
-				title="Location"
-				:position="{ lat: vm.place.geometry.location.lat, lng: vm.place.geometry.location.lng }" /> 
-		</googlemaps-map> -->
-	</div>
+    </v-flex>
+    </v-layout>  
   </v-container>
 </template>
 
@@ -87,6 +91,9 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     return {
+      markers: [],
+      place: null,
+      places: [],
       businessName: '',
       phoneNumber: '',
       address: '',
@@ -96,11 +103,7 @@ export default {
         lng: 2.298
       },
       userPosition: null,
-      zoom: 12,
-      vm: {
-        searchPlace: '',
-        location: {}
-      }
+      zoom: 12
     }
   },
   methods: {
@@ -114,15 +117,38 @@ export default {
     },
     setUserPosition (position) {
       this.userPosition = position
+    },
+    setPlace (place) {
+      this.place = place
+    },
+    usePlace (place) {
+      if (this.place) {
+        this.places.push(this.place)
+        this.markers.push({
+          position: {
+            lat: this.place.geometry.location.lat(),
+            lng: this.place.geometry.location.lng()
+          }
+        })
+        this.place = null
+      }
     }
   },
   watch: {
-    vm: function () {
-      if (this.vm.place) {
-        this.businessName = this.vm.place.name
-        this.phoneNumber = this.vm.place.international_phone_number
-        this.address = this.vm.place.formatted_address
+    places: function () {
+      if (this.places.length > 0) {
+        var last = this.places[this.places.length - 1]
+        this.businessName = last.name
+        this.phoneNumber = last.international_phone_number
+        this.address = last.formatted_address
       }
+    }
+  },
+  computed: {
+    binding () {
+      const binding = {}
+      if (!this.$vuetify.breakpoint.mdAndUp) binding.column = true
+      return binding
     }
   }
 }
@@ -137,7 +163,7 @@ export default {
 }
 
 .map {
-  height: 500px;
-  width: 500px;
+  height: 300px;
+  width: flex;
 }
 </style>

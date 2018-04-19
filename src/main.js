@@ -6,10 +6,8 @@ import router from './router'
 import store from './store/store'
 import GoogleAuth from 'vue-google-auth'
 import Vuex from 'vuex'
-import 'vue-googlemaps/dist/vue-googlemaps.css'
-import VueGoogleMaps from 'vue-googlemaps'
+import * as VueGoogleMaps from 'vue2-google-maps'
 import AddLocation from '@/components/locations/AddLocation'
-import VueGmaps from 'vue-gmaps'
 
 import {
   Vuetify,
@@ -55,15 +53,13 @@ Vue.use(Vuetify, {
 
 Vue.use(VueGoogleMaps, {
   load: {
-    apiKey: 'AIzaSyCD85AAKkEHyTKM6MH12SLJJz1zOf_fKHI',
-    libraries: ['places']
-  }
+    key: 'AIzaSyCD85AAKkEHyTKM6MH12SLJJz1zOf_fKHI',
+    libraries: 'places'
+  },
+  installComponents: true
 })
 
-Vue.use(VueGmaps, {
-  key: 'AIzaSyCD85AAKkEHyTKM6MH12SLJJz1zOf_fKHI',
-  libraries: ['places']
-})
+// Vue.component('GmapAutocomplete', GmapAutocomplete)
 
 Vue.use(GoogleAuth, {
   client_id:

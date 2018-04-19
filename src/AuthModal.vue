@@ -1,5 +1,5 @@
 <template>
-<v-dialog v-if="!user" v-model="visible" persistent max-width="500">
+<v-dialog v-if="!user" fullscreen v-model="visible" persistent max-width="500">
     <!-- <v-btn color="primary" dark slot="activator">Open Dialog</v-btn> -->
     <v-card>
       <v-card-title class="headline">Google Sign-in</v-card-title>
