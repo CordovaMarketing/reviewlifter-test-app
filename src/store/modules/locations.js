@@ -16,7 +16,7 @@ const getters = {
 
 const actions = {
   addLocation ({ commit }, place) {
-    // if it is already in the the store, send and update message
+    // if it is already in the the store, send an update message, update in store.
     // else send to server, if success, commmit
     const formatedPlace = place
     commit(types.ADD_PLACE, formatedPlace)
