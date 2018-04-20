@@ -5,11 +5,11 @@
     
 <!-- Toolbar -->
       <v-icon large style="width: 4%">search</v-icon>
-      <GmapAutocomplete placeholder="Enter a location..." class="input headline " @place_changed="setPlace">
+      <GmapAutocomplete placeholder="Enter a location..." class="input headline" @place_changed="setPlace">
       </GmapAutocomplete>
     <br/>
 
-    <GmapMap class="map" :zoom="15" :center="center">
+    <GmapMap class="map" :zoom="16" :center="center">
       <!-- <GmapMarker v-for="(marker, index) in markers"
         :key="index"
         :position="marker.position"
@@ -75,13 +75,20 @@
         ></v-text-field>
       </v-flex>
     </v-layout>
+    <v-layout row wrap>
+     <v-btn @click="save" color="success">Save</v-btn>
+    </v-layout>
     </v-flex>
+      <v-snackbar v-model="snackbar.show">
+        {{snackbar.text}}
+        <v-btn flat color="pink" @click.native="hideSnackbar()">Close</v-btn>
+      </v-snackbar>
   </v-container>
 </template>
 
 <script>
-// https://github.com/olefirenko/vue-google-autocomplete
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
@@ -117,6 +124,14 @@ export default {
         lat: this.place.geometry.location.lat(),
         lng: this.place.geometry.location.lng()
       }
+    },
+    save () {
+      this.place.manager = this.manager
+      this.$store.dispatch('addLocation', this.place)
+      // this.snackbar = true
+    },
+    hideSnackbar () {
+      this.$store.dispatch('hideSnackbar')
     }
     // usePlace (place) {
     //   if (this.place) {
@@ -132,7 +147,7 @@ export default {
     // }
   },
   watch: {
-    place: function () {
+    place: function () { // set text fields
       if (this.place) {
         this.businessName = this.place.name
         this.phoneNumber = this.place.international_phone_number
@@ -141,11 +156,9 @@ export default {
     }
   },
   computed: {
-    binding () {
-      const binding = {}
-      if (!this.$vuetify.breakpoint.mdAndUp) binding.column = true
-      return binding
-    }
+    ...mapGetters([
+      'snackbar'
+    ])
   }
 }
 </script>
