@@ -35,7 +35,7 @@ export default {
     onSignInSuccess: function (authorizationCode) {
       // this.toggleLoading()
       // this.resetResponse()
-      console.log(authorizationCode)
+      // console.log(authorizationCode)
       HTTP.post('jsGoogle', { code: authorizationCode, redirect_uri: 'http://localhost:8080' }).then(function (response) {
         if (response.data) {
           var data = response.data
@@ -55,8 +55,8 @@ export default {
           //   window.localStorage.setItem('token', token)
           // }
           // redirect to the dashboard
-          this.visible = false
-          this.$router.push({ name: 'dashboard' })
+          // this.visible = false
+          // this.$router.push({ name: 'dashboard' })
         }
       }, function (response) {
         alert(response)

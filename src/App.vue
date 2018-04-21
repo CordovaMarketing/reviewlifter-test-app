@@ -78,7 +78,7 @@ export default {
       'user'
     ]),
     loggedIn () {
-      console.log(this.user)
+      // console.log(this.user)
       return this.user
     }
     // registered () {

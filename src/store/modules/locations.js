@@ -37,7 +37,7 @@ const actions = {
         comments: '',
         reviewsites: ''
       }
-      HTTP.post('http://localhost:5000/location', [formatedPlace])
+      HTTP.post('location', [formatedPlace])
         .then(response => {
           console.log(response)
           commit(types.ADD_PLACE, formatedPlace)
