@@ -127,6 +127,9 @@ export default {
     },
     save () {
       this.place.manager = this.manager
+      this.place.name = this.businessName
+      this.place.formatted_address = this.address
+      this.place.international_phone_number = this.phoneNumber
       this.$store.dispatch('addLocation', this.place)
       // this.snackbar = true
     },

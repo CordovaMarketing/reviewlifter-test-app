@@ -12,7 +12,7 @@
 
 <script>
 import Vue from 'vue'
-import axios from 'axios'
+import { HTTP } from './http-common'
 import store from '@/store/store'
 import { mapGetters } from 'vuex'
 
@@ -36,12 +36,14 @@ export default {
       // this.toggleLoading()
       // this.resetResponse()
       console.log(authorizationCode)
-      axios.post('http://localhost:5000/jsGoogle', { code: authorizationCode, redirect_uri: 'http://localhost:8080' }).then(function (response) {
+      HTTP.post('jsGoogle', { code: authorizationCode, redirect_uri: 'http://localhost:8080' }).then(function (response) {
         if (response.data) {
           var data = response.data
           // Save to vuex
           store.commit('SET_USER', data.user_data)
           store.commit('SET_TOKEN', data.token)
+
+          HTTP.defaults.headers.common['x-access-token'] = data.token
           // NOTE: This token is the one created for my server's authentication flow, not Google. The user_data is a pass through of what Google sent me.
           // You should be able to pre-load the form with that data for signup.
           //
