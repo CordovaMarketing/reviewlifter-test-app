@@ -32,8 +32,13 @@ export default {
       },
       {
         icon: 'person_pin',
-        title: 'Customers',
+        title: 'View Customers',
         path: '/customers'
+      },
+      {
+        icon: 'add',
+        title: 'Customers',
+        path: '/addcustomers'
       }]
     }
   }

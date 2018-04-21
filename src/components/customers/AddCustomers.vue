@@ -5,30 +5,33 @@
         <v-flex xs10 offset-xs1>
         <v-form v-model="valid" ref="form" lazy-validation>
           <v-text-field
-            label="Name"
+            label="First Name"
             v-model="name"
             :rules="nameRules"
             :counter="10"
             required
           ></v-text-field>
           <v-text-field
+            label="Phone"
+            v-model="phone"
+            :rules="phoneRules"
+            required
+          ></v-text-field>
+          <v-text-field
             label="E-mail"
             v-model="email"
             :rules="emailRules"
-            required
           ></v-text-field>
           <v-select
-            label="Item"
+            label="Location"
             v-model="select"
             :items="items"
-            :rules="[v => !!v || 'Item is required']"
+            :rules="[v => !!v || 'Location is required']"
             required
           ></v-select>
           <v-checkbox
-            label="Do you agree?"
+            label="Set location to default to this value"
             v-model="checkbox"
-            :rules="[v => !!v || 'You must agree to continue!']"
-            required
           ></v-checkbox>
 
           <v-btn
@@ -61,6 +64,11 @@ export default {
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+      ],
+      phone: '',
+      phoneRules: [
+        v => !!v || 'Phone is required',
+        v => /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(v) || 'Please enter a valid mobile number'
       ],
       select: null,
       items: [

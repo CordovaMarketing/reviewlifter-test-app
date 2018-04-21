@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from '@/components/dashboard/Dashboard'
-import Customers from '@/components/customers/Customers'
+import Customers from '@/components/customers/ViewCustomers'
 import Locations from '@/components/locations/Locations'
-import Settings from '@/components/settings/Settings'
+import AddCustomers from '@/components/customers/AddCustomers'
 
 Vue.use(Router)
 
@@ -25,9 +25,9 @@ export default new Router({
       component: Locations
     },
     {
-      path: '/settings',
-      name: 'Settings',
-      component: Settings
+      path: '/addcustomers',
+      name: 'AddCustomers',
+      component: AddCustomers
     }
   ]
 })
