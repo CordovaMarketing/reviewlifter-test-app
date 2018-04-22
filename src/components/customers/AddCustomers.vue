@@ -6,10 +6,16 @@
         <v-form v-model="valid" ref="form" lazy-validation>
           <v-text-field
             label="First Name"
-            v-model="name"
+            v-model="firstName"
             :rules="nameRules"
             :counter="10"
             required
+          ></v-text-field>
+          <v-text-field
+            label="Last Name"
+            v-model="lastName"
+            :rules="nameRules"
+            :counter="10"
           ></v-text-field>
           <v-text-field
             label="Phone"
@@ -55,7 +61,8 @@ export default {
   data () {
     return {
       valid: true,
-      name: '',
+      firstName: '',
+      lastName: '',
       nameRules: [
         v => !!v || 'Name is required',
         v => (v && v.length <= 10) || 'Name must be less than 10 characters'
@@ -72,12 +79,11 @@ export default {
       ],
       select: null,
       items: [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4'
+        '2324, 54 E Main St suite 2, American Fork, UT 84003',
+        '5251 S Green St #150, Murray, UT 84123',
       ],
-      checkbox: false
+      checkbox: false,
+      locations: []
     }
   },
 
@@ -85,16 +91,25 @@ export default {
     submit () {
       if (this.$refs.form.validate()) {
         // Native form submission is not yet supported
-        axios.post('/api/submit', {
+        axios.post('/enduser', {
           name: this.name,
           email: this.email,
-          select: this.select,
-          checkbox: this.checkbox
+          phone: this.email,
+          locationid: this.select,
+          // checkbox: this.checkbox  -- this should probably stored in vuex. Purpose is to remember the location that user usually enters data for
         })
       }
     },
     clear () {
       this.$refs.form.reset()
+    }
+  },
+  computed: {
+    locations () {
+        axios.get('/locations').then(response => response.data.forEach( 
+            location => this.locations.push({'address': location.streetaddress, 'public_id':location.public_id})
+          )
+        )
     }
   }
 }
