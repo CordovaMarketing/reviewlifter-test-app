@@ -22,8 +22,6 @@ const actions = {
       commit(types.SHOW_SNACKBAR, 'Location already exists.')
     } else {
       const formatedPlace = {
-        public_id: 'a4db5eed-12ee-414f-b4f6-78b5c77886f0',
-        clientid: getters.user.id,
         placeid: place.place_id,
         subcripstionid: '',
         sendername: place.manager,
@@ -37,7 +35,7 @@ const actions = {
         comments: '',
         reviewsites: ''
       }
-      HTTP.post('location', [formatedPlace])
+      HTTP.post('locations', [formatedPlace])
         .then(response => {
           console.log(response)
           commit(types.ADD_PLACE, formatedPlace)
