@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <!-- <AuthModal @signedIn="loggedIn = true" :visible="!loggedIn" />
-    <RegisterModal @register="registered = true" :visible="loggedIn && !registered"/> -->
+    <AuthModal @signedIn="loggedIn = true" :visible="!loggedIn" />
+    <RegisterModal @register="registered = true" :visible="loggedIn && !registered"/>
 
     <v-navigation-drawer persistent v-model="drawer" enable-resize-watcher fixed app>
       <UserHeader/>

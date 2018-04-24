@@ -10,7 +10,7 @@
         </v-list-tile-content>
           <v-icon class="text-lg-right" >settings</v-icon>
       </v-list-tile>
-      <v-list-tile avatar>
+      <v-list-tile v-else avatar>
         <v-list-tile-avatar>
           <v-icon>account_circle</v-icon>
         </v-list-tile-avatar>
