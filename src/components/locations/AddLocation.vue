@@ -1,7 +1,7 @@
 
 <template>
   <v-container  grid-list-md>
-      <v-flex xs6 offset-xs3 >    
+      <v-flex xs6 mx-auto >    
     
 <!-- Toolbar -->
       <v-icon large style="width: 4%">search</v-icon>
@@ -26,7 +26,7 @@
 		
 	</v-flex>
 
-    <v-flex xs6 offset-xs3 >
+    <v-flex xs6 mx-auto >
     <v-layout row wrap>
       <v-flex xs4>
         <v-subheader>Business Name</v-subheader>

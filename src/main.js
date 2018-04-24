@@ -27,7 +27,10 @@ import {
   VStepper,
   VDivider,
   VTextField,
-  VSnackbar
+  VSnackbar,
+  VForm,
+  VCheckbox,
+  VDataIterator
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
@@ -49,7 +52,10 @@ Vue.use(Vuetify, {
     VStepper,
     VDivider,
     VTextField,
-    VSnackbar
+    VSnackbar,
+    VForm,
+    VCheckbox,
+    VDataIterator
   }
 })
 
