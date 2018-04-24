@@ -3,10 +3,10 @@
   <LocationIterator/>
   <v-btn
     dark
-        fab
-        fixed
-        bottom
-        right
+    fab
+    fixed
+    bottom
+    right
     color="red"
     >
     <v-icon>add</v-icon>
