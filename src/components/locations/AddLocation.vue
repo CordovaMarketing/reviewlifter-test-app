@@ -1,0 +1,185 @@
+
+<template>
+  <v-container  grid-list-md>
+      <v-flex xs6 offset-xs3 >    
+    
+<!-- Toolbar -->
+      <v-icon large style="width: 4%">search</v-icon>
+      <GmapAutocomplete placeholder="Enter a location..." class="input headline" @place_changed="setPlace">
+      </GmapAutocomplete>
+    <br/>
+
+    <GmapMap class="map" :zoom="16" :center="center">
+      <!-- <GmapMarker v-for="(marker, index) in markers"
+        :key="index"
+        :position="marker.position"
+        /> -->
+      <GmapMarker
+        v-if="this.place"
+        :position="{
+          lat: this.place.geometry.location.lat(),
+          lng: this.place.geometry.location.lng(),
+        }"
+        />
+    </GmapMap>
+
+		
+	</v-flex>
+
+    <v-flex xs6 offset-xs3 >
+    <v-layout row wrap>
+      <v-flex xs4>
+        <v-subheader>Business Name</v-subheader>
+      </v-flex>
+      <v-flex xs12 sm8>
+        <v-text-field
+          v-model="businessName"
+          name="input-1-3"
+          single-line
+        ></v-text-field>
+      </v-flex>
+    </v-layout>
+    <v-layout row wrap>
+      <v-flex xs4>
+        <v-subheader>Phone number</v-subheader>
+      </v-flex>
+      <v-flex xs12 sm8>
+        <v-text-field
+          v-model="phoneNumber"
+          name="input-2-3"
+          single-line
+        ></v-text-field>
+      </v-flex>
+      <v-layout row wrap>
+      <v-flex xs4>
+        <v-subheader>Address</v-subheader>
+      </v-flex>
+      <v-flex xs12 sm8>
+        <v-text-field
+          v-model="address"
+          name="input-1-3"
+          single-line
+        ></v-text-field>
+      </v-flex>
+    </v-layout>
+    </v-layout>
+    <v-layout row wrap>
+      <v-flex xs4>
+        <v-subheader>Location Manager</v-subheader>
+      </v-flex>
+      <v-flex xs12 sm8>
+        <v-text-field
+          v-model="manager"
+          name="input-1-3"
+          single-line
+        ></v-text-field>
+      </v-flex>
+    </v-layout>
+    <v-layout row wrap>
+     <v-btn @click="save" color="success">Save</v-btn>
+    </v-layout>
+    </v-flex>
+      <v-snackbar v-model="snackbar.show">
+        {{snackbar.text}}
+        <v-btn flat color="pink" @click.native="hideSnackbar()">Close</v-btn>
+      </v-snackbar>
+  </v-container>
+</template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex'
+
+export default {
+  data () {
+    return {
+      place: null,
+      places: [],
+      businessName: '',
+      phoneNumber: '',
+      address: '',
+      manager: '',
+      center: {
+        lat: 48.853,
+        lng: 2.298
+      },
+      userPosition: null,
+      zoom: 12
+    }
+  },
+  methods: {
+    ...mapActions('layout', [
+      'toggleSideNav'
+    ]),
+    centerOnUser () {
+      if (this.userPosition) {
+        this.center = this.userPosition
+      }
+    },
+    setUserPosition (position) {
+      this.userPosition = position
+    },
+    setPlace (place) {
+      this.place = place
+      this.center = {
+        lat: this.place.geometry.location.lat(),
+        lng: this.place.geometry.location.lng()
+      }
+    },
+    save () {
+      this.place.manager = this.manager
+      this.place.name = this.businessName
+      this.place.formatted_address = this.address
+      this.place.international_phone_number = this.phoneNumber
+      this.$store.dispatch('addLocation', this.place)
+      // this.snackbar = true
+    },
+    hideSnackbar () {
+      this.$store.dispatch('hideSnackbar')
+    }
+    // usePlace (place) {
+    //   if (this.place) {
+    //     this.places.push(this.place)
+    //     this.markers.push({
+    //       position: {
+    //         lat: this.place.geometry.location.lat(),
+    //         lng: this.place.geometry.location.lng()
+    //       }
+    //     })
+    //     this.place = null
+    //   }
+    // }
+  },
+  watch: {
+    place: function () { // set text fields
+      if (this.place) {
+        this.businessName = this.place.name
+        this.phoneNumber = this.place.international_phone_number
+        this.address = this.place.formatted_address
+      }
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'snackbar'
+    ])
+  }
+}
+</script>
+
+<style lang="stylus" scoped>
+
+.demo {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.map {
+  height: 300px;
+  width: flex;
+}
+
+.input {
+  width: 95%;
+}
+</style>

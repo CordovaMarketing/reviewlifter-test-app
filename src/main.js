@@ -6,6 +6,8 @@ import router from './router'
 import store from './store/store'
 import GoogleAuth from 'vue-google-auth'
 import Vuex from 'vuex'
+import * as VueGoogleMaps from 'vue2-google-maps'
+import AddLocation from '@/components/locations/AddLocation'
 
 import {
   Vuetify,
@@ -23,7 +25,9 @@ import {
   VDialog,
   VSelect,
   VStepper,
-  VDivider
+  VDivider,
+  VTextField,
+  VSnackbar
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
@@ -43,9 +47,21 @@ Vue.use(Vuetify, {
     VDialog,
     VSelect,
     VStepper,
-    VDivider
+    VDivider,
+    VTextField,
+    VSnackbar
   }
 })
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyCD85AAKkEHyTKM6MH12SLJJz1zOf_fKHI',
+    libraries: 'places'
+  },
+  installComponents: true
+})
+
+// Vue.component('GmapAutocomplete', GmapAutocomplete)
 
 Vue.use(GoogleAuth, {
   client_id:
@@ -57,6 +73,7 @@ Vue.use(Vuex)
 
 Vue.config.productionTip = false
 
+Vue.component('AddLocation', AddLocation)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

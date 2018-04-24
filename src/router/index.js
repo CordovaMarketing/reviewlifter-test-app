@@ -15,17 +15,17 @@ export default new Router({
       component: Dashboard
     },
     {
-      path: 'customers',
+      path: '/customers',
       name: 'customers',
       component: Customers
     },
     {
-      path: 'locations',
+      path: '/locations',
       name: 'Locations',
       component: Locations
     },
     {
-      path: 'settings',
+      path: '/settings',
       name: 'Settings',
       component: Settings
     }

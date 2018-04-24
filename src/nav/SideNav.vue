@@ -28,12 +28,12 @@ export default {
       {
         icon: 'location_on',
         title: 'Locations',
-        path: 'locations'
+        path: '/locations'
       },
       {
         icon: 'person_pin',
         title: 'Customers',
-        path: 'customers'
+        path: '/customers'
       }]
     }
   }
