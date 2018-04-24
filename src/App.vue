@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import UserHeader from './UserHeader'
 import SideNav from './SideNav'
 import AuthModal from './AuthModal'
@@ -48,42 +47,24 @@ export default {
       clipped: false,
       drawer: true,
       fixed: false,
-      registered: false, // TODO - make computed
-      // loggedIn: false, // TODO - make computed
       title: 'Review Lifter',
       response: ''
     }
   },
   mounted () {
-    axios.get(`http://localhost:5000`)
-      .then(response => {
-        // JSON responses are automatically parsed.
-        console.log(response.data)
-      })
-      .catch(e => {
-        this.errors.push(e)
-      })
-
-    // async / await version (created() becomes async created())
-    //
-    // try {
-    //   const response = await axios.get(`http://jsonplaceholder.typicode.com/posts`)
-    //   this.posts = response.data
-    // } catch (e) {
-    //   this.errors.push(e)
-    // }
   },
   computed: {
     ...mapGetters([
-      'user'
+      'user',
+      'locations'
     ]),
     loggedIn () {
       // console.log(this.user)
       return this.user
+    },
+    registered () {
+      return this.locations.length > 0
     }
-    // registered () {
-    //   TODO - make registered computed
-    // }
   },
   components: {
     UserHeader,

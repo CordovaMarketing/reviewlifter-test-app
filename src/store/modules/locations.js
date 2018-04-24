@@ -37,7 +37,6 @@ const actions = {
       }
       HTTP.post('locations', [formatedPlace])
         .then(response => {
-          console.log(response)
           commit(types.ADD_PLACE, formatedPlace)
           commit(types.SHOW_SNACKBAR, 'Location saved!')
         })
@@ -47,6 +46,14 @@ const actions = {
         })
     }
     // else send to server, if success, commmit
+  },
+  loadLocations ({ commit }) {
+    return new Promise((resolve, reject) => {
+      HTTP.get('locations').then(response => {
+        response.data.forEach(location => commit(types.ADD_PLACE, location))
+        resolve()
+      })
+    })
   }
 }
 

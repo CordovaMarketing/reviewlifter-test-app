@@ -19,8 +19,10 @@ const getters = {
 // ACTIONS
 
 const actions = {
-  setUser ({ commit }, userToAdd) {
-    commit(types.SET_USER, userToAdd)
+  setUser ({ commit, dispatch }, userToAdd) {
+    dispatch('loadLocations').then(() => {
+      commit(types.SET_USER, userToAdd)
+    })
   },
   setToken ({ commit }, tokenToAdd) {
     commit(types.SET_TOKEN, tokenToAdd)
