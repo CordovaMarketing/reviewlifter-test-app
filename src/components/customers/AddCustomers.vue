@@ -51,12 +51,15 @@
         </v-flex>
     </v-layout>
   </v-slide-y-transition>
+  <v-snackbar v-model="snackbar.show">
+        {{snackbar.text}}
+        <v-btn flat color="pink" @click.native="hideSnackbar()">Close</v-btn>
+  </v-snackbar>
 </v-container>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { HTTP } from '../../http-common'
 
 export default {
   data () {
@@ -78,39 +81,47 @@ export default {
         v => !!v || 'Phone is required',
         v => /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(v) || 'Please enter a valid mobile number'
       ],
-      select: null,
+      select: [],
       checkbox: false
     }
   },
 
   methods: {
     submit () {
+      console.log('here')
       if (this.$refs.form.validate()) {
+        console.log('inside')
+
         // Native form submission is not yet supported
-        HTTP.post('/enduser', {
+        this.$store.dispatch('addCustomer', {
           locationid: this.locationid,
           firstname: this.firstName,
           lastname: this.lastName,
           email: this.email,
-          phone: this.phone,
+          phone: this.phone
         })
       }
     },
     savePrefferedLocation () {
+      // this will have to be sent to the server to maintain and sent with user message
       // Update user
       // store.dispatch('setUser', data.user_data)
       // locationid: this.select
     },
     clear () {
       this.$refs.form.reset()
+    },
+    hideSnackbar () {
+      this.$store.dispatch('hideSnackbar')
     }
   },
   computed: {
     ...mapGetters([
-      'locations'
+      'locations',
+      'snackbar'
     ]),
     addresses () {
-      return this.locations.map(l => l.streetaddress)
+      return this.locations.map(l => l.streetaddress != null ? l.streetaddress : 'noaddress')
     },
     locationid () {
       return this.locations.find(l => l.streetaddress === this.select).public_id

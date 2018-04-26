@@ -1,4 +1,5 @@
 import * as types from '../mutation-type'
+import { HTTP } from '../../http-common'
 
 // STATE
 
@@ -24,7 +25,7 @@ const actions = {
       commit(types.SET_USER, userToAdd)
     })
   },
-  updateUser ({commit, dispatch}, user) {
+  updateUser ({ commit, dispatch }, user) {
     const userUpdate = {
       stripeid: user.stripeid,
       preflocation: user.preflocation,
@@ -36,7 +37,6 @@ const actions = {
       website: user.website,
       salesperson: user.salseperson,
       monthlyrate: user.monthlyrate
-
     }
     HTTP.put('clientuser', userUpdate)
       .then(response => {

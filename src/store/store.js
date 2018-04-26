@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import user from './modules/user'
 import locations from './modules/locations'
+import customers from './modules/customers'
 
 Vue.use(Vuex)
 
@@ -11,6 +12,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {
     user,
-    locations
+    locations,
+    customers
   }
 })
