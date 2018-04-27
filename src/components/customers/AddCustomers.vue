@@ -121,7 +121,7 @@ export default {
       'snackbar'
     ]),
     addresses () {
-      return this.locations.map(l => l.streetaddress != null ? l.streetaddress : 'noaddress')
+      return this.locations.map(l => l.streetaddress).filter(l => l != null)
     },
     locationid () {
       return this.locations.find(l => l.streetaddress === this.select).public_id

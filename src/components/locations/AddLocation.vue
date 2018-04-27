@@ -5,7 +5,7 @@
     
 <!-- Toolbar -->
       <v-icon large style="width: 4%">search</v-icon>
-      <GmapAutocomplete placeholder="Enter a location..." class="input headline" @place_changed="setPlace">
+      <GmapAutocomplete :value="location.businessname" placeholder="Enter a location..." class="input headline" @place_changed="setPlace">
       </GmapAutocomplete>
     <br/>
 
@@ -33,7 +33,7 @@
       </v-flex>
       <v-flex xs12 sm8>
         <v-text-field
-          v-model="businessName"
+          v-model="location.businessname"
           name="input-1-3"
           single-line
         ></v-text-field>
@@ -45,7 +45,7 @@
       </v-flex>
       <v-flex xs12 sm8>
         <v-text-field
-          v-model="phoneNumber"
+          v-model="location.phone"
           name="input-2-3"
           single-line
         ></v-text-field>
@@ -56,7 +56,7 @@
       </v-flex>
       <v-flex xs12 sm8>
         <v-text-field
-          v-model="address"
+          v-model="location.streetaddress"
           name="input-1-3"
           single-line
         ></v-text-field>
@@ -69,7 +69,7 @@
       </v-flex>
       <v-flex xs12 sm8>
         <v-text-field
-          v-model="manager"
+          v-model="location.sendername"
           name="input-1-3"
           single-line
         ></v-text-field>
@@ -90,20 +90,31 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
+  props: ['editLocation'],
   data () {
     return {
       place: null,
       places: [],
-      businessName: '',
-      phoneNumber: '',
-      address: '',
-      manager: '',
       center: {
         lat: 48.853,
         lng: 2.298
       },
       userPosition: null,
-      zoom: 12
+      zoom: 12,
+      location: {
+        placeid: '',
+        subcripstionid: '',
+        sendername: '',
+        phone: '',
+        gitpagelink: '',
+        businessname: '',
+        reviewlink: '',
+        reviewinvitetext: '',
+        streetaddress: '',
+        features: '',
+        comments: '',
+        reviewsites: ''
+      }
     }
   },
   methods: {
@@ -120,18 +131,17 @@ export default {
     },
     setPlace (place) {
       this.place = place
+      this.location.placeid = place.place_id
+      this.location.phone = place.international_phone_number
+      this.location.businessname = place.name
+      this.location.streetaddress = place.formatted_address
       this.center = {
         lat: this.place.geometry.location.lat(),
         lng: this.place.geometry.location.lng()
       }
     },
     save () {
-      this.place.manager = this.manager
-      this.place.name = this.businessName
-      this.place.formatted_address = this.address
-      this.place.international_phone_number = this.phoneNumber
-      this.$store.dispatch('addLocation', this.place)
-      // this.snackbar = true
+      this.$store.dispatch('addLocation', this.location)
     },
     hideSnackbar () {
       this.$store.dispatch('hideSnackbar')
@@ -155,6 +165,11 @@ export default {
         this.businessName = this.place.name
         this.phoneNumber = this.place.international_phone_number
         this.address = this.place.formatted_address
+      }
+    },
+    editLocation: function () {
+      if (this.editLocation) {
+        this.location = this.editLocation
       }
     }
   },

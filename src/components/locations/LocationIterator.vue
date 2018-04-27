@@ -1,5 +1,16 @@
 <template>
   <v-container fluid grid-list-md>
+    <v-btn
+    dark
+    fab
+    fixed
+    middle
+    right
+    color="red"
+    @click="editLocation(null)"
+    >
+    <v-icon>add</v-icon>
+  </v-btn>
     <v-data-iterator
       content-tag="v-layout"
       :items="locations"
@@ -15,7 +26,14 @@
         lg3
       >
         <v-card>
-          <v-card-title><h4>{{ props.item.businessname }}</h4></v-card-title>
+          <v-card-title>
+            <h4>{{ props.item.businessname }}</h4>
+            <v-container grid-list-md>
+            <v-btn @click="editLocation(props.item)" mx-auto flat icon color="pink">
+              <v-icon>edit</v-icon>
+            </v-btn>
+            </v-container>
+          </v-card-title>
 
           <v-divider></v-divider>
           <v-list three-line subheader dense>
@@ -47,24 +65,54 @@
         </v-card>
       </v-flex>
     </v-data-iterator>
+    <v-dialog
+        v-model="showModal"
+        hide-overlay
+        fullscreen
+        transition="dialog-bottom-transition"
+        scrollable
+      >
+       <v-toolbar card dark color="primary">
+      <v-btn icon @click.native="showModal = false" dark>
+              <v-icon>close</v-icon>
+            </v-btn>
+       </v-toolbar>
+      <v-card>
+        <AddLocation
+        :editLocation="location"/>
+      </v-card>
+      
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import AddLocation from './AddLocation'
 export default {
   data () {
     return {
-      rowsPerPageItems: [4, 8, 12],
+      rowsPerPageItems: [3],
       pagination: {
-        rowsPerPage: 4
-      }
+        rowsPerPage: 3
+      },
+      showModal: false,
+      location: null
     }
   },
   computed: {
     ...mapGetters([
       'locations'
     ])
+  },
+  methods: {
+    editLocation (item) {
+      this.location = item
+      this.showModal = true
+    }
+  },
+  components: {
+    AddLocation
   }
 }
 </script>
