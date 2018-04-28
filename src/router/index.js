@@ -4,6 +4,7 @@ import Dashboard from '@/components/dashboard/Dashboard'
 import Customers from '@/components/customers/ViewCustomers'
 import Locations from '@/components/locations/Locations'
 import AddCustomers from '@/components/customers/AddCustomers'
+import Billing from '@/components/billing/ChoosePlan'
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
       path: '/addcustomers',
       name: 'AddCustomers',
       component: AddCustomers
+    },
+    {
+      path: '/plan',
+      name: 'ChoosePlan',
+      component: Billing
     }
   ]
 })

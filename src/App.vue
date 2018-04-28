@@ -7,6 +7,8 @@
       <UserHeader/>
       <SideNav/>
     </v-navigation-drawer>
+
+    
     
     <v-toolbar app :clipped-left="clipped">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -31,6 +33,8 @@ import SideNav from './nav/SideNav'
 import AuthModal from './AuthModal'
 import RegisterModal from './RegisterModal'
 import { mapGetters } from 'vuex'
+
+
 
 export default {
   data () {
