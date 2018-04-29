@@ -188,9 +188,7 @@ export default {
         },
         submitPlan () {
             
-            createToken().then(data => console.log(data.token))
-            // this.$store.dispatch('addPlan', this.planName.toLowerCase(), data.token)
-
+            createToken().then(data => this.$store.dispatch('addPlan', {'plan':this.planName.toLowerCase(), 'stripeToken':data.token.id } ))
             this.dialog = false
             
         }

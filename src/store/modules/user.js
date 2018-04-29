@@ -38,8 +38,8 @@ const actions = {
     // send to server, if success, commmit
     commit(types.HIDE_SNACKBAR)
   },
-  addPlan ({ commit }, name, token) {
-    HTTP.post('pay', {"plan": name, "stripeToken": token})
+  addPlan ({ commit }, info) {
+    HTTP.post('pay', info)
       .then(response => {
         commit(types.UPDATE_PLAN, name)
       })
