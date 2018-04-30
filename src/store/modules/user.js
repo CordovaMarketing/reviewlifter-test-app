@@ -42,6 +42,7 @@ const actions = {
     HTTP.post('pay', info)
       .then(response => {
         commit(types.UPDATE_PLAN, name)
+        commit(types.SHOW_SNACKBAR, 'Billing setup!')
       })
       .catch(function (error) {
         console.log(error)

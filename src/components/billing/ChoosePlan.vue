@@ -9,7 +9,7 @@
       >
         <v-card>
           <v-card-title><h2>Basic</h2></v-card-title>
-
+          <v-switch v-model="switch1"></v-switch>
           <v-divider></v-divider>
           <v-list subheader dense>
             <v-card-text>
@@ -136,10 +136,11 @@
         <v-card-title>
           <span class="headline">{{ planName }}</span>
         </v-card-title>
+        <v-divider></v-divider>
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-            <h1>Please give us your payment details:</h1>
+            <h3>Please give us your payment details:</h3>
             <card class='stripe-card'
             :class='{ complete }'
             stripe='pk_test_FWt0YuMpM9UbFRyaChHMAM83'
@@ -173,6 +174,7 @@ export default {
     data() {
         return{
             dialog: false,
+            switch1: true,
             planName: '',
             complete: false,
             stripeOptions: {
@@ -187,10 +189,8 @@ export default {
             this.$store.dispatch('setStripeKey')
         },
         submitPlan () {
-            
             createToken().then(data => this.$store.dispatch('addPlan', {'plan':this.planName.toLowerCase(), 'stripeToken':data.token.id } ))
             this.dialog = false
-            
         }
     },
     components: { Card },
