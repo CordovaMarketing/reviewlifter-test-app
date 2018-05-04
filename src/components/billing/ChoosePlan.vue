@@ -8,37 +8,32 @@
         lg3
       >
         <v-card>
-          <v-card-title><h2>Basic</h2>
-          <v-spacer></v-spacer>
-          <v-spacer></v-spacer>
-          <v-switch class='mt-3' v-model="basicannual" :label='getBasicInfo().label'></v-switch>
+          <v-card-title>
+            <h2>Basic</h2>
+            <v-spacer></v-spacer>
+            <h3>{{ getBasicInfo().price }}</h3>
           </v-card-title>
-          
+          <div>
+          <v-switch class="ml-3" v-model="basicannual" :label='getBasicInfo().label'></v-switch>
+          </div>
           <v-divider></v-divider>
           <v-list subheader dense>
-            
             <v-card-text>
-              <v-list-tile-content><h4>SMS texting</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Automated Review Requests to Customers</h4></v-list-tile-content>
             </v-card-text>
             <v-list-tile>
-              <v-list-tile-content><h4>One Location</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Send Bulk Review Requests</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>One Review site</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Multiple Location Management</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>Upload CSV of past customers</h4></v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile>
-              <v-list-tile-content><h4>Email</h4></v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile>
-              <v-list-tile-content><h4>300 text limit per month</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Review Requests for Google</h4></v-list-tile-content>
             </v-list-tile>
           </v-list>
-        <v-list-tile>
-            <v-btn @click="planDialog('basic')" block color="primary" dark> {{ getBasicInfo().price }} </v-btn>
-        </v-list-tile>
+        <div>
+            <v-btn @click="planDialog('basic')" block color="primary" dark> Get started with basic </v-btn>
+        </div>
         </v-card>
     </v-flex>
 
@@ -49,11 +44,15 @@
         lg3
       >
         <v-card>
-          <v-card-title><h2>Standard</h2>
-          <v-spacer></v-spacer>
-          <v-spacer></v-spacer>
-          <v-switch class='mt-3' v-model="standardannual" :label='getStandardInfo().label'></v-switch>
+          <v-card-title>
+            <h2>Standard</h2>
+            <v-spacer></v-spacer>
+            <h3>{{ getStandardInfo().price }}</h3>
           </v-card-title>
+          <div>
+          <v-switch class='ml-3' v-model="standardannual" :label='getStandardInfo().label'></v-switch>
+          </div>
+          <v-divider></v-divider>
 
           <v-divider></v-divider>
           <v-list subheader dense>
@@ -61,18 +60,18 @@
               <v-list-tile-content><h4>All of Basic</h4></v-list-tile-content>
             </v-card-text>
             <v-list-tile>
-              <v-list-tile-content><h4>Multiple Locations</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Send Review Requests for Any Review Site</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>Multiple Review Sites</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Access to Your Customers' Data</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>500 text limit per month</h4></v-list-tile-content>
-            </v-list-tile>
-                        <v-list-tile>
-                <v-btn @click="planDialog('standard')" block color="primary" dark>{{ getStandardInfo().price }} </v-btn>
+              <v-list-tile-content><h4>Review Management Dashboard</h4></v-list-tile-content>
             </v-list-tile>
           </v-list>
+            <div>
+                <v-btn @click="planDialog('standard')" block color="primary" dark>Get started with Standard </v-btn>
+            </div>
         </v-card>
     </v-flex>
 
@@ -83,11 +82,15 @@
         lg3
       >
         <v-card>
-          <v-card-title><h2>Premium</h2>
+        <v-card-title>
+          <h2>Premium</h2>
           <v-spacer></v-spacer>
-          <v-spacer></v-spacer>
-          <v-switch class='mt-3' v-model="premiumannual" :label='getPremiumInfo().label'></v-switch>
-          </v-card-title>
+          <h3>{{ getPremiumInfo().price }}</h3>
+        </v-card-title>
+        <div>
+        <v-switch class="ml-3" v-model="premiumannual" :label='getPremiumInfo().label'></v-switch>
+        </div>
+        <v-divider></v-divider>
 
           <v-divider></v-divider>
           <v-list subheader dense>
@@ -95,18 +98,18 @@
               <v-list-tile-content><h4>All of Standard</h4></v-list-tile-content>
             </v-card-text>
             <v-list-tile>
-              <v-list-tile-content><h4>Bad Review Blocker</h4></v-list-tile-content>
+              <v-list-tile-content><h4>White Label the App for Customer Use</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>Download all data entered</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Negative Review Screener</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>700 Text limit</h4></v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile>
-                <v-btn @click="planDialog('premium')" block color="primary" dark> {{ getPremiumInfo().price }} </v-btn>
+              <v-list-tile-content><h4></h4></v-list-tile-content>
             </v-list-tile>
           </v-list>
+            <div>
+                <v-btn @click="planDialog('premium')" block color="primary" dark> Get started with Premium </v-btn>
+            </div>
         </v-card>
     </v-flex>
 
@@ -117,11 +120,15 @@
         lg3
       >
         <v-card>
-          <v-card-title><h2>Super</h2>
+        <v-card-title>
+          <h2>Super</h2>
           <v-spacer></v-spacer>
-          <v-spacer></v-spacer>
-          <v-switch class='mt-3' v-model="superannual" :label='getSuperInfo().label'></v-switch>
-          </v-card-title>
+          <h3>{{ getSuperInfo().price }}</h3>
+        </v-card-title>
+        <div>
+        <v-switch class="ml-3" v-model="superannual" :label='getSuperInfo().label'></v-switch>
+        </div>
+        <v-divider></v-divider>
 
           <v-divider></v-divider>
           <v-list subheader dense>
@@ -129,20 +136,18 @@
               <v-list-tile-content><h4>All of Premium</h4></v-list-tile-content>
             </v-card-text>
             <v-list-tile>
-              <v-list-tile-content><h4>Custom integration with CRM</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Embedded Reviews on Your Website</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>Google my business text integration</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Text Messaging Service on Google My Business Mobile</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>1000 text limit per month</h4></v-list-tile-content>
+              <v-list-tile-content><h4>CRM Integration</h4></v-list-tile-content>
             </v-list-tile>
-            <v-list-tile>
-                <v-btn @click="planDialog('super')" block color="primary" dark>{{ getSuperInfo().price }}</v-btn>
-            </v-list-tile>
-            
-            
           </v-list>
+          <div>
+              <v-btn @click="planDialog('super')" block color="primary" dark>Get started with Super</v-btn>
+          </div>
         </v-card>
     </v-flex>
     </v-layout>
@@ -185,7 +190,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { Card, createToken } from 'vue-stripe-elements-plus'
+import { Card, createToken } from 'vue-stripe-elements'
 
 export default {
     data() {
@@ -227,30 +232,30 @@ export default {
         },
         getSuperInfo(){
           if(this.superannual){
-            return {label: 'Annual', price:'$2130'}
+            return {label: 'Annual', price:'$3240'}
           }else{
-            return {label: 'Monthly', price:'$127'}
+            return {label: 'Monthly', price:'$300'}
           }
         },
         getPremiumInfo(){
           if(this.premiumannual){
-            return {label: 'Annual', price:'$1370'}
+            return {label: 'Annual', price:'$2430'}
           }else{
-            return {label: 'Monthly', price:'$197'}
+            return {label: 'Monthly', price:'$225'}
           }
         },
         getStandardInfo(){
           if(this.standardannual){
-            return {label: 'Annual', price:'$940'}
+            return {label: 'Annual', price:'$1890'}
           }else{
-            return {label: 'Monthly', price:'$87'}
+            return {label: 'Monthly', price:'$175'}
           }
         },
         getBasicInfo(){
           if(this.basicannual){
-            return {label: 'Annual', price:'$505'}
+            return {label: 'Annual', price:'$1350'}
           }else{
-            return {label: 'Monthly', price:'$47'}
+            return {label: 'Monthly', price:'$125'}
           }
         }
     },

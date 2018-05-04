@@ -1,0 +1,101 @@
+<template>
+<v-container fluid grid-list-md>
+    <v-layout row wrap>
+    <v-flex
+        xs12
+        sm6
+        md4
+        lg4
+      >
+        <v-card>
+        <v-container fluid grid-list-lg>
+          <v-card-title><h2>Current Card</h2></v-card-title>
+          <v-divider></v-divider>
+            <v-card-text>
+              <h3><img :src="cardImg()" class="mr-2" style="width:30px;"/>{{ cardInfo.brand }} ending in {{ cardInfo.last4 }}. Expires in {{cardInfo.exp_year}}</h3>
+            </v-card-text>
+            <div>
+                <v-card-text><h3>Change card info below:</h3></v-card-text>
+            </div>
+            <div>
+                <card class='stripe-card'
+                :class='{ complete }'
+                stripe='pk_test_FWt0YuMpM9UbFRyaChHMAM83'
+                :options='stripeOptions'
+                @change='complete = $event.complete'
+                />
+            </div>
+            
+            <v-card-actions>
+                <v-btn @click="updateCard()" class="mt-3"  color="primary" dark> Update Card </v-btn>
+            </v-card-actions>
+        </v-container>
+        </v-card>
+    </v-flex>
+    </v-layout>
+
+    <v-snackbar v-model="snackbar.show">
+        {{snackbar.text}}
+        <v-btn flat color="pink" @click.native="hideSnackbar()">Close</v-btn>
+    </v-snackbar>
+
+</v-container>
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+import { Card, createToken } from 'vue-stripe-elements'
+
+export default {
+    data() {
+        return{
+            dialog: false,
+            basicannual: false,
+            standardannual: false,
+            premiumannual: false,
+            superannual: false,
+            planNameDisplay: '',
+            planName: '',
+            complete: false,
+            stripeOptions: {
+                "complete":"color: red"
+            }
+        }
+    },
+    methods: {
+        updateCard () {
+            createToken().then(data => this.$store.dispatch('updateCard', {'stripeToken':data.token.id } ))
+            this.dialog = false
+        },
+        cardImg(){
+            return require('../../assets/cards/' + this.cardInfo.brand + '.png')
+        },
+    },
+    components: { Card },
+    computed: {
+    ...mapGetters([
+      'user',
+      'snackbar',
+      'cardInfo'
+    ])
+  }
+}
+</script>
+
+<style>
+.stripe-card {
+  position: relative;
+  font-size: 16px;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 300px;
+  max-width: 100%;
+  margin: 0;
+  padding: 15px 0;
+  border-bottom: 1px solid #1976d2;
+}
+.stripe-card.complete {
+  border-color: green;
+}
+</style>
+

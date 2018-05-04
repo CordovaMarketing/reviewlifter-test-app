@@ -7,7 +7,8 @@ const state = {
   user: null,
   token: {},
   snackbar: { show: false, text: '' },
-  stripeKey: ''
+  stripeKey: '',
+  cardInfo: {}
 }
 
 // GETTERS
@@ -16,13 +17,15 @@ const getters = {
   user: s => s.user,
   token: s => s.token,
   snackbar: s => s.snackbar,
-  stripeKey: s => s.stripeKey
+  stripeKey: s => s.stripeKey,
+  cardInfo: s => s.cardInfo
 }
 
 // ACTIONS
 
 const actions = {
   setUser ({ commit, dispatch }, userToAdd) {
+    dispatch('getCardInfo')
     dispatch('loadLocations').then(() => {
       commit(types.SET_USER, userToAdd)
     })
@@ -48,10 +51,29 @@ const actions = {
         console.log(error)
       })
   },
-  setStripeKey({ commit }){
+  updateCard ({ commit, dispatch }, info) {
+    HTTP.post('changecard', info)
+      .then(response => {
+        dispatch('getCardInfo')
+        commit(types.SHOW_SNACKBAR, 'Billing setup!')
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  },
+  getStripeKey({ commit }){
     HTTP.get('cardtoken')
     .then(response => {
       commit(types.SET_STRIPEKEY,response.data.stripekey)
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+  },
+  getCardInfo({ commit }){
+    HTTP.get('card')
+    .then(response => {
+      commit(types.SET_CARDINFO,{'exp_year':response.data.exp_year, 'brand':response.data.brand,'last4':response.data.last4})
     })
     .catch(function (error) {
       console.log(error)
@@ -85,6 +107,9 @@ const mutations = {
   UPDATE_PLAN (s, plan){
     s.user.plan = plan
   },
+  SET_CARDINFO (s, info){
+    s.cardInfo = info
+  }
 }
 
 // EXPORT

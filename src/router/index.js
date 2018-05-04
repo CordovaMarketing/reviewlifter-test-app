@@ -5,6 +5,7 @@ import Customers from '@/components/customers/ViewCustomers'
 import Locations from '@/components/locations/Locations'
 import AddCustomers from '@/components/customers/AddCustomers'
 import Billing from '@/components/billing/ChoosePlan'
+import Settings from '@/components/billing/EditCard'
 
 Vue.use(Router)
 
@@ -25,11 +26,11 @@ export default new Router({
       name: 'Locations',
       component: Locations
     },
-    // {
-    //   path: '/settings',
-    //   name: 'Settings',
-    //   component: Settings
-    // },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings
+    },
     {
       path: '/addcustomers',
       name: 'AddCustomers',
