@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import AddCustomers from './AddCustomers'
 export default {
   data: () => ({
     dialog: false,
@@ -199,9 +198,6 @@ export default {
       }
       this.close()
     }
-  },
-  components: {
-    AddCustomers
   }
 }
 </script>
