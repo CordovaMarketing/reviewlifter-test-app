@@ -30,7 +30,8 @@ import {
   VSnackbar,
   VForm,
   VCheckbox,
-  VDataIterator
+  VDataIterator,
+  VDataTable
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
@@ -55,7 +56,8 @@ Vue.use(Vuetify, {
     VSnackbar,
     VForm,
     VCheckbox,
-    VDataIterator
+    VDataIterator,
+    VDataTable
   }
 })
 
