@@ -3,10 +3,10 @@
     <v-list class="pa-0">
       <v-list-tile v-if="user" avatar>
         <v-list-tile-avatar>
-          <img :src="user.picture">
+          <img :src="user.avatar">
         </v-list-tile-avatar>
         <v-list-tile-content>
-          <v-list-tile-title>{{user.given_name}} {{user.family_name}}</v-list-tile-title>
+          <v-list-tile-title>{{user.firstname}} {{user.lastname}}</v-list-tile-title>
         </v-list-tile-content>
           <v-icon class="text-lg-right" >settings</v-icon>
       </v-list-tile>
