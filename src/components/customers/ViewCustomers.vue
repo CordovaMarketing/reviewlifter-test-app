@@ -9,19 +9,10 @@
       right
       color="red"
       slot="activator"
+      :to="{path: '/addcustomers'}"
       >
       <v-icon>add</v-icon>
     </v-btn>
-      <v-toolbar card color="white">
-        <v-card color="red" dark tile>
-          <v-btn flat icon @click.native="dialog = false">
-            <v-icon >close</v-icon>
-          </v-btn>
-        </v-card>        
-      </v-toolbar>
-      <v-card>
-        <AddCustomers/>
-      </v-card>
     </v-dialog>
     <br><br>
     <br><br>
