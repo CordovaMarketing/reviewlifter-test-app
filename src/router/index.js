@@ -5,6 +5,7 @@ import Customers from '@/components/customers/ViewCustomers'
 import Locations from '@/components/locations/Locations'
 import AddCustomers from '@/components/customers/AddCustomers'
 import SubUsers from '@/components/subusers/SubUsers'
+import Billing from '@/components/billing/ChoosePlan'
 
 Vue.use(Router)
 
@@ -39,6 +40,11 @@ export default new Router({
       path: '/subusers',
       name: 'SubUsers',
       component: SubUsers
+    },
+    {
+      path: '/plan',
+      name: 'ChoosePlan',
+      component: Billing
     }
   ]
 })

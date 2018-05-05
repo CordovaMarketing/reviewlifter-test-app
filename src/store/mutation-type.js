@@ -8,3 +8,5 @@ export const ADD_PLACE = 'ADD_PLACE'
 export const UPDATE_PLACE = 'UPDATE_PLACE'
 // customer
 export const ADD_CUSTOMER = 'ADD_CUSTOMER'
+export const SET_STRIPEKEY = 'SET_STRIPEKEY'
+export const UPDATE_PLAN = 'UPDATE_PLAN'
