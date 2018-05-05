@@ -1,45 +1,35 @@
 <template>
-<v-container fluid grid-list-md>
-    <v-layout row wrap>
-    <v-flex
-        xs12
-        sm6
-        md4
-        lg4
-      >
-        <v-card>
-        <v-container fluid grid-list-lg>
-          <v-card-title><h2>Current Card</h2></v-card-title>
-          <v-divider></v-divider>
-            <v-card-text>
-              <h3><img :src="cardImg()" class="mr-2" style="width:30px;"/>{{ cardInfo.brand }} ending in {{ cardInfo.last4 }}. Expires in {{cardInfo.exp_year}}</h3>
-            </v-card-text>
-            <div>
-                <v-card-text><h3>Change card info below:</h3></v-card-text>
-            </div>
-            <div>
-                <card class='stripe-card'
-                :class='{ complete }'
-                stripe='pk_test_FWt0YuMpM9UbFRyaChHMAM83'
-                :options='stripeOptions'
-                @change='complete = $event.complete'
-                />
-            </div>
-            
-            <v-card-actions>
-                <v-btn @click="updateCard()" class="mt-3"  color="primary" dark> Update Card </v-btn>
-            </v-card-actions>
-        </v-container>
-        </v-card>
-    </v-flex>
-    </v-layout>
-
+<div>
+    <v-card>
+    <v-container fluid grid-list-lg>
+        <v-card-title><h2>Current Card</h2></v-card-title>
+        <v-divider></v-divider>
+        <v-card-text>
+            <h3><img :src="cardImg()" class="mr-2" style="width:30px;"/>{{ cardInfo.brand }} ending in {{ cardInfo.last4 }}. Expires in {{cardInfo.exp_year}}</h3>
+        </v-card-text>
+        <div>
+            <v-card-text><h3>Change card info below:</h3></v-card-text>
+        </div>
+        <div>
+            <card class='stripe-card'
+            :class='{ complete }'
+            stripe='pk_test_FWt0YuMpM9UbFRyaChHMAM83'
+            :options='stripeOptions'
+            @change='complete = $event.complete'
+            />
+        </div>
+        
+        <v-card-actions>
+            <v-btn @click="updateCard()" class="mt-3"  color="primary" dark> Update Card </v-btn>
+            <v-btn class="mt-3">Upgrade plan</v-btn>
+        </v-card-actions>
+    </v-container>
+    </v-card>
     <v-snackbar v-model="snackbar.show">
         {{snackbar.text}}
         <v-btn flat color="pink" @click.native="hideSnackbar()">Close</v-btn>
     </v-snackbar>
-
-</v-container>
+</div>
 </template>
 
 <script>

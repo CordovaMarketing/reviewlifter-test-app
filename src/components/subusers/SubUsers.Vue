@@ -1,8 +1,6 @@
 <template>
   <div>
-
-    <v-flex lg5 xs10 mx-auto class="mt-3" >
-      <h2>View Subusers</h2>
+      <h2>Current Subusers</h2>
     <v-data-table
       :headers="headers"
       :items="items()"
@@ -23,13 +21,12 @@
         <v-btn color="primary" @click="items">Reset</v-btn>
       </template>
     </v-data-table>
-    
-    
+  
     <v-dialog v-model="dialog" max-width="500px">
         <v-btn color="primary" dark slot="activator" absolute class="mt-2">Add subuser</v-btn>
       <v-card>
         <v-card-title>
-          <span class="headline">{{ formTitle }}</span>
+          <span class="headline">Add Subuser</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
@@ -53,7 +50,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    </v-flex>
   </div>
 </template>
 
@@ -86,9 +82,6 @@ import { mapGetters } from 'vuex'
     }),
 
     computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'Add Subuser' : 'Edit Subuser'
-      },
       ...mapGetters([
         'user'
       ])

@@ -10,7 +10,7 @@
     </v-stepper-header>
     <v-stepper-items>
       <v-stepper-content step="1">
-        <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
+        <ChoosePlan/>
         <v-btn color="primary" @click.native="step = 2">Continue</v-btn>
         <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
@@ -33,13 +33,17 @@
 </template>
 
 <script>
+import ChoosePlan from './components/billing/ChoosePlan'
 export default {
   props: ['visible'],
   data () {
     return {
       step: 0
     }
-  }
+  },
+  components: {
+    ChoosePlan,
+  },
 }
 </script>
 

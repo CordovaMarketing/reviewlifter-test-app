@@ -1,7 +1,7 @@
 <template>
   <v-toolbar flat class="transparent"> 
     <v-list class="pa-0">
-      <v-list-tile v-if="user" avatar>
+      <v-list-tile v-if="user" avatar :to="{path: '/settings'}">
         <v-list-tile-avatar>
           <img :src="user.avatar">
         </v-list-tile-avatar>

@@ -4,10 +4,7 @@ import Dashboard from '@/components/dashboard/Dashboard'
 import Customers from '@/components/customers/ViewCustomers'
 import Locations from '@/components/locations/Locations'
 import AddCustomers from '@/components/customers/AddCustomers'
-import Billing from '@/components/billing/ChoosePlan'
-import Settings from '@/components/billing/EditCard'
-import SubUsers from '@/components/subusers/SubUsers'
-
+import Settings from '@/components/settings/Settings'
 Vue.use(Router)
 
 export default new Router({
@@ -37,15 +34,5 @@ export default new Router({
       name: 'AddCustomers',
       component: AddCustomers
     },
-    {
-      path: '/plan',
-      name: 'ChoosePlan',
-      component: Billing
-    },
-    {
-      path: '/subusers',
-      name: 'SubUsers',
-      component: SubUsers
-    }
   ]
 })

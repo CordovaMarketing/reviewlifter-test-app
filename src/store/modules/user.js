@@ -106,7 +106,7 @@ const actions = {
     HTTP.post('changecard', info)
       .then(response => {
         dispatch('getCardInfo')
-        commit(types.SHOW_SNACKBAR, 'Billing setup!')
+        commit(types.SHOW_SNACKBAR, 'Card changed!')
       })
       .catch(function (error) {
         console.log(error)
