@@ -1,4 +1,5 @@
 import * as types from '../mutation-type'
+import { HTTP } from '../../http-common'
 
 // STATE
 
@@ -23,6 +24,27 @@ const actions = {
     dispatch('loadLocations').then(() => {
       commit(types.SET_USER, userToAdd)
     })
+  },
+  updateUser ({ commit, dispatch }, user) {
+    const userUpdate = {
+      stripeid: user.stripeid,
+      preflocation: user.preflocation,
+      accttype: user.accttype,
+      email: user.email,
+      personalphone: user.personalphone,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      website: user.website,
+      salesperson: user.salseperson,
+      monthlyrate: user.monthlyrate
+    }
+    HTTP.put('clientuser', userUpdate)
+      .then(response => {
+        commit(types.SET_USER, userUpdate)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   },
   setToken ({ commit }, tokenToAdd) {
     commit(types.SET_TOKEN, tokenToAdd)

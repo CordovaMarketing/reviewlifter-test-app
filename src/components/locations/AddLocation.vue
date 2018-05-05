@@ -1,12 +1,12 @@
 
 <template>
-  <v-container  grid-list-md>
-      <v-flex xs6 mx-auto >    
-    
+  <v-container >
+    <v-layout justify-center>
+    <v-flex xs6>  
 <!-- Toolbar -->
-      <v-icon large style="width: 4%">search</v-icon>
-      <GmapAutocomplete placeholder="Enter a location..." class="input headline" @place_changed="setPlace">
-      </GmapAutocomplete>
+    <v-icon large style="width: 4%">search</v-icon>
+    <GmapAutocomplete :value="location.businessname" placeholder="Enter a location..." class="input headline" @place_changed="setPlace">
+    </GmapAutocomplete>
     <br/>
 
     <GmapMap class="map" :zoom="16" :center="center">
@@ -23,87 +23,78 @@
         />
     </GmapMap>
 
-		
-	</v-flex>
+    <v-text-field
+      label="Business Name"
+      v-model="location.businessname"
 
-    <v-flex xs6 mx-auto >
-    <v-layout row wrap>
-      <v-flex xs4>
-        <v-subheader>Business Name</v-subheader>
-      </v-flex>
-      <v-flex xs12 sm8>
-        <v-text-field
-          v-model="businessName"
-          name="input-1-3"
-          single-line
-        ></v-text-field>
-      </v-flex>
+      :counter="10"
+      required
+    ></v-text-field>
+    <v-text-field
+      label="Phone number"
+      v-model="location.phone"
+
+      required
+    ></v-text-field>
+    <v-text-field
+      label="Address"
+      v-model="location.streetaddress"
+
+      required
+    ></v-text-field>
+    <v-text-field
+      label="Location Manager"
+      v-model="location.sendername"
+
+      required
+    ></v-text-field>
+    <v-text-field
+      v-model="location.reviewinvitetext"
+      label="Customer Text Message"
+      counter="250"
+      max=250
+      multi-line
+      auto-grow
+      rows="1"
+      hide-details
+    ></v-text-field>
+    <v-layout right row wrap>
+      <v-btn @click="save" color="success">Save</v-btn>     
     </v-layout>
-    <v-layout row wrap>
-      <v-flex xs4>
-        <v-subheader>Phone number</v-subheader>
-      </v-flex>
-      <v-flex xs12 sm8>
-        <v-text-field
-          v-model="phoneNumber"
-          name="input-2-3"
-          single-line
-        ></v-text-field>
-      </v-flex>
-      <v-layout row wrap>
-      <v-flex xs4>
-        <v-subheader>Address</v-subheader>
-      </v-flex>
-      <v-flex xs12 sm8>
-        <v-text-field
-          v-model="address"
-          name="input-1-3"
-          single-line
-        ></v-text-field>
-      </v-flex>
+    </v-flex>      
     </v-layout>
-    </v-layout>
-    <v-layout row wrap>
-      <v-flex xs4>
-        <v-subheader>Location Manager</v-subheader>
-      </v-flex>
-      <v-flex xs12 sm8>
-        <v-text-field
-          v-model="manager"
-          name="input-1-3"
-          single-line
-        ></v-text-field>
-      </v-flex>
-    </v-layout>
-    <v-layout row wrap>
-     <v-btn @click="save" color="success">Save</v-btn>
-    </v-layout>
-    </v-flex>
-      <v-snackbar v-model="snackbar.show">
-        {{snackbar.text}}
-        <v-btn flat color="pink" @click.native="hideSnackbar()">Close</v-btn>
-      </v-snackbar>
   </v-container>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
+  props: ['editLocation'],
   data () {
     return {
       place: null,
       places: [],
-      businessName: '',
-      phoneNumber: '',
-      address: '',
-      manager: '',
       center: {
         lat: 48.853,
         lng: 2.298
       },
       userPosition: null,
-      zoom: 12
+      zoom: 12,
+      location: {
+        placeid: '',
+        subcripstionid: '',
+        sendername: '',
+        phone: '',
+        gitpagelink: '',
+        businessname: '',
+        reviewlink: '',
+        reviewinvitetext: 'We appreciate your business! Could you take a quick 30 seconds and give us a rating at the link below? Thanks.',
+        streetaddress: '',
+        features: '',
+        comments: '',
+        reviewsites: ''
+      }
     }
   },
   methods: {
@@ -120,18 +111,17 @@ export default {
     },
     setPlace (place) {
       this.place = place
+      this.location.placeid = place.place_id
+      this.location.phone = place.international_phone_number
+      this.location.businessname = place.name
+      this.location.streetaddress = place.formatted_address
       this.center = {
         lat: this.place.geometry.location.lat(),
         lng: this.place.geometry.location.lng()
       }
     },
     save () {
-      this.place.manager = this.manager
-      this.place.name = this.businessName
-      this.place.formatted_address = this.address
-      this.place.international_phone_number = this.phoneNumber
-      this.$store.dispatch('addLocation', this.place)
-      // this.snackbar = true
+      this.$store.dispatch('addLocation', this.location)
     },
     hideSnackbar () {
       this.$store.dispatch('hideSnackbar')
@@ -156,12 +146,14 @@ export default {
         this.phoneNumber = this.place.international_phone_number
         this.address = this.place.formatted_address
       }
+    },
+    editLocation: function () {
+      if (this.editLocation) {
+        this.location = this.editLocation
+      }
     }
   },
   computed: {
-    ...mapGetters([
-      'snackbar'
-    ])
   }
 }
 </script>

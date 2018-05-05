@@ -17,27 +17,20 @@ const getters = {
 
 const actions = {
   addLocation ({ getters, commit }, place) {
-    if (getters.locations.some(e => e.placeid === place.place_id)) {
-      // maybe just update the existing one call the mutator
-      commit(types.SHOW_SNACKBAR, 'Location already exists.')
-    } else {
-      const formatedPlace = {
-        placeid: place.place_id,
-        subcripstionid: '',
-        sendername: place.manager,
-        phone: place.international_phone_number,
-        gitpagelink: '',
-        businessname: place.name,
-        reviewlink: '',
-        reviewinvitetext: '',
-        streetaddress: place.formatted_address,
-        features: '',
-        comments: '',
-        reviewsites: ''
-      }
-      HTTP.post('locations', [formatedPlace])
+    if (getters.locations.some(e => e.placeid === place.placeid)) {
+      HTTP.put('location', place)
         .then(response => {
-          commit(types.ADD_PLACE, formatedPlace)
+          commit(types.UPDATE_PLACE, place)
+          commit(types.SHOW_SNACKBAR, 'Location updated!')
+        })
+        .catch(function (error) {
+          console.log(error)
+          commit(types.SHOW_SNACKBAR, 'Error Saving!')
+        })
+    } else {
+      HTTP.post('locations', [place])
+        .then(response => {
+          commit(types.ADD_PLACE, place)
           commit(types.SHOW_SNACKBAR, 'Location saved!')
         })
         .catch(function (error) {
@@ -63,8 +56,12 @@ const actions = {
     ["error", { "props": false}] */
 
 const mutations = {
-  ADD_PLACE (s, formatedPlace) {
-    s.locations.push(formatedPlace)
+  ADD_PLACE (s, place) {
+    s.locations.push(place)
+  },
+  UPDATE_PLACE (s, place) {
+    s.locations = s.locations.filter(p => p.placeid !== place.placeid)
+    s.locations.push(place)
   }
 }
 
