@@ -31,7 +31,8 @@ import {
   VForm,
   VCheckbox,
   VDataIterator,
-  VSwitch
+  VSwitch,
+  VDataTable
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
@@ -57,7 +58,8 @@ Vue.use(Vuetify, {
     VForm,
     VCheckbox,
     VDataIterator,
-    VSwitch
+    VSwitch,
+    VDataTable
   }
 })
 

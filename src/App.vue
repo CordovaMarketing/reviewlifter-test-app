@@ -20,9 +20,14 @@
       <router-view/>
     </v-content>
 
-    <v-footer :fixed="fixed" app>
+    <!-- <v-footer :fixed="fixed" app>
       <span>&copy; 2017</span>
-    </v-footer>
+    </v-footer> -->
+
+    <v-snackbar v-model="snackbar.show">
+        {{snackbar.text}}
+        <v-btn flat color="pink" @click.native="hideSnackbar()">Close</v-btn>
+    </v-snackbar>
 
   </v-app>
 </template>
@@ -48,10 +53,16 @@ export default {
   },
   mounted () {
   },
+  methods: {
+    hideSnackbar () {
+      this.$store.dispatch('hideSnackbar')
+    }
+  },
   computed: {
     ...mapGetters([
       'user',
-      'locations'
+      'locations',
+      'snackbar'
     ]),
     loggedIn () {
       // console.log(this.user)

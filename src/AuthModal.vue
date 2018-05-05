@@ -1,12 +1,23 @@
 <template>
 <v-dialog fullscreen v-model="visible" persistent max-width="500">
-    <!-- <v-btn color="primary" dark slot="activator">Open Dialog</v-btn> -->
-    <v-card>
-      <v-card-title class="headline">Google Sign-in</v-card-title>
-      <v-card-text>Use your Google account to sign in to Review Lifter. </v-card-text>
-        <!-- <v-btn id="signin-button" color="green darken-1"  v-on:click="$emit('signedIn')">Sign In</v-btn> -->
-        <v-btn id="signin-button" color="green darken-1"  v-on:click="signIn">Sign In</v-btn>
-    </v-card>
+<!-- <v-btn color="primary" dark slot="activator">Open Dialog</v-btn> -->
+  <v-card>
+    <v-container fill-height>
+      <v-layout justify-center>
+        <v-card>
+          <v-flex class="text-xs-center">
+            <v-card-title class="headline">Review Lifter</v-card-title>
+              <v-card-text>Use your Google account to sign in to Review Lifter.</v-card-text>
+            <v-btn class="signin-button" color="deep-orange" dark  v-on:click="signIn">
+              <v-icon dark left>fab fa-google</v-icon>
+              Sign in with Google
+            </v-btn>
+          </v-flex>
+          <br>
+        </v-card>
+      </v-layout>
+    </v-container>
+  </v-card>
 </v-dialog>
 </template>
 
@@ -44,7 +55,7 @@ export default {
         alert(response)
         var data = response.body
         this.response = data.error
-        console.log('BACKEND SERVER - SIGN-IN ERROR', data)
+        console.log('SIGN IN ERROR, TRY AGAIN', data)
       })
     },
     onSignInError: function (error) {

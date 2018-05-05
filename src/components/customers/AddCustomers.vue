@@ -77,27 +77,32 @@ export default {
         v => !!v || 'Phone is required',
         v => /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(v) || 'Please enter a valid mobile number'
       ],
-      select: null,
-      items: [
-        '2324, 54 E Main St suite 2, American Fork, UT 84003',
-        '5251 S Green St #150, Murray, UT 84123'
-      ],
+      select: [],
       checkbox: false
     }
   },
 
   methods: {
     submit () {
-      // if (this.$refs.form.validate()) {
-      //   // Native form submission is not yet supported
-      //   axios.post('/enduser', {
-      //     name: this.name,
-      //     email: this.email,
-      //     phone: this.email,
-      //     locationid: this.select
-      //     // checkbox: this.checkbox  -- this should probably stored in vuex. Purpose is to remember the location that user usually enters data for
-      //   })
-      // }
+      console.log('here')
+      if (this.$refs.form.validate()) {
+        console.log('inside')
+
+        // Native form submission is not yet supported
+        this.$store.dispatch('addCustomer', {
+          locationid: this.locationid,
+          firstname: this.firstName,
+          lastname: this.lastName,
+          email: this.email,
+          phone: this.phone
+        })
+      }
+    },
+    savePrefferedLocation () {
+      // this will have to be sent to the server to maintain and sent with user message
+      // Update user
+      // store.dispatch('setUser', data.user_data)
+      // locationid: this.select
     },
     clear () {
       this.$refs.form.reset()
@@ -105,10 +110,14 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'locations'
+      'locations',
+      'snackbar'
     ]),
     addresses () {
-      return this.locations.map(l => l.streetaddress)
+      return this.locations.map(l => l.streetaddress).filter(l => l != null)
+    },
+    locationid () {
+      return this.locations.find(l => l.streetaddress === this.select).public_id
     }
   }
 }
