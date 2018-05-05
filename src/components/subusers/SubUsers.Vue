@@ -59,68 +59,68 @@
 
 <script>
 import { mapGetters } from 'vuex'
-  export default {
-    data: () => ({
-      dialog: false,
-      headers: [
-        {
-          text: 'First Name',
-          align: 'left',
-          value: 'firstname'
-        },
-        { text: 'Last Name', value: 'lastname' },
-        { text: 'Email', value: 'email' },
-        { text: 'Actions', value: 'name', sortable: false }
-      ],
-      editedIndex: -1,
-      editedItem: {
-        firstname: '',
-        lastname: '',
-        email: '',
+export default {
+  data: () => ({
+    dialog: false,
+    headers: [
+      {
+        text: 'First Name',
+        align: 'left',
+        value: 'firstname'
       },
-      defaultItem: {
-        firstname: '',
-        lastname: '',
-        email: '',
-      }
-    }),
+      { text: 'Last Name', value: 'lastname' },
+      { text: 'Email', value: 'email' },
+      { text: 'Actions', value: 'name', sortable: false }
+    ],
+    editedIndex: -1,
+    editedItem: {
+      firstname: '',
+      lastname: '',
+      email: ''
+    },
+    defaultItem: {
+      firstname: '',
+      lastname: '',
+      email: ''
+    }
+  }),
 
-    computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'Add Subuser' : 'Edit Subuser'
-      },
-      ...mapGetters([
-        'user'
-      ])
+  computed: {
+    formTitle () {
+      return this.editedIndex === -1 ? 'Add Subuser' : 'Edit Subuser'
+    },
+    ...mapGetters([
+      'user'
+    ])
+  },
+
+  watch: {
+    dialog (val) {
+      val || this.close()
+    }
+  },
+  methods: {
+    items () {
+      return JSON.parse(this.user.subusers)
+    },
+    deleteItem (item) {
+      console.log(item)
+      confirm('Are you sure you want to remove this subuser?') && this.$store.dispatch('removeSubUser', item)
     },
 
-    watch: {
-      dialog (val) {
-        val || this.close()
-      }
+    close () {
+      this.dialog = false
+      setTimeout(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      }, 300)
     },
-    methods: {
-      items () {
-        return JSON.parse(this.user.subusers)
-      },
-      deleteItem (item) {
-        console.log(item)
-        confirm('Are you sure you want to remove this subuser?') && this.$store.dispatch('removeSubUser', item)
-      },
 
-      close () {
-        this.dialog = false
-        setTimeout(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        }, 300)
-      },
-
-      save () {
-        this.$store.dispatch('addSubUser', this.editedItem)
-        this.close()
-      }
+    save () {
+      this.$store.dispatch('addSubUser', this.editedItem)
+      this.close()
     }
   }
+}
 </script>
 

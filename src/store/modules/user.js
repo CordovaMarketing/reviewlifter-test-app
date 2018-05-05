@@ -49,35 +49,37 @@ const actions = {
   setToken ({ commit }, tokenToAdd) {
     commit(types.SET_TOKEN, tokenToAdd)
   },
-  addSubUser ({ commit, getters}, subuserToAdd){
+  addSubUser ({ commit, getters }, subuserToAdd) {
     HTTP.post('addsubuser', subuserToAdd)
-    .then(response => {
-      if (getters.user.subusers){
-        var subusers = JSON.parse(getters.user.subusers)
-        subusers.push(subuserToAdd)
-        getters.user.subusers = JSON.stringify(subusers)
-      } else {
-        getters.user.subusers = JSON.stringify([subuserToAdd])
-      }
-      commit(types.SET_USER, getters.user)
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
+      .then(response => {
+        if (getters.user.subusers) {
+          var subusers = JSON.parse(getters.user.subusers)
+          subusers.push(subuserToAdd)
+          getters.user.subusers = JSON.stringify(subusers)
+        } else {
+          getters.user.subusers = JSON.stringify([subuserToAdd])
+        }
+        commit(types.SET_USER, getters.user)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   },
-  removeSubUser ({ commit, getters }, subuserToRemove){
-    HTTP.post('removesubuser', {'email': subuserToRemove.email})
-    .then(response => {
-      if (getters.user.subusers){
-        var subusers = JSON.parse(getters.user.subusers)
-        subusers = subusers.filter(item => item.email !== subuserToRemove.email)
-        getters.user.subusers = JSON.stringify(subusers)
-      }
-      commit(types.SET_USER, getters.user)
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
+  removeSubUser ({ commit, getters }, subuserToRemove) {
+    HTTP.post('removesubuser', { email: subuserToRemove.email })
+      .then(response => {
+        if (getters.user.subusers) {
+          var subusers = JSON.parse(getters.user.subusers)
+          subusers = subusers.filter(
+            item => item.email !== subuserToRemove.email
+          )
+          getters.user.subusers = JSON.stringify(subusers)
+        }
+        commit(types.SET_USER, getters.user)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   },
   showSnackbar ({ commit }, text) {
     // send to server, if success, commmit
