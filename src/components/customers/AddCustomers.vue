@@ -51,10 +51,6 @@
         </v-flex>
     </v-layout>
   </v-slide-y-transition>
-  <v-snackbar v-model="snackbar.show">
-        {{snackbar.text}}
-        <v-btn flat color="pink" @click.native="hideSnackbar()">Close</v-btn>
-  </v-snackbar>
 </v-container>
 </template>
 
@@ -110,9 +106,6 @@ export default {
     },
     clear () {
       this.$refs.form.reset()
-    },
-    hideSnackbar () {
-      this.$store.dispatch('hideSnackbar')
     }
   },
   computed: {

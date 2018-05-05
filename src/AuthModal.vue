@@ -13,6 +13,7 @@
               Sign in with Google
             </v-btn>
           </v-flex>
+          <br>
         </v-card>
       </v-layout>
     </v-container>
@@ -54,7 +55,7 @@ export default {
         alert(response)
         var data = response.body
         this.response = data.error
-        console.log('BACKEND SERVER - SIGN-IN ERROR', data)
+        console.log('SIGN IN ERROR, TRY AGAIN', data)
       })
     },
     onSignInError: function (error) {

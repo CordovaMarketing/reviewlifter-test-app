@@ -1,12 +1,12 @@
 
 <template>
-  <v-container  grid-list-md>
-      <v-flex xs6 mx-auto >    
-    
+  <v-container >
+    <v-layout justify-center>
+    <v-flex xs6>  
 <!-- Toolbar -->
-      <v-icon large style="width: 4%">search</v-icon>
-      <GmapAutocomplete :value="location.businessname" placeholder="Enter a location..." class="input headline" @place_changed="setPlace">
-      </GmapAutocomplete>
+    <v-icon large style="width: 4%">search</v-icon>
+    <GmapAutocomplete :value="location.businessname" placeholder="Enter a location..." class="input headline" @place_changed="setPlace">
+    </GmapAutocomplete>
     <br/>
 
     <GmapMap class="map" :zoom="16" :center="center">
@@ -23,71 +23,51 @@
         />
     </GmapMap>
 
-		
-	</v-flex>
+    <v-text-field
+      label="Business Name"
+      v-model="location.businessname"
 
-    <v-flex xs6 mx-auto >
-    <v-layout row wrap>
-      <v-flex xs4>
-        <v-subheader>Business Name</v-subheader>
-      </v-flex>
-      <v-flex xs12 sm8>
-        <v-text-field
-          v-model="location.businessname"
-          name="input-1-3"
-          single-line
-        ></v-text-field>
-      </v-flex>
+      :counter="10"
+      required
+    ></v-text-field>
+    <v-text-field
+      label="Phone number"
+      v-model="location.phone"
+
+      required
+    ></v-text-field>
+    <v-text-field
+      label="Address"
+      v-model="location.streetaddress"
+
+      required
+    ></v-text-field>
+    <v-text-field
+      label="Location Manager"
+      v-model="location.sendername"
+
+      required
+    ></v-text-field>
+    <v-text-field
+      v-model="location.reviewinvitetext"
+      label="Customer Text Message"
+      counter="250"
+      max=250
+      multi-line
+      auto-grow
+      rows="1"
+      hide-details
+    ></v-text-field>
+    <v-layout right row wrap>
+      <v-btn @click="save" color="success">Save</v-btn>     
     </v-layout>
-    <v-layout row wrap>
-      <v-flex xs4>
-        <v-subheader>Phone number</v-subheader>
-      </v-flex>
-      <v-flex xs12 sm8>
-        <v-text-field
-          v-model="location.phone"
-          name="input-2-3"
-          single-line
-        ></v-text-field>
-      </v-flex>
-      <v-layout row wrap>
-      <v-flex xs4>
-        <v-subheader>Address</v-subheader>
-      </v-flex>
-      <v-flex xs12 sm8>
-        <v-text-field
-          v-model="location.streetaddress"
-          name="input-1-3"
-          single-line
-        ></v-text-field>
-      </v-flex>
+    </v-flex>      
     </v-layout>
-    </v-layout>
-    <v-layout row wrap>
-      <v-flex xs4>
-        <v-subheader>Location Manager</v-subheader>
-      </v-flex>
-      <v-flex xs12 sm8>
-        <v-text-field
-          v-model="location.sendername"
-          name="input-1-3"
-          single-line
-        ></v-text-field>
-      </v-flex>
-    </v-layout>
-    <v-layout row wrap>
-     <v-btn @click="save" color="success">Save</v-btn>
-    </v-layout>
-    </v-flex>
-      <v-snackbar v-model="snackbar.show">
-        {{snackbar.text}}
-        <v-btn flat color="pink" @click.native="hideSnackbar()">Close</v-btn>
-      </v-snackbar>
   </v-container>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   props: ['editLocation'],
@@ -109,7 +89,7 @@ export default {
         gitpagelink: '',
         businessname: '',
         reviewlink: '',
-        reviewinvitetext: '',
+        reviewinvitetext: 'We appreciate your business! Could you take a quick 30 seconds and give us a rating at the link below? Thanks.',
         streetaddress: '',
         features: '',
         comments: '',
@@ -174,9 +154,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'snackbar'
-    ])
   }
 }
 </script>

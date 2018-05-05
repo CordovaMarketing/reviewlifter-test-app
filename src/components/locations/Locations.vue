@@ -1,18 +1,129 @@
 <template>
-<v-container>
-  <LocationIterator/>
-</v-container>
+  <v-container fluid grid-list-md>
+    <v-dialog
+        v-model="showModal"
+        hide-overlay
+        fullscreen
+        transition="dialog-bottom-transition"
+        scrollable
+      >
+       <v-btn
+    dark
+    fab
+    fixed
+    middle
+    right
+    color="red"
+      slot="activator"
+    
+    @click="editLocation(null)"
+    >
+    <v-icon>add</v-icon>
+  </v-btn>
+      <v-toolbar card color="white">
+        <v-card color="red" dark tile>
+          <v-btn flat icon @click.native="showModal = false">
+            <v-icon >close</v-icon>
+          </v-btn>
+        </v-card>        
+      </v-toolbar>
+      <v-card>
+        <AddLocation
+        :editLocation="location"/>
+      </v-card>
+    </v-dialog>
+   
+  <br><br>
+  <br><br>
+    <v-data-iterator
+      content-tag="v-layout"
+      :items="locations"
+      :rows-per-page-items="rowsPerPageItems"
+      :pagination.sync="pagination"
+    >
+      <v-flex
+        slot="item"
+        slot-scope="props"
+        xs12
+        sm6
+        md4
+      >
+        <v-card>
+          <v-card-title>
+            <v-container fill-height>
+              <v-layout >
+                <h4>{{ props.item.businessname }}</h4>
+              </v-layout>
+              <v-btn @click="editLocation(props.item)" flat icon color="red">
+                  <v-icon >edit</v-icon>
+              </v-btn>
+            </v-container>
+          </v-card-title>
+
+          <v-divider></v-divider>
+          <v-list three-line subheader dense>
+            <v-list-tile>
+              <v-list-tile-content>Manager:</v-list-tile-content>
+              <v-list-tile-content class="align-end">{{ props.item.sendername }}</v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-content>
+                  <v-list-tile-title>Address:</v-list-tile-title>                  
+                  <v-list-tile-sub-title>{{ props.item.streetaddress }}</v-list-tile-sub-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-content>Phone Number:</v-list-tile-content>
+              <v-list-tile-content class="align-end">{{ props.item.phone }}</v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile>              
+                <v-list-tile-content>
+                  <v-list-tile-title>Review Text: </v-list-tile-title>
+                  <v-list-tile-sub-title>{{ props.item.reviewinvitetext }}</v-list-tile-sub-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-content>Review Link:</v-list-tile-content>
+              <v-list-tile-content class="align-end"> <a v-bind:href="props.item.reviewlink"> Google </a></v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-card>
+      </v-flex>
+    </v-data-iterator>
+  </v-container>
 </template>
 
 <script>
-import LocationIterator from './LocationIterator'
-
+import { mapGetters } from 'vuex'
+import AddLocation from './AddLocation'
 export default {
+  data () {
+    return {
+      rowsPerPageItems: [3],
+      pagination: {
+        rowsPerPage: 3
+      },
+      showModal: false,
+      location: null
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'locations'
+    ])
+  },
+  methods: {
+    editLocation (item) {
+      this.location = item
+      this.showModal = true
+    }
+  },
   components: {
-    LocationIterator
+    AddLocation
   }
 }
 </script>
+
 
 <style>
 
