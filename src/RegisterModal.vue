@@ -1,5 +1,5 @@
 <template>
-  <v-dialog fullscreen hide-overlay v-model="visible" persistent>  
+  <v-dialog  full-width fullscreen  hide-overlay v-model="visible" persistent>  
   <v-stepper v-model="step">
     <v-stepper-header>
       <v-stepper-step step="1" :complete="step > 1">Sign Up</v-stepper-step>
@@ -10,7 +10,7 @@
     </v-stepper-header>
     <v-stepper-items>
       <v-stepper-content step="1">
-        <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
+        <ChoosePlan/>
         <v-btn color="primary" @click.native="step = 2">Continue</v-btn>
         <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
@@ -33,12 +33,16 @@
 </template>
 
 <script>
+import ChoosePlan from './components/billing/ChoosePlan'
 export default {
   props: ['visible'],
   data () {
     return {
       step: 0
     }
+  },
+  components: {
+    ChoosePlan
   }
 }
 </script>

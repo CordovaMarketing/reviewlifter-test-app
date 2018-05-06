@@ -47,6 +47,17 @@ const actions = {
         resolve()
       })
     })
+  },
+  deleteLocation ({ commit }, location) {
+    HTTP.post('deletelocation', location)
+      .then(response => {
+        commit(types.DELETE_LOCATION, location)
+        commit(types.SHOW_SNACKBAR, 'Location deleted!')
+      })
+      .catch(function (error) {
+        console.log(error)
+        commit(types.SHOW_SNACKBAR, 'Error deleting!')
+      })
   }
 }
 
@@ -62,6 +73,9 @@ const mutations = {
   UPDATE_PLACE (s, place) {
     s.locations = s.locations.filter(p => p.placeid !== place.placeid)
     s.locations.push(place)
+  },
+  DELETE_LOCATION (s, location) {
+    s.locations = s.locations.filter(l => l.placeid !== location.placeid)
   }
 }
 

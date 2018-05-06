@@ -6,6 +6,7 @@ import Locations from '@/components/locations/Locations'
 import AddCustomers from '@/components/customers/AddCustomers'
 import SubUsers from '@/components/subusers/SubUsers'
 import Billing from '@/components/billing/ChoosePlan'
+import Settings from '@/components/settings/Settings'
 
 Vue.use(Router)
 
@@ -26,11 +27,11 @@ export default new Router({
       name: 'Locations',
       component: Locations
     },
-    // {
-    //   path: '/settings',
-    //   name: 'Settings',
-    //   component: Settings
-    // },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings
+    },
     {
       path: '/addcustomers',
       name: 'AddCustomers',

@@ -1,39 +1,42 @@
 <template>
-<v-container fluid grid-list-md>
+<v-container  fluid grid-list-md>
+  <h2>All plans start with a 7 day free trial.</h2>
     <v-layout row wrap>
+      
     <v-flex
         xs12
         sm6
         md4
         lg3
       >
+      
         <v-card>
-          <v-card-title><h2>Basic</h2></v-card-title>
-
+          <v-card-title>
+            <h2>Basic</h2>
+            <v-spacer></v-spacer>
+            <h3>{{ getBasicInfo().price }}</h3>
+          </v-card-title>
+          <div>
+          <v-switch class="ml-3" v-model="basicannual" :label='getBasicInfo().label'></v-switch>
+          </div>
           <v-divider></v-divider>
           <v-list subheader dense>
             <v-card-text>
-              <v-list-tile-content><h4>SMS texting</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Automated Review Requests to Customers</h4></v-list-tile-content>
             </v-card-text>
             <v-list-tile>
-              <v-list-tile-content><h4>One Location</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Send Bulk Review Requests</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>One Review site</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Multiple Location Management</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>Upload CSV of past customers</h4></v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile>
-              <v-list-tile-content><h4>Email</h4></v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile>
-              <v-list-tile-content><h4>300 text limit per month</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Review Requests for Google</h4></v-list-tile-content>
             </v-list-tile>
           </v-list>
-        <v-list-tile>
-            <v-btn @click="planDialog('basic')" block color="primary" dark>$47</v-btn>
-        </v-list-tile>
+        <div>
+            <v-btn @click="planDialog('basic')" block color="primary" dark> Get started with basic </v-btn>
+        </div>
         </v-card>
     </v-flex>
 
@@ -44,7 +47,15 @@
         lg3
       >
         <v-card>
-          <v-card-title><h2>Standard</h2></v-card-title>
+          <v-card-title>
+            <h2>Standard</h2>
+            <v-spacer></v-spacer>
+            <h3>{{ getStandardInfo().price }}</h3>
+          </v-card-title>
+          <div>
+          <v-switch class='ml-3' v-model="standardannual" :label='getStandardInfo().label'></v-switch>
+          </div>
+          <v-divider></v-divider>
 
           <v-divider></v-divider>
           <v-list subheader dense>
@@ -52,18 +63,18 @@
               <v-list-tile-content><h4>All of Basic</h4></v-list-tile-content>
             </v-card-text>
             <v-list-tile>
-              <v-list-tile-content><h4>Multiple Locations</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Send Review Requests for Any Review Site</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>Multiple Review Sites</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Access to Your Customers' Data</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>500 text limit per month</h4></v-list-tile-content>
-            </v-list-tile>
-                        <v-list-tile>
-                <v-btn @click="planDialog('standard')" block color="primary" dark>$87</v-btn>
+              <v-list-tile-content><h4>Review Management Dashboard</h4></v-list-tile-content>
             </v-list-tile>
           </v-list>
+            <div>
+                <v-btn @click="planDialog('standard')" block color="primary" dark>Get started with Standard </v-btn>
+            </div>
         </v-card>
     </v-flex>
 
@@ -74,7 +85,15 @@
         lg3
       >
         <v-card>
-          <v-card-title><h2>Premium</h2></v-card-title>
+        <v-card-title>
+          <h2>Premium</h2>
+          <v-spacer></v-spacer>
+          <h3>{{ getPremiumInfo().price }}</h3>
+        </v-card-title>
+        <div>
+        <v-switch class="ml-3" v-model="premiumannual" :label='getPremiumInfo().label'></v-switch>
+        </div>
+        <v-divider></v-divider>
 
           <v-divider></v-divider>
           <v-list subheader dense>
@@ -82,18 +101,18 @@
               <v-list-tile-content><h4>All of Standard</h4></v-list-tile-content>
             </v-card-text>
             <v-list-tile>
-              <v-list-tile-content><h4>Bad Review Blocker</h4></v-list-tile-content>
+              <v-list-tile-content><h4>White Label the App for Customer Use</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>Download all data entered</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Negative Review Screener</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>700 Text limit</h4></v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile>
-                <v-btn @click="planDialog('premium')" block color="primary" dark>$127</v-btn>
+              <v-list-tile-content><h4></h4></v-list-tile-content>
             </v-list-tile>
           </v-list>
+            <div>
+                <v-btn @click="planDialog('premium')" block color="primary" dark> Get started with Premium </v-btn>
+            </div>
         </v-card>
     </v-flex>
 
@@ -104,7 +123,15 @@
         lg3
       >
         <v-card>
-          <v-card-title><h2>Super</h2></v-card-title>
+        <v-card-title>
+          <h2>Super</h2>
+          <v-spacer></v-spacer>
+          <h3>{{ getSuperInfo().price }}</h3>
+        </v-card-title>
+        <div>
+        <v-switch class="ml-3" v-model="superannual" :label='getSuperInfo().label'></v-switch>
+        </div>
+        <v-divider></v-divider>
 
           <v-divider></v-divider>
           <v-list subheader dense>
@@ -112,20 +139,18 @@
               <v-list-tile-content><h4>All of Premium</h4></v-list-tile-content>
             </v-card-text>
             <v-list-tile>
-              <v-list-tile-content><h4>Custom integration with CRM</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Embedded Reviews on Your Website</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>Google my business text integration</h4></v-list-tile-content>
+              <v-list-tile-content><h4>Text Messaging Service on Google My Business Mobile</h4></v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
-              <v-list-tile-content><h4>1000 text limit per month</h4></v-list-tile-content>
+              <v-list-tile-content><h4>CRM Integration</h4></v-list-tile-content>
             </v-list-tile>
-            <v-list-tile>
-                <v-btn @click="planDialog('super')" block color="primary" dark>$197</v-btn>
-            </v-list-tile>
-            
-            
           </v-list>
+          <div>
+              <v-btn @click="planDialog('super')" block color="primary" dark>Get started with Super</v-btn>
+          </div>
         </v-card>
     </v-flex>
     </v-layout>
@@ -134,12 +159,13 @@
     <v-dialog v-model="dialog" persistent max-width="500px">
       <v-card>
         <v-card-title>
-          <span class="headline">{{ planName }}</span>
+          <span class="headline">{{ planNameDisplay }}</span>
         </v-card-title>
+        <v-divider></v-divider>
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-            <h1>Please give us your payment details:</h1>
+            <h3>Please give us your payment details:</h3>
             <card class='stripe-card'
             :class='{ complete }'
             stripe='pk_test_FWt0YuMpM9UbFRyaChHMAM83'
@@ -167,27 +193,71 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { Card, createToken } from 'vue-stripe-elements-plus'
+import { Card, createToken } from 'vue-stripe-elements'
 
 export default {
   data () {
     return {
       dialog: false,
+      basicannual: false,
+      standardannual: false,
+      premiumannual: false,
+      superannual: false,
+      planNameDisplay: '',
       planName: '',
       complete: false,
       stripeOptions: {
       }
     }
   },
+  beforeDestroy: {
+    destroyCard ()
+  },
   methods: {
     planDialog (planName) {
       this.dialog = true
-      this.planName = planName.toUpperCase()
-      this.$store.dispatch('setStripeKey')
+      if (planName === 'super') {
+        this.planName = this.getSuperInfo().label + planName
+      } else if (planName === 'premium') {
+        this.planName = this.getPremiumInfo().label + planName
+      } else if (planName === 'standard') {
+        this.planName = this.getStandardInfo().label + planName
+      } else if (planName === 'basic') {
+        this.planName = this.getBasicInfo().label + planName
+      }
+      this.planNameDisplay = planName.toUpperCase()
     },
     submitPlan () {
-      createToken().then(data => this.$store.dispatch('addPlan', { 'plan': this.planName.toLowerCase(), 'stripeToken': data.token.id }))
+      createToken().then(data => this.$store.dispatch('addPlan', { 'plan': this.planName, 'stripeToken': data.token.id }))
       this.dialog = false
+    },
+    getSuperInfo () {
+      if (this.superannual) {
+        return { label: 'Annual', price: '$3240' }
+      } else {
+        return { label: 'Monthly', price: '$300' }
+      }
+    },
+    getPremiumInfo () {
+      if (this.premiumannual) {
+        return { label: 'Annual', price: '$2430' }
+      } else {
+        return { label: 'Monthly', price: '$225' }
+      }
+    },
+    getStandardInfo () {
+      if (this.standardannual) {
+        return { label: 'Annual', price: '$1890' }
+      } else {
+        return { label: 'Monthly', price: '$175' }
+      }
+    },
+    getBasicInfo () {
+      if (this.basicannual) {
+        return { label: 'Annual', price: '$1350' }
+      } else {
+        return { label: 'Monthly', price: '$125' }
+      }
     }
   },
   components: { Card },
@@ -202,8 +272,15 @@ export default {
 
 <style>
 .stripe-card {
+  position: relative;
+  font-size: 16px;
+  display: inline-block;
+  box-sizing: border-box;
   width: 300px;
-  border: 1px solid grey;
+  max-width: 100%;
+  margin: 0;
+  padding: 15px 0;
+  border-bottom: 1px solid #1976d2;
 }
 .stripe-card.complete {
   border-color: green;

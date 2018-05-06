@@ -54,8 +54,11 @@
               <v-layout >
                 <h4>{{ props.item.businessname }}</h4>
               </v-layout>
-              <v-btn @click="editLocation(props.item)" flat icon color="red">
+              <v-btn @click="editLocation(props.item)" flat icon color="blue">
                   <v-icon >edit</v-icon>
+              </v-btn>
+              <v-btn @click="deleteLocation(props.item)" flat icon color="red">
+                  <v-icon >delete</v-icon>
               </v-btn>
             </v-container>
           </v-card-title>
@@ -116,6 +119,9 @@ export default {
     editLocation (item) {
       this.location = item
       this.showModal = true
+    },
+    deleteLocation (location) {
+      this.$store.dispatch('deleteLocation', location)
     }
   },
   components: {
