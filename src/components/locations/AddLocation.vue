@@ -93,7 +93,6 @@ export default {
         streetaddress: '',
         features: '',
         comments: '',
-        reviewsites: ''
       }
     }
   },

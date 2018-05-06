@@ -17,7 +17,7 @@ const getters = {
 
 const actions = {
   addLocation ({ getters, commit }, place) {
-    if (getters.locations.some(e => e.placeid === place.placeid)) {
+    if (getters.locations.find(e => e.placeid === place.placeid)) {
       HTTP.put('location', place)
         .then(response => {
           commit(types.UPDATE_PLACE, place)
