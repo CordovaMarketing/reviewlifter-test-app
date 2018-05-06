@@ -81,28 +81,36 @@ export default {
       checkbox: false
     }
   },
-
+  created () {
+    if (this.user.preflocation) {
+      this.select = this.locations.find(l => l.public_id === this.user.preflocation).streetaddress
+      this.checkbox = true
+    } else {
+      this.select = []
+    }
+  },
   methods: {
     submit () {
-      console.log('here')
       if (this.$refs.form.validate()) {
-        console.log('inside')
-
         // Native form submission is not yet supported
         this.$store.dispatch('addCustomer', {
-          locationid: this.locationid,
+          locationid: this.location.public_id,
           firstname: this.firstName,
           lastname: this.lastName,
           email: this.email,
           phone: this.phone
         })
+        this.savePrefferedLocation()
       }
     },
     savePrefferedLocation () {
-      // this will have to be sent to the server to maintain and sent with user message
-      // Update user
-      // store.dispatch('setUser', data.user_data)
-      // locationid: this.select
+      if (this.checkbox) {
+        this.user.preflocation = this.location.public_id
+        this.$store.dispatch('updateUser', this.user)
+      } else {
+        this.user.preflocation = null
+        this.$store.dispatch('updateUser', this.user)
+      }
     },
     clear () {
       this.$refs.form.reset()
@@ -110,14 +118,15 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'user',
       'locations',
       'snackbar'
     ]),
     addresses () {
       return this.locations.map(l => l.streetaddress).filter(l => l != null)
     },
-    locationid () {
-      return this.locations.find(l => l.streetaddress === this.select).public_id
+    location () {
+      return this.locations.find(l => l.streetaddress === this.select)
     }
   }
 }

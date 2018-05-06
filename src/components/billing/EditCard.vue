@@ -61,7 +61,7 @@ export default {
       this.dialog = false
     },
     cardImg () {
-      return this.cardInfo ? '../../assets/cards/' + this.cardInfo.brand + '.png' : ''
+      return this.cardInfo ? require('../../assets/cards/' + this.cardInfo.brand + '.png') : ''
     }
   },
   computed: {
