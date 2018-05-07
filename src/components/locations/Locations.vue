@@ -23,7 +23,7 @@
       <v-toolbar card color="white">
         <v-card color="red" dark tile>
           <v-btn flat icon @click.native="showModal = false">
-            <v-icon >close</v-icon>
+            <v-icon>close</v-icon>
           </v-btn>
         </v-card>        
       </v-toolbar>
@@ -90,8 +90,8 @@
               <v-list-tile-content class="align-end">   
                 <v-select
                 label="Select Review Site"
-                v-model="select"
-                :items="items(props.item)"
+                v-model="props.item.select"
+                :items="reviewsites(props.item)"
                 required
                 @change="saveReviewLink(props.item)">
                 </v-select>
@@ -149,8 +149,9 @@ export default {
       item: {
         label: '',
         url: '',
+        select: []
       },
-      select: []
+      
     }
   },
   created() {
@@ -169,7 +170,7 @@ export default {
     deleteLocation (location) {
       this.$store.dispatch('deleteLocation', location)
     },
-    items (location) {
+    reviewsites (location) {
       this.location = this.locations.find(l => l.public_key === location.public_key)
       return location.reviewsites ? JSON.parse(location.reviewsites).map(item => item.label) : []
     },
@@ -177,19 +178,26 @@ export default {
      if (location.reviewsites){
         var sites = JSON.parse(location.reviewsites)
         if (this.item.label){
-          sites.push(this.item)
+          sites.push(this.mapItem())
           location.reviewsites = JSON.stringify(sites)
-        } else if (this.select){
-          var site = sites.find(item => item.label === this.select)
+        } else if (this.item.select){
+          var site = sites.find(site => site.label === this.item.select)
           console.log(sites)
           location.reviewlink = site.url
         }
         this.$store.dispatch('addLocation', location)
      } else if (this.item.label) {
-       location.reviewsites = JSON.stringify([this.item])
+       
+       location.reviewsites = JSON.stringify([this.mapItem()])
        this.$store.dispatch('addLocation', location)
      }
-     this.items(location)
+     this.reviewsites(location)
+    },
+    mapItem () {
+      return {'label':this.item.label,'url':this.item.url}
+    },
+    close () {
+      this.dialog = false;
     }
   },
   components: {
