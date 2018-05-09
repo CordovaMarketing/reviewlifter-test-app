@@ -34,32 +34,32 @@ export default {
       dialog: false,
       item: {
         label: '',
-        url: '',
-      },
+        url: ''
+      }
     }
   },
   methods: {
     saveReviewSite () {
       var sites = this.location.reviewsites ? JSON.parse(this.location.reviewsites) : null
-      if (sites){
+      if (sites) {
         sites.push(this.item)
         this.location.reviewsites = JSON.stringify(sites)
       } else {
         this.location.reviewsites = JSON.stringify([this.item])
       }
-      this.$store.dispatch('addLocation', this.location) 
+      this.$store.dispatch('addLocation', this.location)
     },
     removeReviewSite () {
-      if (this.location.reviewsites){
+      if (this.location.reviewsites) {
         var sites = JSON.parse(this.location.reviewsites)
-        if (this.item.select){
+        if (this.item.select) {
           this.location.reviewsites = JSON.stringify(sites.filter(site => site.label !== this.item.select))
         }
         this.$store.dispatch('addLocation', this.location)
-     }
+      }
     },
     close () {
-      this.dialog = false;
+      this.dialog = false
     }
   }
 }

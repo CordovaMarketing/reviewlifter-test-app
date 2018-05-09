@@ -69,11 +69,11 @@ const actions = {
 const mutations = {
   ADD_PLACE (s, place) {
     s.locations.push(place)
-    
   },
   UPDATE_PLACE (s, place) {
-    s.locations = s.locations.filter(p => p.placeid !== place.placeid)
-    s.locations.push(place)
+    s.locations = s.locations.map(
+      p => (p.placeid === place.placeid ? place : p)
+    )
   },
   DELETE_LOCATION (s, location) {
     s.locations = s.locations.filter(l => l.placeid !== location.placeid)

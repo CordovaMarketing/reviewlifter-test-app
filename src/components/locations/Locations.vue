@@ -120,11 +120,11 @@ export default {
       dialog: false,
       item: {
         label: '',
-        url: '',
-      },
+        url: ''
+      }
     }
   },
-  created() {
+  created () {
 
   },
   computed: {

@@ -2,37 +2,32 @@
     <v-select
     label="Select Review Site"
     v-model="select"
-    :items="reviewsites()"
+    :items="reviewsites"
     required
-    @change="selectReviewLink()">
+    @change="selectReviewLink">
     </v-select>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
   props: ['location'],
   data () {
     return {
-      select: []
+      select: JSON.parse(this.location.reviewlink).label
     }
   },
-  created(){
-    this.select = this.location.reviewlink ? JSON.parse(this.location.reviewlink).label: []
-  },
   methods: {
+    selectReviewLink (newSite) {
+      if (this.location.reviewsites) {
+        var updated = this.location
+        updated.reviewlink = JSON.stringify(JSON.parse(this.location.reviewsites).find(s => s.label === newSite))
+        this.$store.dispatch('addLocation', updated)
+      }
+    }
+  },
+  computed: {
     reviewsites () {
       return this.location.reviewsites ? JSON.parse(this.location.reviewsites).map(item => item.label) : []
-    },
-    selectReviewLink() {
-      if (this.location.reviewsites) {
-        var sites = JSON.parse(this.location.reviewsites)
-        var site = sites.find(site => site.label === this.select)
-        this.location.reviewlink = JSON.stringify(site)
-        this.$store.dispatch('addLocation', this.location)
-        this.select = this.location.reviewlink ? JSON.parse(this.location.reviewlink).label: []
-      }
-        
     }
   }
 }
