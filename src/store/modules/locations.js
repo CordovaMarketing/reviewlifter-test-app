@@ -16,11 +16,11 @@ const getters = {
 // ACTIONS
 
 const actions = {
-  addLocation ({ getters, commit }, place) {
+  addLocation ({ getters, commit, dispatch }, place) {
     if (getters.locations.find(e => e.placeid === place.placeid)) {
       HTTP.put('location', place)
         .then(response => {
-          commit(types.UPDATE_PLACE, place)
+          commit(types.UPDATE_PLACE, response.data)
           commit(types.SHOW_SNACKBAR, 'Location updated!')
         })
         .catch(function (error) {
@@ -30,7 +30,7 @@ const actions = {
     } else {
       HTTP.post('locations', [place])
         .then(response => {
-          commit(types.ADD_PLACE, place)
+          commit(types.ADD_PLACE, response.data)
           commit(types.SHOW_SNACKBAR, 'Location saved!')
         })
         .catch(function (error) {
@@ -69,6 +69,7 @@ const actions = {
 const mutations = {
   ADD_PLACE (s, place) {
     s.locations.push(place)
+    
   },
   UPDATE_PLACE (s, place) {
     s.locations = s.locations.filter(p => p.placeid !== place.placeid)

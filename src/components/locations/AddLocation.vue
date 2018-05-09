@@ -89,6 +89,7 @@ export default {
         gitpagelink: '',
         businessname: '',
         reviewlink: '',
+        reviewsites: '',
         reviewinvitetext: 'We appreciate your business! Could you take a quick 30 seconds and give us a rating at the link below? Thanks.',
         streetaddress: '',
         features: '',
