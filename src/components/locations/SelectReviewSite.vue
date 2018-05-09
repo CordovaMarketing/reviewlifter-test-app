@@ -13,7 +13,7 @@ export default {
   props: ['location'],
   data () {
     return {
-      select: JSON.parse(this.location.reviewlink).label
+      select: this.location.reviewlink ? JSON.parse(this.location.reviewlink).label : ''
     }
   },
   methods: {

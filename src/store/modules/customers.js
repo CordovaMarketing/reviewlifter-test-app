@@ -27,9 +27,9 @@ const actions = {
         commit(types.SHOW_SNACKBAR, 'Error Saving!')
       })
   },
-  loadCustomer ({ commit }) {
+  loadCustomers ({ commit }) {
     return new Promise((resolve, reject) => {
-      HTTP.get('cutomers').then(response => {
+      HTTP.get('/locationusers').then(response => {
         response.data.forEach(customer => commit(types.ADD_CUSTOMER, customer))
         resolve()
       })
