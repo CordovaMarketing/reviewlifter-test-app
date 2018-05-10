@@ -16,7 +16,7 @@ const getters = {
 // ACTIONS
 
 const actions = {
-  addCustomer ({ commit }, customer) {
+  addCustomer ({ commit, getters }, customer) {
     HTTP.post('/enduser', customer)
       .then(response => {
         commit(types.ADD_CUSTOMER, customer)
@@ -34,7 +34,8 @@ const actions = {
         resolve()
       })
     })
-  }
+  },
+  deteleCustomer ({ commit }, customer) {}
 }
 
 // MUTATIONS
@@ -45,6 +46,9 @@ const actions = {
 const mutations = {
   ADD_CUSTOMER (s, customer) {
     s.customers.push(customer)
+  },
+  DELETE_CUSTOMER (s, customer) {
+    s.customer = s.customer.filter(c => c.userid !== customer.userid)
   }
 }
 
