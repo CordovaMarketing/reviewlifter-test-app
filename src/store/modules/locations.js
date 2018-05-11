@@ -63,9 +63,6 @@ const actions = {
 
 // MUTATIONS
 
-/* eslint no-param-reassign:
-    ["error", { "props": false}] */
-
 const mutations = {
   ADD_PLACE (s, place) {
     s.locations.push(place)
