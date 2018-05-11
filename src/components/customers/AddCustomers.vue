@@ -103,13 +103,15 @@ export default {
       }
     },
     savePrefferedLocation () {
-      if (this.checkbox) {
-        this.user.preflocation = this.location.public_id
-        this.$store.dispatch('updateUser', this.user)
-      } else {
-        this.user.preflocation = null
-        this.$store.dispatch('updateUser', this.user)
-      }
+      // This is being sent every time I submit a customer
+
+      // if (this.checkbox) {
+      //   this.user.preflocation = this.location.public_id
+      //   this.$store.dispatch('updateUser', this.user)
+      // } else {
+      //   this.user.preflocation = null
+      //   this.$store.dispatch('updateUser', this.user)
+      // }
     },
     clear () {
       this.$refs.form.reset()
@@ -131,7 +133,7 @@ export default {
   watch: {
     editCustomer: function () {
       if (this.editCustomer) {
-        this.customer = this.editCustomer
+        this.customer = Object.assign({}, this.editCustomer)
         this.select = this.locations.find(l => l.public_id === this.editCustomer.locationid).streetaddress
       }
     }
