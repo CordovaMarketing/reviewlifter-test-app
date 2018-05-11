@@ -1,6 +1,6 @@
 <template>
   <v-container fluid grid-list-md>
-    <v-dialog v-model="dialog" max-width="500px">
+    <v-dialog v-model="dialog" lazy max-width="500px">
       <v-btn
       dark
       fab
@@ -13,11 +13,12 @@
       >
       <v-icon>add</v-icon>
     </v-btn>
-    <v-card>
+    <template
+    ><v-card>
         <AddCustomers
-        :editCustomer="customer"/>
+        v-bind:editCustomer="customer"/>
         <!-- :editLocation="location"/> -->
-      </v-card>
+      </v-card></template>
     </v-dialog>
     <br><br>
     <br><br>

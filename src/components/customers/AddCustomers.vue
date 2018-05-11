@@ -36,6 +36,7 @@
             required
           ></v-select>
           <v-checkbox
+          v-if="editCustomer === null"
             label="Set location to default to this value"
             v-model="checkbox"
           ></v-checkbox>
@@ -93,6 +94,9 @@ export default {
     //   this.select = []
     // }
   },
+  mounted () {
+    this.editWithCustomer()
+  },
   methods: {
     submit () {
       if (this.$refs.form.validate()) {
@@ -115,6 +119,14 @@ export default {
     },
     clear () {
       this.$refs.form.reset()
+    },
+    editWithCustomer () {
+      if (this.editCustomer) {
+        this.customer = Object.assign({}, this.editCustomer)
+        this.select = this.locations.find(l => l.public_id === this.editCustomer.locationid).streetaddress
+      } else {
+        this.clear()
+      }
     }
   },
   computed: {
@@ -132,10 +144,7 @@ export default {
   },
   watch: {
     editCustomer: function () {
-      if (this.editCustomer) {
-        this.customer = Object.assign({}, this.editCustomer)
-        this.select = this.locations.find(l => l.public_id === this.editCustomer.locationid).streetaddress
-      }
+      this.editWithCustomer()
     }
   }
 }

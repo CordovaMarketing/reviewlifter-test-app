@@ -22,42 +22,43 @@
         }"
         />
     </GmapMap>
+    <v-form v-model="valid" ref="form" lazy-validation>
+      <v-text-field
+        label="Business Name"
+        v-model="location.businessname"
 
-    <v-text-field
-      label="Business Name"
-      v-model="location.businessname"
+        :counter="10"
+        required
+      ></v-text-field>
+      <v-text-field
+        label="Phone number"
+        v-model="location.phone"
 
-      :counter="10"
-      required
-    ></v-text-field>
-    <v-text-field
-      label="Phone number"
-      v-model="location.phone"
+        required
+      ></v-text-field>
+      <v-text-field
+        label="Address"
+        v-model="location.streetaddress"
 
-      required
-    ></v-text-field>
-    <v-text-field
-      label="Address"
-      v-model="location.streetaddress"
+        required
+      ></v-text-field>
+      <v-text-field
+        label="Location Manager"
+        v-model="location.sendername"
 
-      required
-    ></v-text-field>
-    <v-text-field
-      label="Location Manager"
-      v-model="location.sendername"
-
-      required
-    ></v-text-field>
-    <v-text-field
-      v-model="location.reviewinvitetext"
-      label="Customer Text Message"
-      counter="250"
-      max=250
-      multi-line
-      auto-grow
-      rows="1"
-      hide-details
-    ></v-text-field>
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="location.reviewinvitetext"
+        label="Customer Text Message"
+        counter="250"
+        max=250
+        multi-line
+        auto-grow
+        rows="1"
+        hide-details
+      ></v-text-field>
+    </v-form>
     <v-layout right row wrap>
       <v-btn @click="save" color="success">Save</v-btn>     
     </v-layout>
@@ -125,6 +126,9 @@ export default {
     },
     hideSnackbar () {
       this.$store.dispatch('hideSnackbar')
+    },
+    clear () {
+      this.$refs.form.reset()
     }
     // usePlace (place) {
     //   if (this.place) {
@@ -149,7 +153,9 @@ export default {
     },
     editLocation: function () {
       if (this.editLocation) {
-        this.location = this.editLocation
+        this.location = Object.assign({}, this.editLocation)
+      } else {
+        this.clear()
       }
     }
   },
