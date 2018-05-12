@@ -20,7 +20,7 @@
         <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
-        <v-btn color="blue darken-1" flat @click.native="saveReviewSite()">Save</v-btn>
+        <v-btn color="blue darken-1" flat @click.native="saveReviewSite">Save</v-btn>
         </v-card-actions>
     </v-card>
     </v-dialog>
@@ -40,22 +40,22 @@ export default {
   },
   methods: {
     saveReviewSite () {
-      var sites = this.location.reviewsites ? JSON.parse(this.location.reviewsites) : null
-      if (sites) {
-        sites.push(this.item)
-        this.location.reviewsites = JSON.stringify(sites)
+      var updated = this.location
+      if (updated.reviewsites) {
+        updated.reviewsites.push(this.item)
       } else {
-        this.location.reviewsites = JSON.stringify([this.item])
+        updated.reviewsites = [this.item]
       }
-      this.$store.dispatch('addLocation', this.location)
+      this.$store.dispatch('addLocation', updated)
+      this.close()
     },
     removeReviewSite () {
-      if (this.location.reviewsites) {
-        var sites = JSON.parse(this.location.reviewsites)
+      var updated = this.location
+      if (updated.reviewsites) {
         if (this.item.select) {
-          this.location.reviewsites = JSON.stringify(sites.filter(site => site.label !== this.item.select))
+          updated.reviewsites = updated.reviewsites.filter(site => site.label !== this.item.select)
         }
-        this.$store.dispatch('addLocation', this.location)
+        this.$store.dispatch('addLocation', updated)
       }
     },
     close () {
