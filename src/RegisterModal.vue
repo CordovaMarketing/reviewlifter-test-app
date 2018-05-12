@@ -35,11 +35,10 @@
 <script>
 import ChoosePlan from './components/billing/ChoosePlan'
 export default {
-  // props: ['visible'],
+  props: ['visible'],
   data () {
     return {
       step: 0,
-      visible: true
     }
   },
   components: {
