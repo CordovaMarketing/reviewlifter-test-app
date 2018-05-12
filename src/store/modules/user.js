@@ -96,7 +96,7 @@ const actions = {
   addPlan ({ commit }, info) {
     HTTP.post('pay', info)
       .then(response => {
-        commit(types.UPDATE_PLAN, name)
+        commit(types.UPDATE_PLAN, response.data)
         commit(types.SHOW_SNACKBAR, 'Billing setup!')
       })
       .catch(function (error) {
@@ -148,8 +148,9 @@ const mutations = {
     s.snackbar.text = ''
     s.snackbar.show = false
   },
-  UPDATE_PLAN (s, plan) {
-    s.user.plan = plan
+  UPDATE_PLAN (s, data) {
+    s.user.plan = data.plan
+    s.user.stripeid = data.stripeid
   },
   SET_CARDINFO (s, info) {
     s.cardInfo = info

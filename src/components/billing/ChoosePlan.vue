@@ -206,7 +206,7 @@ export default {
       superannual: false,
       planNameDisplay: '',
       price: '',
-      planName: '',
+      plan: {},
       complete: false,
       stripeOptions: {
       }
@@ -218,25 +218,25 @@ export default {
       var info
       if (planName === 'super') {
         info = this.getSuperInfo()
-        this.planName = info.label + planName
+        this.plan = {'duration':info.label, 'name': planName}
         this.price = this.superannual ? info.annual : info.price
       } else if (planName === 'premium') {
         info = this.getPremiumInfo()
-        this.planName = info.label + planName
+        this.plan = {'duration':info.label, 'name': planName}
         this.price = this.premiumannual ? info.annual : info.price
       } else if (planName === 'standard') {
         info = this.getStandardInfo()
-        this.planName = info.label + planName
+        tthis.plan = {'duration':info.label, 'name': planName}
         this.price = this.standardannual ? info.annual : info.price
       } else if (planName === 'basic') {
         info = this.getBasicInfo()
-        this.planName = info.label + planName
+        this.plan = {'duration':info.label, 'name': planName}
         this.price = this.basicannual ? info.annual : info.price
       }
       this.planNameDisplay = planName.toUpperCase()
     },
     submitPlan () {
-      createToken().then(data => this.$store.dispatch('addPlan', { 'plan': this.planName, 'stripeToken': data.token.id }))
+      createToken().then(data => this.$store.dispatch('addPlan', { 'plan': this.plan, 'stripeToken': data.token.id }))
       this.dialog = false
     },
     getSuperInfo () {
