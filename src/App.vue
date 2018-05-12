@@ -67,7 +67,7 @@ export default {
       return this.user
     },
     registered () {
-      return this.user.stripeid
+      return this.user.stripeid || this.user.accttype === 'sub'
     }
   },
   components: {

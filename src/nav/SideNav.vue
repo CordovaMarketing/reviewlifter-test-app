@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     checkPermissions (item) {
-      return item.path === '/addcustomers' || this.user.accttype === 'client'
+      return item.path === '/addcustomers' || (this.user && this.user.accttype === 'client')
     }
   },
   computed: {
