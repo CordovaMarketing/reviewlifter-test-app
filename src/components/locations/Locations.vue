@@ -117,11 +117,7 @@ export default {
       },
       showModal: false,
       location: null,
-      dialog: false,
-      item: {
-        label: '',
-        url: ''
-      }
+      dialog: false
     }
   },
   created () {

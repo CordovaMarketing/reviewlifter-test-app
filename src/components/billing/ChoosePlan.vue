@@ -9,7 +9,6 @@
         md4
         lg3
       >
-      
         <v-card>
           <v-card-title>
             <h2>Basic</h2>
@@ -35,7 +34,7 @@
             </v-list-tile>
           </v-list>
         <div>
-            <v-btn @click="planDialog('basic')" block color="primary" dark> Get started with basic </v-btn>
+            <v-btn @click="planDialog('basic')" block color="primary" dark> Get started with basic free trial</v-btn>
         </div>
         </v-card>
     </v-flex>
@@ -73,7 +72,7 @@
             </v-list-tile>
           </v-list>
             <div>
-                <v-btn @click="planDialog('standard')" block color="primary" dark>Get started with Standard </v-btn>
+                <v-btn @click="planDialog('standard')" block color="primary" dark>Get started with Standard free trial</v-btn>
             </div>
         </v-card>
     </v-flex>
@@ -111,7 +110,7 @@
             </v-list-tile>
           </v-list>
             <div>
-                <v-btn @click="planDialog('premium')" block color="primary" dark> Get started with Premium </v-btn>
+                <v-btn @click="planDialog('premium')" block color="primary" dark> Get started with Premium free trial</v-btn>
             </div>
         </v-card>
     </v-flex>
@@ -149,7 +148,7 @@
             </v-list-tile>
           </v-list>
           <div>
-              <v-btn @click="planDialog('super')" block color="primary" dark>Get started with Super</v-btn>
+              <v-btn @click="planDialog('super')" block color="primary" dark>Get started with Super free trial</v-btn>
           </div>
         </v-card>
     </v-flex>
@@ -160,6 +159,8 @@
       <v-card>
         <v-card-title>
           <span class="headline">{{ planNameDisplay }}</span>
+          <v-spacer></v-spacer>
+          <span class="headline">{{ price }}</span>
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
@@ -179,7 +180,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click="submitPlan">Start Getting Reviews!</v-btn>
+          <v-btn color="blue darken-1" :disabled='!complete' flat @click="submitPlan">Start Getting Reviews!</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -204,6 +205,7 @@ export default {
       premiumannual: false,
       superannual: false,
       planNameDisplay: '',
+      price: '',
       planName: '',
       complete: false,
       stripeOptions: {
@@ -214,13 +216,21 @@ export default {
     planDialog (planName) {
       this.dialog = true
       if (planName === 'super') {
-        this.planName = this.getSuperInfo().label + planName
+        var info = this.getSuperInfo()
+        this.planName = info.label + planName
+        this.price = this.superannual ? info.annual : info.price
       } else if (planName === 'premium') {
-        this.planName = this.getPremiumInfo().label + planName
+        var info = this.getPremiumInfo()
+        this.planName = info.label + planName
+        this.price = this.premiumannual ? info.annual : info.price
       } else if (planName === 'standard') {
-        this.planName = this.getStandardInfo().label + planName
+        var info = this.getStandardInfo()
+        this.planName = info.label + planName
+        this.price = this.standardannual ? info.annual : info.price
       } else if (planName === 'basic') {
-        this.planName = this.getBasicInfo().label + planName
+        var info = this.getBasicInfo()
+        this.planName = info.label + planName
+        this.price = this.basicannual ? info.annual : info.price
       }
       this.planNameDisplay = planName.toUpperCase()
     },
@@ -230,28 +240,28 @@ export default {
     },
     getSuperInfo () {
       if (this.superannual) {
-        return { label: 'Annual', price: '$3240' }
+        return { label: 'Annual', price: '$270', annual: '$3240' }
       } else {
         return { label: 'Monthly', price: '$300' }
       }
     },
     getPremiumInfo () {
       if (this.premiumannual) {
-        return { label: 'Annual', price: '$2430' }
+        return { label: 'Annual', price: '$200', annual:'$2400' }
       } else {
         return { label: 'Monthly', price: '$225' }
       }
     },
     getStandardInfo () {
       if (this.standardannual) {
-        return { label: 'Annual', price: '$1890' }
+        return { label: 'Annual', price: '$150', annual:'$1800' }
       } else {
         return { label: 'Monthly', price: '$175' }
       }
     },
     getBasicInfo () {
       if (this.basicannual) {
-        return { label: 'Annual', price: '$1350' }
+        return { label: 'Annual', price: '$100' , annual:'$1200'}
       } else {
         return { label: 'Monthly', price: '$125' }
       }
@@ -263,6 +273,9 @@ export default {
       'user',
       'snackbar'
     ])
+  },
+  beforeCreate () {
+    
   }
 }
 </script>

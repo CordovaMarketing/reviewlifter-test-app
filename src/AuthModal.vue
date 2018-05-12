@@ -7,7 +7,11 @@
         <v-card>
           <v-flex class="text-xs-center">
             <v-card-title class="headline">Review Lifter</v-card-title>
-              <v-card-text>Use your Google account to sign in to Review Lifter.</v-card-text>
+              <v-card-text>Use your Google account to sign up or login to Review Lifter.</v-card-text>
+            <v-btn class="signin-button" color="blue" dark  v-on:click="signIn">
+              <v-icon dark left>fab fa-google</v-icon>
+              Create account
+            </v-btn>
             <v-btn class="signin-button" color="deep-orange" dark  v-on:click="signIn">
               <v-icon dark left>fab fa-google</v-icon>
               Sign in with Google

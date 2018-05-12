@@ -2,10 +2,13 @@
 <template>
   <v-container >
     <v-layout justify-center>
-    <v-flex xs6>  
+    <v-flex lg4 xs6>  
 <!-- Toolbar -->
-    <v-icon large style="width: 4%">search</v-icon>
-    <GmapAutocomplete :value="location.businessname" placeholder="Enter a location..." class="input headline" @place_changed="setPlace">
+    <h3 class="headline">First, search for your business</h3>
+    <v-divider></v-divider>
+    <br>
+    <v-icon medium style="width: 4%">search</v-icon>
+    <GmapAutocomplete :value="location.businessname" placeholder="Enter location..." class="input headline" @place_changed="setPlace">
     </GmapAutocomplete>
     <br/>
 
@@ -22,9 +25,9 @@
         }"
         />
     </GmapMap>
-
+    <div v-if="location.businessname" class="fade-in">
     <v-text-field
-      label="Business Name"
+      label="Business Name (This will appear in text messages to customers)"
       v-model="location.businessname"
 
       :counter="10"
@@ -43,31 +46,39 @@
       required
     ></v-text-field>
     <v-text-field
-      label="Location Manager"
+      label="Location Contact (Name of person appearing in text messages to customers)"
       v-model="location.sendername"
 
       required
     ></v-text-field>
     <v-text-field
-      v-model="location.reviewinvitetext"
+      v-model="reviewtext"
       label="Customer Text Message"
       counter="250"
       max=250
       multi-line
       auto-grow
-      rows="1"
+      rows="2"
       hide-details
     ></v-text-field>
+    <h2>This messasge will appear to customers:</h2>
+    <v-divider></v-divider>
+    <br>
+    <h3>{{reviewtext}}</h3>
+    <br>
     <v-layout right row wrap>
-      <v-btn @click="save" color="success">Save</v-btn>     
+      <v-btn @click="save" color="success">Save</v-btn>
+      <small>You are charged on the same pricing/plan for each location added. 2 locations = 2 * monthly or annual cost. 
+        You currently are on the {{ user.plan }} plan. After 7 free days using this location, you will be charged. </small>     
     </v-layout>
+    </div>
     </v-flex>      
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   props: ['editLocation'],
@@ -90,7 +101,7 @@ export default {
         businessname: '',
         reviewlink: '',
         reviewsites: '',
-        reviewinvitetext: 'We appreciate your business! Could you take a quick 30 seconds and give us a rating at the link below? Thanks.',
+        reviewinvitetext: '',
         streetaddress: '',
         features: '',
         comments: ''
@@ -115,6 +126,7 @@ export default {
       this.location.phone = place.international_phone_number
       this.location.businessname = place.name
       this.location.streetaddress = place.formatted_address
+      this.location.reviewinvitetext = ''
       this.center = {
         lat: this.place.geometry.location.lat(),
         lng: this.place.geometry.location.lng()
@@ -154,6 +166,13 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'user'
+    ]),
+    reviewtext () {
+      if (this.place)
+        return 'Hi Sally, this is ' + this.location.sendername + ' from '+ this.location.businessname +' We appreciate your business! Could you take a quick 30 seconds and give us a rating at the link below? Thanks.'
+    }
   }
 }
 </script>
@@ -173,5 +192,21 @@ export default {
 
 .input {
   width: 95%;
+}
+.fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 </style>
