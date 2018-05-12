@@ -170,8 +170,9 @@ export default {
       'user'
     ]),
     reviewtext () {
-      if (this.place)
-        return 'Hi Sally, this is ' + this.location.sendername + ' from '+ this.location.businessname +' We appreciate your business! Could you take a quick 30 seconds and give us a rating at the link below? Thanks.'
+      if (this.place) {
+        return 'Hi Sally, this is ' + this.location.sendername + ' from ' + this.location.businessname + ' We appreciate your business! Could you take a quick 30 seconds and give us a rating at the link below? Thanks.'
+      }
     }
   }
 }
@@ -193,20 +194,22 @@ export default {
 .input {
   width: 95%;
 }
+
 .fade-in {
-	opacity: 1;
-	animation-name: fadeInOpacity;
-	animation-iteration-count: 1;
-	animation-timing-function: ease-in;
-	animation-duration: 1s;
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 1s;
 }
 
 @keyframes fadeInOpacity {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 </style>
