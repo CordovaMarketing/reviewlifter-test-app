@@ -218,19 +218,19 @@ export default {
       var info
       if (planName === 'super') {
         info = this.getSuperInfo()
-        this.plan = {'duration':info.label, 'name': planName}
+        this.plan = { 'duration': info.label, 'name': planName }
         this.price = this.superannual ? info.annual : info.price
       } else if (planName === 'premium') {
         info = this.getPremiumInfo()
-        this.plan = {'duration':info.label, 'name': planName}
+        this.plan = { 'duration': info.label, 'name': planName }
         this.price = this.premiumannual ? info.annual : info.price
       } else if (planName === 'standard') {
         info = this.getStandardInfo()
-        tthis.plan = {'duration':info.label, 'name': planName}
+        this.plan = { 'duration': info.label, 'name': planName }
         this.price = this.standardannual ? info.annual : info.price
       } else if (planName === 'basic') {
         info = this.getBasicInfo()
-        this.plan = {'duration':info.label, 'name': planName}
+        this.plan = { 'duration': info.label, 'name': planName }
         this.price = this.basicannual ? info.annual : info.price
       }
       this.planNameDisplay = planName.toUpperCase()
