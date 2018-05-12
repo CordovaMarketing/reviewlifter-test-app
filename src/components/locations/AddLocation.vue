@@ -74,6 +74,7 @@ export default {
   props: ['editLocation'],
   data () {
     return {
+      valid: true,
       place: null,
       places: [],
       center: {

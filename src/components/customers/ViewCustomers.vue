@@ -13,12 +13,11 @@
       >
       <v-icon>add</v-icon>
     </v-btn>
-    <template
-    ><v-card>
+    <v-card v-if="dialog">
         <AddCustomers
         v-bind:editCustomer="customer"/>
         <!-- :editLocation="location"/> -->
-      </v-card></template>
+      </v-card>
     </v-dialog>
     <br><br>
     <br><br>
