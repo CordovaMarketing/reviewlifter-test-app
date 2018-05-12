@@ -2,10 +2,10 @@
 <template>
   <v-container >
     <v-layout justify-center>
-    <v-flex lg4 xs6>  
+    <v-flex xs6>  
 <!-- Toolbar -->
-    <h3 class="headline">First, search for your business</h3>
-    <v-divider></v-divider>
+    <h3 class="headline grey--text grey--lighten-1">First, search for your business</h3>
+
     <br>
     <v-icon medium style="width: 4%">search</v-icon>
     <GmapAutocomplete :value="location.businessname" placeholder="Enter location..." class="input headline" @place_changed="setPlace">
@@ -43,36 +43,43 @@
       <v-text-field
         label="Address"
         v-model="location.streetaddress"
-
         required
       ></v-text-field>
-      <v-text-field
-        label="Location Manager"
-        v-model="location.sendername"
-
-      required
-    ></v-text-field>
     <v-text-field
-      label="Location Contact (Name of person appearing in text messages to customers)"
+      label="Location Contact (Name appearing in text messages to customers)"
       v-model="location.sendername"
-
       required
     ></v-text-field>
-    <v-text-field
+    <v-layout>
+      <v-flex><v-text-field
       v-model="reviewtext"
-      label="Customer Text Message"
-      counter="250"
-      max=250
+      label="Text message to customers"
+      counter="500"
+      max=500
       multi-line
       auto-grow
       rows="2"
       hide-details
-    ></v-text-field>
-    <h2>This messasge will appear to customers:</h2>
-    <v-divider></v-divider>
-    <br>
-    <h3>{{reviewtext}}</h3>
-    <br>
+    ></v-text-field></v-flex>
+    <!-- <v-flex xs-1></v-flex>
+      <v-flex> 
+        <v-card  color="grey darken-3">
+          <v-text-field
+          v-model="reviewtext"
+          label="Text message to customers"
+          dark
+          textarea
+          multi-line
+          auto-grow
+          rows="2"
+          hide-details
+        ></v-text-field>
+        </v-card>
+        
+      </v-flex> -->
+    </v-layout>
+    
+    
     <v-layout right row wrap>
       <v-btn @click="save" color="success">Save</v-btn>
       <small>You are charged on the same pricing/plan for each location added. 2 locations = 2 * monthly or annual cost. 
@@ -135,6 +142,7 @@ export default {
       this.location.businessname = place.name
       this.location.streetaddress = place.formatted_address
       this.location.reviewinvitetext = ''
+      this.location.sendername = this.user.firstname
       this.center = {
         lat: this.place.geometry.location.lat(),
         lng: this.place.geometry.location.lng()

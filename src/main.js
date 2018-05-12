@@ -35,6 +35,7 @@ import {
   VDataTable
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
+import colors from 'vuetify/es5/util/colors'
 
 Vue.use(Vuetify, {
   components: {
@@ -60,6 +61,11 @@ Vue.use(Vuetify, {
     VDataIterator,
     VSwitch,
     VDataTable
+  },
+  theme: {
+    primary: colors.blue.darken1, // #E53935
+    secondary: colors.blue.lighten4, // #FFCDD2
+    accent: colors.indigo.base // #3F51B5
   }
 })
 

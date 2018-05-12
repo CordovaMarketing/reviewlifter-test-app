@@ -5,7 +5,6 @@
         hide-overlay
         fullscreen
         transition="dialog-bottom-transition"
-        scrollable
       >
     <v-btn
     dark
@@ -27,7 +26,7 @@
           </v-btn>
         </v-card>        
       </v-toolbar>
-      <v-card>
+      <v-card scrollable>
         <AddLocation
         :editLocation="location"/>
       </v-card>

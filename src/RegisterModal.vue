@@ -11,6 +11,7 @@
     <v-stepper-items>
       <v-stepper-content step="1">
         <AddLocation/>
+        
         <v-btn color="primary" @click.native="step = 2">Continue</v-btn>
         <v-btn flat>Cancel</v-btn>
       </v-stepper-content>

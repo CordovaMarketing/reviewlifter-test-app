@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <AuthModal @signedIn="loggedIn = true" :visible="!loggedIn" />
-    <RegisterModal @register="registered = true" :visible="loggedIn && !registered"/>
+    <RegisterModal @register="registered = true" v-if="loggedIn  && !registered" :visible="loggedIn && !registered"/>
 
     <v-navigation-drawer persistent v-model="drawer" enable-resize-watcher fixed app>
       <UserHeader/>
@@ -67,7 +67,7 @@ export default {
       return this.user
     },
     registered () {
-      return this.locations.length > 0
+      return this.user.stripeid
     }
   },
   components: {
