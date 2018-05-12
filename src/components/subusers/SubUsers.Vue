@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h2>Current Subusers</h2>
+      <h2 class="text-md-center">Employees</h2>
     <v-data-table
       :headers="headers"
       :items="items()"
@@ -18,15 +18,15 @@
         </td>
       </template>
       <template slot="no-data">
-        <v-btn color="primary" @click="items">Reset</v-btn>
+        <h3 class="headline text-md-center grey--text grey--lighten-1">No registered employees.</h3>
       </template>
     </v-data-table>
   
     <v-dialog v-model="dialog" max-width="500px">
-        <v-btn color="primary" dark slot="activator" absolute class="mt-2">Add subuser</v-btn>
+        <v-btn color="primary" dark slot="activator" absolute class="mt-2">Add Employee</v-btn>
       <v-card>
         <v-card-title>
-          <span class="headline">Add Subuser</span>
+          <span class="headline">Add Employee</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>

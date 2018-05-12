@@ -42,7 +42,7 @@
         </td>
       </template>
       <template slot="no-data">
-        <v-btn color="primary">Reset</v-btn>
+        <h3 class="headline text-md-center grey--text grey--lighten-1">No customers to display.</h3>
       </template>
     </v-data-table>
   </v-container>
