@@ -1,6 +1,6 @@
 <template>
   <v-container fluid grid-list-md>
-    <v-dialog v-model="dialog" max-width="500px">
+    <v-dialog v-model="dialog" lazy max-width="500px">
       <v-btn
       dark
       fab
@@ -9,25 +9,29 @@
       right
       color="red"
       slot="activator"
-      :to="{path: '/addcustomers'}"
+      @click.native="editItem(null)"      
       >
       <v-icon>add</v-icon>
     </v-btn>
+    <v-card v-if="dialog">
+        <AddCustomers
+        v-bind:editCustomer="customer"/>
+        <!-- :editLocation="location"/> -->
+      </v-card>
     </v-dialog>
     <br><br>
     <br><br>
     <v-data-table
       :headers="headers"
-      :items="desserts"
+      :items="customers"
       hide-actions
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.calories }}</td>
-        <td class="text-xs-right">{{ props.item.fat }}</td>
-        <td class="text-xs-right">{{ props.item.carbs }}</td>
-        <td class="text-xs-right">{{ props.item.protein }}</td>
+        <td>{{ props.item.firstname + ' ' + props.item.lastname }}</td>
+        <td>{{ getLocation(props.item.locationid).businessname }}</td>
+        <td>{{ props.item.email }}</td>
+        <td>{{ props.item.phone }}</td>
         <td class="justify-center layout px-0">
           <v-btn icon class="mx-0" @click="editItem(props.item)">
             <v-icon color="teal">edit</v-icon>
@@ -38,13 +42,15 @@
         </td>
       </template>
       <template slot="no-data">
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
+        <v-btn color="primary">Reset</v-btn>
       </template>
     </v-data-table>
   </v-container>
 </template>
 
 <script>
+import AddCustomers from './AddCustomers'
+import { mapGetters } from 'vuex'
 export default {
   data: () => ({
     dialog: false,
@@ -56,30 +62,18 @@ export default {
         value: 'name'
       },
       { text: 'Location', value: 'calories' },
-      { text: 'Fat (g)', value: 'fat' },
-      { text: 'Carbs (g)', value: 'carbs' },
-      { text: 'Protein (g)', value: 'protein' },
+      { text: 'Email', value: 'fat' },
+      { text: 'Phone #', value: 'carbs' },
       { text: 'Actions', value: 'name', sortable: false }
     ],
-    desserts: [],
-    editedIndex: -1,
-    editedItem: {
-      name: '',
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    },
-    defaultItem: {
-      name: '',
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    }
+    customer: null
   }),
 
   computed: {
+    ...mapGetters([
+      'customers',
+      'locations'
+    ]),
     formTitle () {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     }
@@ -91,95 +85,17 @@ export default {
     }
   },
 
-  created () {
-    this.initialize()
-  },
-
   methods: {
-    initialize () {
-      this.desserts = [
-        {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0
-        },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3
-        },
-        {
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0
-        },
-        {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3
-        },
-        {
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9
-        },
-        {
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0
-        },
-        {
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0
-        },
-        {
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5
-        },
-        {
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9
-        },
-        {
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7
-        }
-      ]
+    getLocation (id) {
+      return this.locations.filter(l => l.public_id === id)[0]
     },
-
     editItem (item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.customer = item
       this.dialog = true
     },
 
     deleteItem (item) {
-      const index = this.desserts.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+      confirm('Are you sure you want to delete this item?') && this.$store.dispatch('deleteCustomer', item)
     },
 
     close () {
@@ -198,6 +114,9 @@ export default {
       }
       this.close()
     }
+  },
+  components: {
+    AddCustomers
   }
 }
 </script>

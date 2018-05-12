@@ -215,20 +215,21 @@ export default {
   methods: {
     planDialog (planName) {
       this.dialog = true
+      var info
       if (planName === 'super') {
-        var info = this.getSuperInfo()
+        info = this.getSuperInfo()
         this.planName = info.label + planName
         this.price = this.superannual ? info.annual : info.price
       } else if (planName === 'premium') {
-        var info = this.getPremiumInfo()
+        info = this.getPremiumInfo()
         this.planName = info.label + planName
         this.price = this.premiumannual ? info.annual : info.price
       } else if (planName === 'standard') {
-        var info = this.getStandardInfo()
+        info = this.getStandardInfo()
         this.planName = info.label + planName
         this.price = this.standardannual ? info.annual : info.price
       } else if (planName === 'basic') {
-        var info = this.getBasicInfo()
+        info = this.getBasicInfo()
         this.planName = info.label + planName
         this.price = this.basicannual ? info.annual : info.price
       }
@@ -247,21 +248,21 @@ export default {
     },
     getPremiumInfo () {
       if (this.premiumannual) {
-        return { label: 'Annual', price: '$200', annual:'$2400' }
+        return { label: 'Annual', price: '$200', annual: '$2400' }
       } else {
         return { label: 'Monthly', price: '$225' }
       }
     },
     getStandardInfo () {
       if (this.standardannual) {
-        return { label: 'Annual', price: '$150', annual:'$1800' }
+        return { label: 'Annual', price: '$150', annual: '$1800' }
       } else {
         return { label: 'Monthly', price: '$175' }
       }
     },
     getBasicInfo () {
       if (this.basicannual) {
-        return { label: 'Annual', price: '$100' , annual:'$1200'}
+        return { label: 'Annual', price: '$100', annual: '$1200' }
       } else {
         return { label: 'Monthly', price: '$125' }
       }
@@ -275,7 +276,7 @@ export default {
     ])
   },
   beforeCreate () {
-    
+
   }
 }
 </script>

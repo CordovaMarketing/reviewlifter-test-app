@@ -25,23 +25,30 @@
         }"
         />
     </GmapMap>
-    <div v-if="location.businessname" class="fade-in">
-    <v-text-field
+
+    
+    <v-form  v-if="location.businessname" class="fade-in" v-model="valid" ref="form" lazy-validation>
+      <v-text-field
       label="Business Name (This will appear in text messages to customers)"
       v-model="location.businessname"
+        :counter="10"
+        required
+      ></v-text-field>
+      <v-text-field
+        label="Phone number"
+        v-model="location.phone"
 
-      :counter="10"
-      required
-    ></v-text-field>
-    <v-text-field
-      label="Phone number"
-      v-model="location.phone"
+        required
+      ></v-text-field>
+      <v-text-field
+        label="Address"
+        v-model="location.streetaddress"
 
-      required
-    ></v-text-field>
-    <v-text-field
-      label="Address"
-      v-model="location.streetaddress"
+        required
+      ></v-text-field>
+      <v-text-field
+        label="Location Manager"
+        v-model="location.sendername"
 
       required
     ></v-text-field>
@@ -71,7 +78,7 @@
       <small>You are charged on the same pricing/plan for each location added. 2 locations = 2 * monthly or annual cost. 
         You currently are on the {{ user.plan }} plan. After 7 free days using this location, you will be charged. </small>     
     </v-layout>
-    </div>
+    </v-form>        
     </v-flex>      
     </v-layout>
   </v-container>
@@ -84,6 +91,7 @@ export default {
   props: ['editLocation'],
   data () {
     return {
+      valid: true,
       place: null,
       places: [],
       center: {
@@ -137,6 +145,9 @@ export default {
     },
     hideSnackbar () {
       this.$store.dispatch('hideSnackbar')
+    },
+    clear () {
+      this.$refs.form.reset()
     }
     // usePlace (place) {
     //   if (this.place) {
@@ -161,7 +172,9 @@ export default {
     },
     editLocation: function () {
       if (this.editLocation) {
-        this.location = this.editLocation
+        this.location = Object.assign({}, this.editLocation)
+      } else {
+        this.clear()
       }
     }
   },

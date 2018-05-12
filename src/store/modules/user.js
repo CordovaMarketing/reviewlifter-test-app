@@ -27,6 +27,7 @@ const actions = {
     dispatch('loadLocations').then(() => {
       commit(types.SET_USER, userToAdd)
     })
+    dispatch('loadCustomers')
   },
   updateUser ({ commit, dispatch }, user) {
     const userUpdate = {

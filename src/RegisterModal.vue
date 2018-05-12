@@ -38,7 +38,7 @@ export default {
   props: ['visible'],
   data () {
     return {
-      step: 0,
+      step: 0
     }
   },
   components: {
