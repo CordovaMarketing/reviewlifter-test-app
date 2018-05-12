@@ -4,6 +4,7 @@
       value="true"
       v-for="(item, i) in items"
       :key="i"
+      v-if="checkPermissions(item)"
       :to="{path: item.path}"
     >
       <v-list-tile-action>
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -41,6 +43,16 @@ export default {
         path: '/addcustomers'
       }]
     }
+  },
+  methods: {
+    checkPermissions (item) {
+      return item.path === '/addcustomers' || this.user.accttype === 'client'
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'user'
+    ])
   }
 }
 </script>

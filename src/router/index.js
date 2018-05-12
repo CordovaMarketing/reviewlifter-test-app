@@ -7,10 +7,10 @@ import AddCustomers from '@/components/customers/AddCustomers'
 import SubUsers from '@/components/subusers/SubUsers'
 import Billing from '@/components/billing/ChoosePlan'
 import Settings from '@/components/settings/Settings'
-
+import store from '@/store/store.js'
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -49,3 +49,13 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  // if user type == employee
+  // next('/addcustomers');
+  if (store.getters.user && store.getters.user.accttype === 'sub') {
+    next('/addcustomers')
+  } else next()
+})
+
+export default router
