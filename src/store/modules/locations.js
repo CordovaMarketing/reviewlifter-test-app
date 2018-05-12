@@ -28,7 +28,7 @@ const actions = {
           commit(types.SHOW_SNACKBAR, 'Error Saving!')
         })
     } else {
-      HTTP.post('locations', [place])
+      HTTP.post('location', place)
         .then(response => {
           commit(types.ADD_PLACE, response.data)
           commit(types.SHOW_SNACKBAR, 'Location saved!')
