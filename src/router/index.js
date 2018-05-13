@@ -51,9 +51,11 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  // if user type == employee
-  // next('/addcustomers');
-  if (store.getters.user && store.getters.user.accttype === 'sub') {
+  if (
+    to.path !== '/addcustomers' &&
+    store.getters.user &&
+    store.getters.user.accttype === 'sub'
+  ) {
     next('/addcustomers')
   } else next()
 })
