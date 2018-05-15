@@ -4,11 +4,8 @@
     <v-layout justify-center>
     <v-flex xs6>  
 <!-- Toolbar -->
-    <h3 class="headline grey--text grey--lighten-1">First, search for your business</h3>
-
-    <br>
-    <v-icon medium style="width: 4%">search</v-icon>
-    <GmapAutocomplete :value="location.businessname" placeholder="Enter location..." class="input headline" @place_changed="setPlace">
+    <v-icon large class="search-icon">search</v-icon>
+    <GmapAutocomplete :value="location.businessname" placeholder="search for your business" class="input display-1" @place_changed="setPlace">
     </GmapAutocomplete>
     <br/>
 
@@ -200,6 +197,11 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+
+.search-icon {
+  width: 4%;
+  margin-bottom: 12px;
+}
 
 .demo {
   height: 100%;
