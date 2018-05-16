@@ -49,8 +49,9 @@ export default {
       // we will want to use direct access which will give back an object
       Vue.googleAuth().signIn(this.onSignInSuccess, this.onSignInError)
     },
+    // https://druo0vibxg7ct.cloudfront.net
     onSignInSuccess: function (authorizationCode) {
-      HTTP.post('jsGoogle', { code: authorizationCode, redirect_uri: 'http://reviewlifterapp.s3-website-us-east-1.amazonaws.com' }).then(function (response) {
+      HTTP.post('jsGoogle', { code: authorizationCode, redirect_uri: 'https://druo0vibxg7ct.cloudfront.net' }).then(function (response) {
         if (response.data) {
           var data = response.data
           HTTP.defaults.headers.common['x-access-token'] = data.token

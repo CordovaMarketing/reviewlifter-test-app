@@ -1,5 +1,6 @@
 import * as types from '../mutation-type'
-import { HTTP } from '../../http-common'
+import { HTTP, intercept } from '../../http-common'
+import Vue from 'vue'
 
 // STATE
 
@@ -61,6 +62,13 @@ const actions = {
   },
   setToken ({ commit }, tokenToAdd) {
     commit(types.SET_TOKEN, tokenToAdd)
+  },
+  signOut ({ commit, dispatch }) {
+    Vue.googleAuth().signOut(function () { 
+      location.reload();
+    }, function (error) {
+      // things to do when sign-out fails
+    })
   },
   addSubUser ({ commit, getters }, subuserToAdd) {
     HTTP.post('addsubuser', subuserToAdd)

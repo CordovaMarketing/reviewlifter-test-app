@@ -22,8 +22,8 @@
       </v-stepper-content>
       <v-stepper-content step="3">
           <ChoosePlan/>
-          <v-btn color="primary" @click="$emit('register')">Finish</v-btn>
-        <v-btn flat>Cancel</v-btn>
+          <!-- <v-btn color="primary" @click="$emit('register')">Finish</v-btn>
+        <v-btn flat>Cancel</v-btn> -->
 
         <!-- TODO: either send and receive registration info from server here and then emit it back up, 
         or just emit that finish was clicked, and in root module handle registration -->

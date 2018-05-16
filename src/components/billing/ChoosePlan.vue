@@ -13,7 +13,7 @@
           <v-card-title>
             <h2>Applegate</h2>
             <v-spacer></v-spacer>
-            <h3>35.71 Monthly per location</h3>
+            <h3>$35.71 Monthly per location</h3>
           </v-card-title>
           <v-divider></v-divider>
           <v-list subheader dense>
@@ -31,7 +31,8 @@
             </v-list-tile>
           </v-list>
         <div>
-            <v-btn @click="planDialog('Applegate')" block color="primary" dark> Get started</v-btn>
+            <v-btn @click="planDialog('Applegate')" block color="primary" dark> Start Getting Reviews</v-btn>
+            <small>By Clicking the "Start Getting Reviews!" button, you agree to our Terms of Service which can be viewed <a href='https://docs.google.com/document/d/1UEf68w9puYXrG2oI0KfdnWO5GlTenok4u5TYLKtjnDA/edit'>here.</a></small>
         </div>
         </v-card>
     </v-flex>
@@ -184,8 +185,8 @@
               <v-btn @click="planDialog('super')" block color="primary" dark>Get started with Super free trial</v-btn>
           </div>
         </v-card>
-    </v-flex>
-    </v-layout> -->
+    </v-flex> -->
+    </v-layout> 
 
 
     <v-dialog v-model="dialog" persistent max-width="500px">
@@ -202,11 +203,10 @@
             <h3>Please give us your payment details:</h3>
             <card class='stripe-card'
             :class='{ complete }'
-            stripe='pk_test_FWt0YuMpM9UbFRyaChHMAM83'
+            stripe='pk_live_h3cANxNnHs9grgvUEc80E8MZ '
             :options='stripeOptions'
             @change='complete = $event.complete'
             />
-            <!-- pk_live_h3cANxNnHs9grgvUEc80E8MZ -->
             </v-layout>
           </v-container>
           <small>*indicates required field</small>

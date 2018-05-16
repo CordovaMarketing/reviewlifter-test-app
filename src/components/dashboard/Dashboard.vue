@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <p>you are home</p>
+        <h2 class="heading">Welcome to ReviewLifter. To get started, begin adding customers.</h2>
       </v-layout>
     </v-slide-y-transition>
   </v-container>

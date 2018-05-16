@@ -13,7 +13,7 @@
         <div>
             <card class='stripe-card'
             :class='{ complete }'
-            stripe='pk_test_FWt0YuMpM9UbFRyaChHMAM83'
+            stripe='pk_live_h3cANxNnHs9grgvUEc80E8MZ'
             :options='stripeOptions'
             @change='complete = $event.complete'
             />

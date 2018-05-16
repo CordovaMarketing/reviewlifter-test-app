@@ -28,6 +28,7 @@
             v-model="customer.email"
             :rules="emailRules"
           ></v-text-field>
+          <div v-if="user">
           <v-select
             label="Location"
             v-model="select"
@@ -36,11 +37,10 @@
             required
           ></v-select>
           <v-checkbox
-
             label="Set location to default to this value"
             v-model="checkbox"
           ></v-checkbox>
-
+          </div>
           <v-btn
             @click="submit"
             :disabled="!valid"
@@ -86,22 +86,10 @@ export default {
        select: []
     }
   },
-  beforeMount () {
-    if (this.user.preflocation) {
-      this.checkbox = true
-      this.select = this.locations.find(l => l.public_id === this.user.preflocation).streetaddress
-    } else {
-      this.select = []
-    }
-  },
   mounted () {
     this.editWithCustomer()
-    if (this.user.preflocation) {
-      this.checkbox = true
-      this.select = this.locations.find(l => l.public_id === this.user.preflocation).streetaddress
-    } else {
-      this.select = []
-    }
+    this.fillPreflocation()
+
   },
   methods: {
     submit () {
@@ -114,13 +102,13 @@ export default {
     },
     savePrefferedLocation () {
       // This is being sent every time I submit a customer
-
+      var updated = this.user
       if (this.checkbox) {
-        this.user.preflocation = this.location.public_id
-        this.$store.dispatch('updateUser', this.user)
+        updated.preflocation = this.location.public_id
+        this.$store.dispatch('updateUser', updated)
       } else {
-        this.user.preflocation = null
-        this.$store.dispatch('updateUser', this.user)
+        updated.preflocation = null
+        this.$store.dispatch('updateUser', updated)
       }
     },
     clear () {
@@ -132,6 +120,14 @@ export default {
         this.select = this.locations.find(l => l.public_id === this.editCustomer.locationid).streetaddress
       } else {
         this.clear()
+      }
+    },
+    fillPreflocation() {
+      if (this.user.preflocation) {
+        this.checkbox = true
+        this.select = this.locations.find(l => l.public_id === this.user.preflocation).streetaddress
+      } else {
+        this.select = []
       }
     }
   },
@@ -151,6 +147,9 @@ export default {
   watch: {
     editCustomer: function () {
       this.editWithCustomer()
+    },
+    addresses: function () {
+      this.fillPreflocation()
     }
   }
 }
