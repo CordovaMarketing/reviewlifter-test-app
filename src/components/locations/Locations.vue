@@ -81,14 +81,14 @@
             <v-list-tile>              
                 <v-list-tile-content>
                   <v-list-tile-title>Review Text: </v-list-tile-title>
-                  <v-list-tile-sub-title>{{ props.item.reviewinvitetext }}</v-list-tile-sub-title>
+                  <v-list-tile-action-text>{{ props.item.reviewinvitetext }}</v-list-tile-action-text>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile>
+            <v-list-tile class="mt-4">
               <v-list-tile-content>Review Link:</v-list-tile-content>
               <v-list-tile-content class="align-end">
                   <SelectReviewSite :location="props.item"/>
-            </v-list-tile-content>
+              </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
               <v-list-tile-content class="align-end">

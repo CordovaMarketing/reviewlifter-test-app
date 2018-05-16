@@ -40,8 +40,11 @@ const actions = {
     }
     // else send to server, if success, commmit
   },
-  loadLocations ({ commit }) {
+  loadLocations ({ commit, dispatch }) {
     return new Promise((resolve, reject) => {
+      if (getters.locations.length > 0) {
+        commit(types.CLEAR_LOCATIONS)
+      }
       HTTP.get('locations').then(response => {
         response.data.forEach(location => commit(types.ADD_PLACE, location))
         resolve()
@@ -51,7 +54,7 @@ const actions = {
   deleteLocation ({ commit, dispatch }, location) {
     HTTP.post('deletelocation', location)
       .then(response => {
-        commit(types.DELETE_LOCATION, location)
+        dispatch('loadLocations')
         dispatch('loadUser')
         dispatch('loadCustomers')
         commit(types.SHOW_SNACKBAR, 'Location deleted!')
@@ -76,6 +79,9 @@ const mutations = {
   },
   DELETE_LOCATION (s, location) {
     s.locations = s.locations.filter(l => l.placeid !== location.placeid)
+  },
+  CLEAR_LOCATIONS (s) {
+    s.locations = []
   }
 }
 

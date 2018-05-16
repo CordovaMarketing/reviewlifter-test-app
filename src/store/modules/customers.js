@@ -41,6 +41,9 @@ const actions = {
   },
   loadCustomers ({ commit, dispatch }) {
     return new Promise((resolve, reject) => {
+      if (getters.customers.length > 0) {
+        commit(types.CLEAR_CUSTOMERS)
+      }
       HTTP.get('/locationusers').then(response => {
         response.data.forEach(customer => commit(types.ADD_CUSTOMER, customer))
         resolve()
@@ -73,6 +76,9 @@ const mutations = {
     s.customers = s.customers.map(
       p => (p.public_id === customer.public_id ? customer : p)
     )
+  },
+  CLEAR_CUSTOMERS (s){
+    s.customers = []
   }
 }
 
