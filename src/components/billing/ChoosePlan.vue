@@ -2,8 +2,41 @@
 <v-container  fluid grid-list-md>
   <h2>All plans start with a 7 day free trial.</h2>
     <v-layout row wrap>
+
+      <v-flex
+        xs12
+        sm6
+        md4
+        lg3
+      >
+        <v-card>
+          <v-card-title>
+            <h2>Applegate</h2>
+            <v-spacer></v-spacer>
+            <h3>35.71 Monthly per location</h3>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-list subheader dense>
+            <v-card-text>
+              <v-list-tile-content><h4>Automated Review Requests to Customers</h4></v-list-tile-content>
+            </v-card-text>
+            <v-list-tile>
+              <v-list-tile-content><h4>Send Bulk Review Requests (coming soon)</h4></v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-content><h4>Multiple Location Management</h4></v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-content><h4>Review Requests for Google</h4></v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        <div>
+            <v-btn @click="planDialog('Applegate')" block color="primary" dark> Get started</v-btn>
+        </div>
+        </v-card>
+    </v-flex>
       
-    <v-flex
+    <!-- <v-flex
         xs12
         sm6
         md4
@@ -152,7 +185,7 @@
           </div>
         </v-card>
     </v-flex>
-    </v-layout>
+    </v-layout> -->
 
 
     <v-dialog v-model="dialog" persistent max-width="500px">
@@ -173,6 +206,7 @@
             :options='stripeOptions'
             @change='complete = $event.complete'
             />
+            <!-- pk_live_h3cANxNnHs9grgvUEc80E8MZ -->
             </v-layout>
           </v-container>
           <small>*indicates required field</small>
@@ -232,6 +266,9 @@ export default {
         info = this.getBasicInfo()
         this.plan = { 'duration': info.label, 'name': planName }
         this.price = this.basicannual ? info.annual : info.price
+      } else if (planName === 'Applegate') {
+        this.plan = { 'duration': 'monthly', 'name': 'applegate' }
+        this.price = '35.71'
       }
       this.planNameDisplay = planName.toUpperCase()
     },

@@ -48,7 +48,7 @@ export default {
       Vue.googleAuth().signIn(this.onSignInSuccess, this.onSignInError)
     },
     onSignInSuccess: function (authorizationCode) {
-      HTTP.post('jsGoogle', { code: authorizationCode, redirect_uri: 'http://localhost:8080' }).then(function (response) {
+      HTTP.post('jsGoogle', { code: authorizationCode, redirect_uri: 'http://reviewlifterapp.s3-website-us-east-1.amazonaws.com' }).then(function (response) {
         if (response.data) {
           var data = response.data
           HTTP.defaults.headers.common['x-access-token'] = data.token

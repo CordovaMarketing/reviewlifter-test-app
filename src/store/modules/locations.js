@@ -48,10 +48,12 @@ const actions = {
       })
     })
   },
-  deleteLocation ({ commit }, location) {
+  deleteLocation ({ commit, dispatch }, location) {
     HTTP.post('deletelocation', location)
       .then(response => {
         commit(types.DELETE_LOCATION, location)
+        dispatch('loadUser')
+        dispatch('loadCustomers')
         commit(types.SHOW_SNACKBAR, 'Location deleted!')
       })
       .catch(function (error) {

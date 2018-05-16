@@ -29,6 +29,15 @@ const actions = {
     })
     dispatch('loadCustomers')
   },
+  loadUser ({ commit }, user) {
+    HTTP.get('clientuser')
+      .then(response => {
+        commit(types.SET_USER, response.data)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  },
   updateUser ({ commit, dispatch }, user) {
     const userUpdate = {
       stripeid: user.stripeid,
@@ -44,7 +53,7 @@ const actions = {
     }
     HTTP.put('clientuser', userUpdate)
       .then(response => {
-        commit(types.SET_USER, userUpdate)
+        commit(types.SET_USER, response.data)
       })
       .catch(function (error) {
         console.log(error)

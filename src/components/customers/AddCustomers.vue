@@ -36,7 +36,7 @@
             required
           ></v-select>
           <v-checkbox
-          v-if="editCustomer === null"
+
             label="Set location to default to this value"
             v-model="checkbox"
           ></v-checkbox>
@@ -82,20 +82,26 @@ export default {
         v => !!v || 'Phone is required',
         v => /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(v) || 'Please enter a valid mobile number'
       ],
-      select: [],
-      checkbox: false
+       checkbox: false,
+       select: []
     }
   },
-  created () {
-    // if (this.user.preflocation) {
-    //   this.select = this.locations.find(l => l.public_id === this.user.preflocation).streetaddress
-    //   this.checkbox = true
-    // } else {
-    //   this.select = []
-    // }
+  beforeMount () {
+    if (this.user.preflocation) {
+      this.checkbox = true
+      this.select = this.locations.find(l => l.public_id === this.user.preflocation).streetaddress
+    } else {
+      this.select = []
+    }
   },
   mounted () {
     this.editWithCustomer()
+    if (this.user.preflocation) {
+      this.checkbox = true
+      this.select = this.locations.find(l => l.public_id === this.user.preflocation).streetaddress
+    } else {
+      this.select = []
+    }
   },
   methods: {
     submit () {
@@ -109,13 +115,13 @@ export default {
     savePrefferedLocation () {
       // This is being sent every time I submit a customer
 
-      // if (this.checkbox) {
-      //   this.user.preflocation = this.location.public_id
-      //   this.$store.dispatch('updateUser', this.user)
-      // } else {
-      //   this.user.preflocation = null
-      //   this.$store.dispatch('updateUser', this.user)
-      // }
+      if (this.checkbox) {
+        this.user.preflocation = this.location.public_id
+        this.$store.dispatch('updateUser', this.user)
+      } else {
+        this.user.preflocation = null
+        this.$store.dispatch('updateUser', this.user)
+      }
     },
     clear () {
       this.$refs.form.reset()

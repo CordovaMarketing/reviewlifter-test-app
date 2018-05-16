@@ -81,7 +81,8 @@ Vue.use(VueGoogleMaps, {
 
 Vue.use(GoogleAuth, {
   client_id:
-    '548156398963-gmpe9plbplamq59nlov1d9u0kuuh3q01.apps.googleusercontent.com'
+    '548156398963-gmpe9plbplamq59nlov1d9u0kuuh3q01.apps.googleusercontent.com',
+  scope: 'profile'
 })
 Vue.googleAuth().load()
 

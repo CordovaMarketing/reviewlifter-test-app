@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     items () {
-      return this.user.subusers ? JSON.parse(this.user.subusers) : []
+      return this.user.subusers ? this.user.subusers : []
     },
     deleteItem (item) {
       console.log(item)

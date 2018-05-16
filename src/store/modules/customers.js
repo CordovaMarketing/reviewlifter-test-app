@@ -39,7 +39,7 @@ const actions = {
         })
     }
   },
-  loadCustomers ({ commit }) {
+  loadCustomers ({ commit, dispatch }) {
     return new Promise((resolve, reject) => {
       HTTP.get('/locationusers').then(response => {
         response.data.forEach(customer => commit(types.ADD_CUSTOMER, customer))

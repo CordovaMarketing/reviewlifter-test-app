@@ -140,6 +140,11 @@ export default {
     AddLocation,
     SelectReviewSite,
     AddReviewSites
+  },
+  watch: {
+    'locations': function (newState,oldState) {
+      this.showModal = false
+    }
   }
 }
 </script>
