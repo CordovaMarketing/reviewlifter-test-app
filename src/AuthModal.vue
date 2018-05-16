@@ -45,6 +45,8 @@ export default {
   },
   methods: {
     signIn: function () {
+      // Vue.googleAuth().directAccess()
+      // we will want to use direct access which will give back an object
       Vue.googleAuth().signIn(this.onSignInSuccess, this.onSignInError)
     },
     onSignInSuccess: function (authorizationCode) {
@@ -54,16 +56,16 @@ export default {
           HTTP.defaults.headers.common['x-access-token'] = data.token
           store.dispatch('setUser', data.user_data)
           store.dispatch('setToken', data.token)
+          // this.$router.push({ name: 'home' })
         }
       }, function (response) {
-        alert(response)
+        alert('SIGN IN ERROR, TRY AGAIN')
         var data = response.body
         this.response = data.error
-        console.log('SIGN IN ERROR, TRY AGAIN', data)
+        console.log(response, data)
       })
     },
     onSignInError: function (error) {
-      alert(error)
       this.response = 'Failed to sign-in'
       console.log('GOOGLE SERVER - SIGN-IN ERROR', error)
     },
@@ -75,5 +77,4 @@ export default {
 </script>
 
 <style>
-
 </style>
