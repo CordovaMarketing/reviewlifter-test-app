@@ -2,7 +2,7 @@
 <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout>
-        <v-flex xs10 offset-xs1>
+        <v-flex  xs10 offset-xs1>
         <v-form v-model="valid" ref="form" lazy-validation>
           <v-text-field
             label="First Name"
@@ -49,6 +49,35 @@
           </v-btn>
           <v-btn @click="clear">clear</v-btn>
         </v-form>
+        <v-dialog
+        v-model="showModal"
+        hide-overlay
+        fullscreen
+        transition="dialog-bottom-transition"
+        >
+            <v-btn
+            dark
+            fab
+            fixed
+            middle
+            right
+            color="red"
+            slot="activator"
+            @click.native="uploadCustomers"
+            >
+            <v-icon>cloud_upload</v-icon>
+            </v-btn>
+            <v-toolbar card color="white">
+              <v-card color="red" dark tile>
+                <v-btn flat icon @click.native="showModal = false">
+                  <v-icon>close</v-icon>
+                </v-btn>
+              </v-card>        
+            </v-toolbar>
+            <v-card v-if="location" scrollable>
+              <UploadCustomers :locationid="location.public_id"/>/>
+            </v-card>
+          </v-dialog>
         </v-flex>
     </v-layout>
   </v-slide-y-transition>
@@ -57,18 +86,20 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import UploadCustomers from './UploadCustomers'
 
 export default {
   props: ['editCustomer'],
   data () {
     return {
       valid: true,
+      showModal: false,
       customer: {
         firstname: '',
         lastname: '',
         email: '',
         phone: '',
-        locationid: this.location ? this.location.public_id : null
+        locationid: this.location ? this.location.public_id : null,
       },
       nameRules: [
         v => !!v || 'Name is required',
@@ -99,6 +130,9 @@ export default {
         this.$store.dispatch('addCustomer', this.customer)
         this.savePrefferedLocation()
       }
+    },
+    uploadCustomers () {
+      this.showModal = true
     },
     savePrefferedLocation () {
       // This is being sent every time I submit a customer
@@ -151,6 +185,9 @@ export default {
     addresses: function () {
       this.fillPreflocation()
     }
+  },
+  components: {
+    UploadCustomers
   }
 }
 </script>

@@ -39,6 +39,17 @@ const actions = {
         })
     }
   },
+  uploadCustomers ({ commit, dispatch }, file) {
+    HTTP.post('/bulkupload', file, { headers: { 'Content-Type': 'multipart/form-data' } })
+      .then(response => {
+        response.data.forEach(customer => commit(types.ADD_PLACE, customer))
+        commit(types.SHOW_SNACKBAR, 'Customer saved!')
+      })
+      .catch(function (error) {
+        console.log(error)
+        commit(types.SHOW_SNACKBAR, 'Error Saving!')
+      })
+  },
   loadCustomers ({ commit, dispatch }) {
     return new Promise((resolve, reject) => {
       if (getters.customers.length > 0) {
@@ -77,7 +88,7 @@ const mutations = {
       p => (p.public_id === customer.public_id ? customer : p)
     )
   },
-  CLEAR_CUSTOMERS (s){
+  CLEAR_CUSTOMERS (s) {
     s.customers = []
   }
 }

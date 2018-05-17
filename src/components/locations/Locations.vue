@@ -13,8 +13,7 @@
     middle
     right
     color="red"
-      slot="activator"
-    
+    slot="activator"
     @click.native="editLocation(null)"
     >
     <v-icon>add</v-icon>
