@@ -75,7 +75,7 @@
               </v-card>        
             </v-toolbar>
             <v-card v-if="location" scrollable>
-              <UploadCustomers :locationid="location.public_id"/>/>
+              <UploadCustomers :locationid="location.public_id"/>
             </v-card>
           </v-dialog>
         </v-flex>
