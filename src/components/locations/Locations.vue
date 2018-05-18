@@ -31,8 +31,8 @@
       </v-card>
     </v-dialog>
    
-  <br><br>
-  <br><br>
+  <h2 class="text-md-center headline">Locations</h2>
+  <br>
     <v-data-iterator
       content-tag="v-layout"
       :items="locations"
@@ -49,9 +49,8 @@
         <v-card>
           <v-card-title>
             <v-container fill-height>
-              <v-layout >
-                <h4>{{ props.item.businessname }}</h4>
-              </v-layout>
+                <h4 class="title">{{ props.item.businessname }}</h4>
+              <v-spacer></v-spacer>
               <v-btn @click="editLocation(props.item)" flat icon color="blue">
                   <v-icon >edit</v-icon>
               </v-btn>
