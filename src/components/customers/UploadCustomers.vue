@@ -33,13 +33,7 @@
 </template>
 
 <script>
-  // swap as you need
-//   import { upload } from './file-upload.fake.service'; // fake service
-  // import { upload } from './file-upload.service';   // real service
-//   import { wait } from './utils';
   import { mapGetters } from 'vuex'
-
-   
   export default {
     props: ['locationid'],
     data() {
@@ -82,42 +76,42 @@
       },
       save(formData) {
         // upload data to the server
-        this.currentStatus = this.STATUS_SAVING;
+        this.currentStatus = this.STATUS_SAVING
         
         this.$store.dispatch('uploadCustomers', formData )
           .then(x => {
-            this.uploadedFiles = [].concat(x);
-            this.currentStatus = this.STATUS_SUCCESS;
+            this.uploadedFiles = [].concat(x)
+            this.currentStatus = this.STATUS_SUCCESS
           })
           .catch(err => {
-            this.uploadError = err.response;
-            this.currentStatus = this.STATUS_FAILED;
+            this.uploadError = err.response
+            this.currentStatus = this.STATUS_FAILED
           });
       },
       filesChange(fieldName, fileList) {
         // handle file changes
-        const formData = new FormData();
+        const formData = new FormData()
         let locationid = this.locationid
         if (!fileList.length) return;
         // append the files to FormData
         Array
           .from(Array(fileList.length).keys())
           .map(x => {
-            formData.append(fieldName, fileList[x], fileList[x].name);
+            formData.append(fieldName, fileList[x], fileList[x].name)
           });
         formData.append('public_id', locationid)
         // save it
 
-        this.save(formData);
+        this.save(formData)
       }
     },
     mounted() {
-      this.reset();
+      this.reset()
     }
   }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   .dropbox {
     outline: 2px dashed grey; 
     outline-offset: -10px;

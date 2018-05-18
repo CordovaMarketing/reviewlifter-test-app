@@ -77,6 +77,9 @@
             <v-card v-if="location" scrollable>
               <UploadCustomers :locationid="location.public_id"/>
             </v-card>
+            <v-card v-else scrollable>
+              <h3>Please select a location to upload customers to</h3>
+            </v-card>
           </v-dialog>
         </v-flex>
     </v-layout>
