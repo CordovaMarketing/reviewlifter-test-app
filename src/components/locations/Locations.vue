@@ -141,7 +141,7 @@ export default {
     AddReviewSites
   },
   watch: {
-    'locations': function (newState,oldState) {
+    'locations': function (newState, oldState) {
       this.showModal = false
     }
   }

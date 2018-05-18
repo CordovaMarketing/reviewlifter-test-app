@@ -3,6 +3,7 @@
       <!--UPLOAD-->
       <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
         <h1>Upload csv</h1>
+        <br>
         <div class="dropbox">
           <input type="file" multiple :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
             accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" class="input-file">
@@ -13,6 +14,10 @@
               Uploading {{ fileCount }} files...
             </p>
         </div>
+        <br>
+        <h3>Please format your upload like this:</h3>
+        <br>
+        <img alt='sample csv' :src="sampleCsv()">
       </form>
       <!--SUCCESS-->
       <div v-if="isSuccess">
@@ -36,11 +41,11 @@
   import { mapGetters } from 'vuex'
   export default {
     props: ['locationid'],
-    data() {
+    data () {
       return {
-        STATUS_INITIAL: 0, 
-        STATUS_SAVING: 1, 
-        STATUS_SUCCESS: 2, 
+        STATUS_INITIAL: 0,
+        STATUS_SAVING: 1,
+        STATUS_SUCCESS: 2,
         STATUS_FAILED: 3,
         uploadedFiles: [],
         uploadError: null,
@@ -51,34 +56,36 @@
       }
     },
     computed: {
-      isInitial() {
-        return this.currentStatus === this.STATUS_INITIAL;
+      isInitial () {
+        return this.currentStatus === this.STATUS_INITIAL
       },
-      isSaving() {
-        return this.currentStatus === this.STATUS_SAVING;
+      isSaving () {
+        return this.currentStatus === this.STATUS_SAVING
       },
-      isSuccess() {
-        return this.currentStatus === this.STATUS_SUCCESS;
+      isSuccess () {
+        return this.currentStatus === this.STATUS_SUCCESS
       },
-      isFailed() {
-        return this.currentStatus === this.STATUS_FAILED;
+      isFailed () {
+        return this.currentStatus === this.STATUS_FAILED
       },
       ...mapGetters([
-      'locations'
-    ])
+        'locations'
+      ])
     },
     methods: {
-      reset() {
-        // reset form to initial state
-        this.currentStatus = this.STATUS_INITIAL;
-        this.uploadedFiles = [];
-        this.uploadError = null;
+      sampleCsv () {
+        return require('../../assets/sampleUpload.png')
       },
-      save(formData) {
+      reset () {
+        // reset form to initial state
+        this.currentStatus = this.STATUS_INITIAL
+        this.uploadedFiles = []
+        this.uploadError = null
+      },
+      save (formData) {
         // upload data to the server
         this.currentStatus = this.STATUS_SAVING
-        
-        this.$store.dispatch('uploadCustomers', formData )
+        this.$store.dispatch('uploadCustomers', formData)
           .then(x => {
             this.uploadedFiles = [].concat(x)
             this.currentStatus = this.STATUS_SUCCESS
@@ -86,26 +93,26 @@
           .catch(err => {
             this.uploadError = err.response
             this.currentStatus = this.STATUS_FAILED
-          });
+          })
       },
-      filesChange(fieldName, fileList) {
+      filesChange (fieldName, fileList) {
         // handle file changes
         const formData = new FormData()
         let locationid = this.locationid
-        if (!fileList.length) return;
+        if (!fileList.length) return
         // append the files to FormData
         Array
           .from(Array(fileList.length).keys())
           .map(x => {
             formData.append(fieldName, fileList[x], fileList[x].name)
-          });
+          })
         formData.append('public_id', locationid)
         // save it
 
         this.save(formData)
       }
     },
-    mounted() {
+    mounted () {
       this.reset()
     }
   }

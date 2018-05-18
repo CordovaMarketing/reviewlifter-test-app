@@ -102,7 +102,7 @@ export default {
         lastname: '',
         email: '',
         phone: '',
-        locationid: this.location ? this.location.public_id : null,
+        locationid: this.location ? this.location.public_id : null
       },
       nameRules: [
         v => !!v || 'Name is required',
@@ -116,14 +116,13 @@ export default {
         v => !!v || 'Phone is required',
         v => /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(v) || 'Please enter a valid mobile number'
       ],
-       checkbox: false,
-       select: []
+      checkbox: false,
+      select: []
     }
   },
   mounted () {
     this.editWithCustomer()
     this.fillPreflocation()
-
   },
   methods: {
     submit () {
@@ -159,7 +158,7 @@ export default {
         this.clear()
       }
     },
-    fillPreflocation() {
+    fillPreflocation () {
       if (this.user.preflocation) {
         this.checkbox = true
         this.select = this.locations.find(l => l.public_id === this.user.preflocation).streetaddress

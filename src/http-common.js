@@ -1,5 +1,4 @@
 import axios from 'axios'
-import store from './store/store'
 
 // https://review-lifter-test-api.herokuapp.com/
 export const HTTP = axios.create({
