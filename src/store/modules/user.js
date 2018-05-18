@@ -74,11 +74,11 @@ const actions = {
     HTTP.post('addsubuser', subuserToAdd)
       .then(response => {
         if (getters.user.subusers) {
-          var subusers = JSON.parse(getters.user.subusers)
+          var subusers = getters.user.subusers
           subusers.push(subuserToAdd)
-          getters.user.subusers = JSON.stringify(subusers)
+          getters.user.subusers = subusers
         } else {
-          getters.user.subusers = JSON.stringify([subuserToAdd])
+          getters.user.subusers = [subuserToAdd]
         }
         commit(types.SET_USER, getters.user)
       })
