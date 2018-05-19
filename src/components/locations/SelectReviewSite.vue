@@ -14,7 +14,7 @@ export default {
   data () {
     return {
       select: Array.isArray(this.location.reviewlink) ? this.location.reviewlink[0].label : this.location.reviewlink.label
-      }
+    }
   },
   methods: {
     selectReviewLink (newSite) {

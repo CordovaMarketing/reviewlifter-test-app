@@ -19,7 +19,7 @@
         <!-- :editLocation="location"/> -->
       </v-card>
     </v-dialog>
-    <br><br>
+    <h2 class="text-md-center headline">Customers</h2>
     <br><br>
     <v-data-table
       :headers="headers"
@@ -56,7 +56,7 @@ export default {
     dialog: false,
     headers: [
       {
-        text: 'Customer',
+        text: 'Name',
         align: 'left',
         sortable: false,
         value: 'name'

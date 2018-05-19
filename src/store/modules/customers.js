@@ -46,8 +46,8 @@ const actions = {
   uploadCustomers ({ commit, dispatch }, file) {
     HTTP.post('/bulkupload', file, { headers: { 'Content-Type': 'multipart/form-data' } })
       .then(response => {
-        response.data.forEach(customer => commit(types.ADD_PLACE, customer))
-        commit(types.SHOW_SNACKBAR, 'Customer saved!')
+        response.data.forEach(customer => commit(types.ADD_CUSTOMER, customer))
+        commit(types.SHOW_SNACKBAR, 'Customers saved!')
       })
       .catch(function (error) {
         console.log(error)

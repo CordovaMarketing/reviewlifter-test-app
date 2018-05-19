@@ -7,14 +7,14 @@
           <v-text-field
             label="First Name"
             v-model="customer.firstname"
-            :rules="nameRules"
+            :rules="firstNameRules"
             :counter="10"
             required
           ></v-text-field>
           <v-text-field
             label="Last Name"
             v-model="customer.lastname"
-            :rules="nameRules"
+            :rules="customer.lastname ? lastNameRules : [true]"
             :counter="10"
           ></v-text-field>
           <v-text-field
@@ -26,7 +26,7 @@
           <v-text-field
             label="E-mail"
             v-model="customer.email"
-            :rules="emailRules"
+            :rules="customer.email ? emailRules : [true]"
           ></v-text-field>
           <div v-if="user">
           <v-select
@@ -78,7 +78,7 @@
               <UploadCustomers :locationid="location.public_id"/>
             </v-card>
             <v-card v-else scrollable>
-              <h3>Please select a location to upload customers to</h3>
+              <h3 class="headline">Please select a location to upload customers to</h3>
             </v-card>
           </v-dialog>
         </v-flex>
@@ -102,28 +102,30 @@ export default {
         lastname: '',
         email: '',
         phone: '',
-        locationid: this.location ? this.location.public_id : null,
+        locationid: this.location ? this.location.public_id : null
       },
-      nameRules: [
+      firstNameRules: [
         v => !!v || 'Name is required',
         v => (v && v.length <= 10) || 'Name must be less than 10 characters'
       ],
+      lastNameRules: [
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters'
+      ],
       emailRules: [
-        v => !!v || 'E-mail is required',
+        // v => !!v || 'E-mail is required',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
       ],
       phoneRules: [
         v => !!v || 'Phone is required',
         v => /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(v) || 'Please enter a valid mobile number'
       ],
-       checkbox: false,
-       select: []
+      checkbox: false,
+      select: []
     }
   },
   mounted () {
     this.editWithCustomer()
     this.fillPreflocation()
-
   },
   methods: {
     submit () {
@@ -159,7 +161,7 @@ export default {
         this.clear()
       }
     },
-    fillPreflocation() {
+    fillPreflocation () {
       if (this.user.preflocation) {
         this.checkbox = true
         this.select = this.locations.find(l => l.public_id === this.user.preflocation).streetaddress
