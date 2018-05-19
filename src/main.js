@@ -8,6 +8,9 @@ import GoogleAuth from 'vue-google-auth'
 import Vuex from 'vuex'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import AddLocation from '@/components/locations/AddLocation'
+import VueAxios from 'vue-axios'
+import VueAuthenticate from 'vue-authenticate'
+import axios from 'axios'
 
 import {
   Vuetify,
@@ -36,6 +39,8 @@ import {
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 import colors from 'vuetify/es5/util/colors'
+
+Vue.use(VueAxios, axios)
 
 Vue.use(Vuetify, {
   components: {
@@ -84,6 +89,18 @@ Vue.use(GoogleAuth, {
     '548156398963-gmpe9plbplamq59nlov1d9u0kuuh3q01.apps.googleusercontent.com'
 })
 Vue.googleAuth().load()
+
+Vue.use(VueAuthenticate, {
+  baseUrl: 'http://localhost:5000/', // Your API domain
+
+  providers: {
+    google: {
+      clientId:
+        '548156398963-gmpe9plbplamq59nlov1d9u0kuuh3q01.apps.googleusercontent.com',
+      redirectUri: 'http://localhost:8080' // Your client app URL
+    }
+  }
+})
 
 Vue.use(Vuex)
 
