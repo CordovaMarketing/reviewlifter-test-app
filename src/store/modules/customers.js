@@ -30,8 +30,12 @@ const actions = {
     } else {
       HTTP.post('/enduser', customer)
         .then(response => {
-          commit(types.ADD_CUSTOMER, response.data)
-          commit(types.SHOW_SNACKBAR, 'Customer saved!')
+          if (response.data.hasOwnProperty('status')) {
+            commit(types.SHOW_SNACKBAR, response.data.status)
+          } else {
+            commit(types.ADD_CUSTOMER, response.data)
+            commit(types.SHOW_SNACKBAR, 'Customer saved!')
+          }
         })
         .catch(function (error) {
           console.log(error)
