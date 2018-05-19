@@ -51,7 +51,7 @@ export default {
     },
     // https://druo0vibxg7ct.cloudfront.net
     onSignInSuccess: function (authorizationCode) {
-      HTTP.post('jsGoogle', { code: authorizationCode, redirect_uri: 'http://localhost:8080' }).then(function (response) {
+      HTTP.post('jsGoogle', { code: authorizationCode, redirect_uri: 'https://druo0vibxg7ct.cloudfront.net' }).then(function (response) {
         if (response.data) {
           var data = response.data
           HTTP.defaults.headers.common['x-access-token'] = data.token
