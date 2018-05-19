@@ -37,7 +37,7 @@
         </v-card>
     </v-flex>
       
-    <!-- <v-flex
+    <v-flex
         xs12
         sm6
         md4
@@ -185,7 +185,7 @@
               <v-btn @click="planDialog('super')" block color="primary" dark>Get started with Super free trial</v-btn>
           </div>
         </v-card>
-    </v-flex> -->
+    </v-flex>
     </v-layout> 
 
 
@@ -266,9 +266,6 @@ export default {
         info = this.getBasicInfo()
         this.plan = { 'duration': info.label, 'name': planName }
         this.price = this.basicannual ? info.annual : info.price
-      } else if (planName === 'Applegate') {
-        this.plan = { 'duration': 'monthly', 'name': 'applegate' }
-        this.price = '35.71'
       }
       this.planNameDisplay = planName.toUpperCase()
     },
