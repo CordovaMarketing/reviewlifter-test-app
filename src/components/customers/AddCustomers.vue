@@ -2,19 +2,19 @@
 <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout>
-        <v-flex xs10 offset-xs1>
+        <v-flex  xs10 offset-xs1>
         <v-form v-model="valid" ref="form" lazy-validation>
           <v-text-field
             label="First Name"
             v-model="customer.firstname"
-            :rules="nameRules"
+            :rules="firstNameRules"
             :counter="10"
             required
           ></v-text-field>
           <v-text-field
             label="Last Name"
             v-model="customer.lastname"
-            :rules="nameRules"
+            :rules="customer.lastname ? lastNameRules : [true]"
             :counter="10"
           ></v-text-field>
           <v-text-field
@@ -26,8 +26,9 @@
           <v-text-field
             label="E-mail"
             v-model="customer.email"
-            :rules="emailRules"
+            :rules="customer.email ? emailRules : [true]"
           ></v-text-field>
+          <div v-if="user">
           <v-select
             label="Location"
             v-model="select"
@@ -36,11 +37,10 @@
             required
           ></v-select>
           <v-checkbox
-          v-if="editCustomer === null"
             label="Set location to default to this value"
             v-model="checkbox"
           ></v-checkbox>
-
+          </div>
           <v-btn
             @click="submit"
             :disabled="!valid"
@@ -49,6 +49,38 @@
           </v-btn>
           <v-btn @click="clear">clear</v-btn>
         </v-form>
+        <v-dialog
+        v-model="showModal"
+        hide-overlay
+        fullscreen
+        transition="dialog-bottom-transition"
+        >
+            <v-btn
+            dark
+            fab
+            fixed
+            middle
+            right
+            color="red"
+            slot="activator"
+            @click.native="uploadCustomers"
+            >
+            <v-icon>cloud_upload</v-icon>
+            </v-btn>
+            <v-toolbar card color="white">
+              <v-card color="red" dark tile>
+                <v-btn flat icon @click.native="showModal = false">
+                  <v-icon>close</v-icon>
+                </v-btn>
+              </v-card>        
+            </v-toolbar>
+            <v-card v-if="location" scrollable>
+              <UploadCustomers :locationid="location.public_id"/>
+            </v-card>
+            <v-card v-else scrollable>
+              <h3 class="headline">Please select a location to upload customers to</h3>
+            </v-card>
+          </v-dialog>
         </v-flex>
     </v-layout>
   </v-slide-y-transition>
@@ -57,12 +89,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import UploadCustomers from './UploadCustomers'
 
 export default {
   props: ['editCustomer'],
   data () {
     return {
       valid: true,
+      showModal: false,
       customer: {
         firstname: '',
         lastname: '',
@@ -70,32 +104,28 @@ export default {
         phone: '',
         locationid: this.location ? this.location.public_id : null
       },
-      nameRules: [
+      firstNameRules: [
         v => !!v || 'Name is required',
         v => (v && v.length <= 10) || 'Name must be less than 10 characters'
       ],
+      lastNameRules: [
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters'
+      ],
       emailRules: [
-        v => !!v || 'E-mail is required',
+        // v => !!v || 'E-mail is required',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
       ],
       phoneRules: [
         v => !!v || 'Phone is required',
         v => /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(v) || 'Please enter a valid mobile number'
       ],
-      select: [],
-      checkbox: false
+      checkbox: false,
+      select: []
     }
-  },
-  created () {
-    // if (this.user.preflocation) {
-    //   this.select = this.locations.find(l => l.public_id === this.user.preflocation).streetaddress
-    //   this.checkbox = true
-    // } else {
-    //   this.select = []
-    // }
   },
   mounted () {
     this.editWithCustomer()
+    this.fillPreflocation()
   },
   methods: {
     submit () {
@@ -106,16 +136,19 @@ export default {
         this.savePrefferedLocation()
       }
     },
+    uploadCustomers () {
+      this.showModal = true
+    },
     savePrefferedLocation () {
       // This is being sent every time I submit a customer
-
-      // if (this.checkbox) {
-      //   this.user.preflocation = this.location.public_id
-      //   this.$store.dispatch('updateUser', this.user)
-      // } else {
-      //   this.user.preflocation = null
-      //   this.$store.dispatch('updateUser', this.user)
-      // }
+      var updated = this.user
+      if (this.checkbox) {
+        updated.preflocation = this.location.public_id
+        this.$store.dispatch('updateUser', updated)
+      } else {
+        updated.preflocation = null
+        this.$store.dispatch('updateUser', updated)
+      }
     },
     clear () {
       this.$refs.form.reset()
@@ -126,6 +159,14 @@ export default {
         this.select = this.locations.find(l => l.public_id === this.editCustomer.locationid).streetaddress
       } else {
         this.clear()
+      }
+    },
+    fillPreflocation () {
+      if (this.user.preflocation) {
+        this.checkbox = true
+        this.select = this.locations.find(l => l.public_id === this.user.preflocation).streetaddress
+      } else {
+        this.select = []
       }
     }
   },
@@ -145,7 +186,13 @@ export default {
   watch: {
     editCustomer: function () {
       this.editWithCustomer()
+    },
+    addresses: function () {
+      this.fillPreflocation()
     }
+  },
+  components: {
+    UploadCustomers
   }
 }
 </script>

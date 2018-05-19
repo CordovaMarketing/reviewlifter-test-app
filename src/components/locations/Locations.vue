@@ -13,8 +13,7 @@
     middle
     right
     color="red"
-      slot="activator"
-    
+    slot="activator"
     @click.native="editLocation(null)"
     >
     <v-icon>add</v-icon>
@@ -32,8 +31,8 @@
       </v-card>
     </v-dialog>
    
-  <br><br>
-  <br><br>
+  <h2 class="text-md-center headline">Locations</h2>
+  <br>
     <v-data-iterator
       content-tag="v-layout"
       :items="locations"
@@ -50,9 +49,8 @@
         <v-card>
           <v-card-title>
             <v-container fill-height>
-              <v-layout >
-                <h4>{{ props.item.businessname }}</h4>
-              </v-layout>
+                <h4 class="title">{{ props.item.businessname }}</h4>
+              <v-spacer></v-spacer>
               <v-btn @click="editLocation(props.item)" flat icon color="blue">
                   <v-icon >edit</v-icon>
               </v-btn>
@@ -81,14 +79,14 @@
             <v-list-tile>              
                 <v-list-tile-content>
                   <v-list-tile-title>Review Text: </v-list-tile-title>
-                  <v-list-tile-sub-title>{{ props.item.reviewinvitetext }}</v-list-tile-sub-title>
+                  <v-list-tile-action-text>{{ props.item.reviewinvitetext }}</v-list-tile-action-text>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile>
+            <v-list-tile class="mt-4">
               <v-list-tile-content>Review Link:</v-list-tile-content>
               <v-list-tile-content class="align-end">
                   <SelectReviewSite :location="props.item"/>
-            </v-list-tile-content>
+              </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
               <v-list-tile-content class="align-end">
@@ -140,6 +138,11 @@ export default {
     AddLocation,
     SelectReviewSite,
     AddReviewSites
+  },
+  watch: {
+    'locations': function (newState, oldState) {
+      this.showModal = false
+    }
   }
 }
 </script>

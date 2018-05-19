@@ -14,9 +14,13 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
+
+      <v-toolbar-title @click="logout">Logout</v-toolbar-title>
+      <v-icon >exit_to_app</v-icon>
+
     </v-toolbar>
 
-    <v-content>
+    <v-content v-if="user">
       <router-view/>
     </v-content>
 
@@ -54,6 +58,9 @@ export default {
   methods: {
     hideSnackbar () {
       this.$store.dispatch('hideSnackbar')
+    },
+    logout () {
+      this.$store.dispatch('signOut')
     }
   },
   computed: {

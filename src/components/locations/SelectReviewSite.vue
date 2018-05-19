@@ -13,7 +13,7 @@ export default {
   props: ['location'],
   data () {
     return {
-      select: this.location.reviewlink.label
+      select: Array.isArray(this.location.reviewlink) ? this.location.reviewlink[0].label : this.location.reviewlink.label
     }
   },
   methods: {

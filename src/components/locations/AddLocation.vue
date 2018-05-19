@@ -57,7 +57,10 @@
       auto-grow
       rows="2"
       hide-details
-    ></v-text-field></v-flex>
+    ></v-text-field>
+    <small>Please ensure that you include [customerName] which will be replaced with the customers name upon texting</small>
+    <br>
+    </v-flex>
     <!-- <v-flex xs-1></v-flex>
       <v-flex> 
         <v-card  color="grey darken-3">
@@ -77,9 +80,9 @@
     </v-layout>
     
     
-    <v-layout right row wrap>
+    <v-layout class="mt-3" right row wrap>
       <v-btn @click="save" color="success">Save</v-btn>
-      <small>You are charged on the same pricing/plan for each location added. 2 locations = 2 * monthly or annual cost. 
+      <small class="mt-2">You are charged on the same pricing/plan for each location added. 2 locations = 2 * monthly or annual cost. 
         You currently are on the {{ user.plan }} plan. After 7 free days using this location, you will be charged. </small>     
     </v-layout>
     </v-form>        
@@ -106,13 +109,9 @@ export default {
       zoom: 12,
       location: {
         placeid: '',
-        subcripstionid: '',
         sendername: '',
         phone: '',
-        gitpagelink: '',
         businessname: '',
-        reviewlink: '',
-        reviewsites: '',
         reviewinvitetext: '',
         streetaddress: '',
         features: '',
@@ -138,7 +137,6 @@ export default {
       this.location.phone = place.international_phone_number
       this.location.businessname = place.name
       this.location.streetaddress = place.formatted_address
-      this.location.reviewinvitetext = ''
       this.location.sendername = this.user.firstname
       this.center = {
         lat: this.place.geometry.location.lat(),
@@ -187,9 +185,17 @@ export default {
     ...mapGetters([
       'user'
     ]),
-    reviewtext () {
-      if (this.place) {
-        return 'Hi Sally, this is ' + this.location.sendername + ' from ' + this.location.businessname + ' We appreciate your business! Could you take a quick 30 seconds and give us a rating at the link below? Thanks.'
+    reviewtext: {
+      get () {
+        if (!this.location.reviewinvitetext) {
+          this.location.reviewinvitetext = 'Hi [customerName], this is ' + this.location.sendername + ' from ' + this.location.businessname + '. We appreciate your business! Could you take a quick 30 seconds and give us a rating at the link below? Thanks.'
+          return 'Hi [customerName], this is ' + this.location.sendername + ' from ' + this.location.businessname + '. We appreciate your business! Could you take a quick 30 seconds and give us a rating at the link below? Thanks.'
+        } else {
+          return this.location.reviewinvitetext
+        }
+      },
+      set (newValue) {
+        this.location.reviewinvitetext = newValue
       }
     }
   }

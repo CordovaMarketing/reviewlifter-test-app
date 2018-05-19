@@ -1,5 +1,6 @@
 import * as types from '../mutation-type'
 import { HTTP } from '../../http-common'
+import Vue from 'vue'
 
 // STATE
 
@@ -29,6 +30,15 @@ const actions = {
     })
     dispatch('loadCustomers')
   },
+  loadUser ({ commit }, user) {
+    HTTP.get('clientuser')
+      .then(response => {
+        commit(types.SET_USER, response.data)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  },
   updateUser ({ commit, dispatch }, user) {
     const userUpdate = {
       stripeid: user.stripeid,
@@ -44,7 +54,7 @@ const actions = {
     }
     HTTP.put('clientuser', userUpdate)
       .then(response => {
-        commit(types.SET_USER, userUpdate)
+        commit(types.SET_USER, response.data)
       })
       .catch(function (error) {
         console.log(error)
@@ -53,15 +63,22 @@ const actions = {
   setToken ({ commit }, tokenToAdd) {
     commit(types.SET_TOKEN, tokenToAdd)
   },
+  signOut ({ commit, dispatch }) {
+    Vue.googleAuth().signOut(function () {
+      location.reload()
+    }, function (error) {
+      console.log(error)
+    })
+  },
   addSubUser ({ commit, getters }, subuserToAdd) {
     HTTP.post('addsubuser', subuserToAdd)
       .then(response => {
         if (getters.user.subusers) {
-          var subusers = JSON.parse(getters.user.subusers)
+          var subusers = getters.user.subusers
           subusers.push(subuserToAdd)
-          getters.user.subusers = JSON.stringify(subusers)
+          getters.user.subusers = subusers
         } else {
-          getters.user.subusers = JSON.stringify([subuserToAdd])
+          getters.user.subusers = [subuserToAdd]
         }
         commit(types.SET_USER, getters.user)
       })

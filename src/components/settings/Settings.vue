@@ -13,7 +13,7 @@
             xs12
             sm6
             md4
-            lg5
+            lg6
         >
         <SubUsers/>
         

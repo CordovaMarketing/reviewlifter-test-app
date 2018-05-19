@@ -30,8 +30,12 @@ const actions = {
     } else {
       HTTP.post('/enduser', customer)
         .then(response => {
-          commit(types.ADD_CUSTOMER, response.data)
-          commit(types.SHOW_SNACKBAR, 'Customer saved!')
+          if (response.data.hasOwnProperty('status')) {
+            commit(types.SHOW_SNACKBAR, response.data.status)
+          } else {
+            commit(types.ADD_CUSTOMER, response.data)
+            commit(types.SHOW_SNACKBAR, 'Customer saved!')
+          }
         })
         .catch(function (error) {
           console.log(error)
@@ -39,8 +43,22 @@ const actions = {
         })
     }
   },
-  loadCustomers ({ commit }) {
+  uploadCustomers ({ commit, dispatch }, file) {
+    HTTP.post('/bulkupload', file, { headers: { 'Content-Type': 'multipart/form-data' } })
+      .then(response => {
+        response.data.forEach(customer => commit(types.ADD_CUSTOMER, customer))
+        commit(types.SHOW_SNACKBAR, 'Customers saved!')
+      })
+      .catch(function (error) {
+        console.log(error)
+        commit(types.SHOW_SNACKBAR, 'Error Saving!')
+      })
+  },
+  loadCustomers ({ commit, dispatch }) {
     return new Promise((resolve, reject) => {
+      if (getters.customers.length > 0) {
+        commit(types.CLEAR_CUSTOMERS)
+      }
       HTTP.get('/locationusers').then(response => {
         response.data.forEach(customer => commit(types.ADD_CUSTOMER, customer))
         resolve()
@@ -73,6 +91,9 @@ const mutations = {
     s.customers = s.customers.map(
       p => (p.public_id === customer.public_id ? customer : p)
     )
+  },
+  CLEAR_CUSTOMERS (s) {
+    s.customers = []
   }
 }
 
