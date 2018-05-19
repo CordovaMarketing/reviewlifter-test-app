@@ -119,10 +119,20 @@ export default {
       }
     }
   },
+  mounted () {
+    this.editWithLocation()
+  },
   methods: {
     ...mapActions('layout', [
       'toggleSideNav'
     ]),
+    editWithLocation () {
+      if (this.editLocation) {
+        this.location = Object.assign({}, this.editLocation)
+      } else {
+        this.clear()
+      }
+    },
     centerOnUser () {
       if (this.userPosition) {
         this.center = this.userPosition

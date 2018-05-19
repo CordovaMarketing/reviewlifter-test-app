@@ -1,12 +1,13 @@
 <template>
   <v-container fluid grid-list-md>
+    
     <v-dialog
         v-model="showModal"
         hide-overlay
         fullscreen
         transition="dialog-bottom-transition"
       >
-    <v-btn
+       <v-btn
     dark
     fab
     fixed
@@ -16,8 +17,8 @@
     slot="activator"
     @click.native="editLocation(null)"
     >
-    <v-icon>add</v-icon>
-  </v-btn>
+    <v-icon>add</v-icon>    
+  </v-btn>   
       <v-toolbar card color="white">
         <v-card color="red" dark tile>
           <v-btn flat icon @click.native="showModal = false">
@@ -27,6 +28,7 @@
       </v-toolbar>
       <v-card scrollable>
         <AddLocation
+        v-if="showModal"
         :editLocation="location"/>
       </v-card>
     </v-dialog>
@@ -149,5 +151,4 @@ export default {
 
 
 <style>
-
 </style>
