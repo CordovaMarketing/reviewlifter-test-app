@@ -73,14 +73,15 @@ const actions = {
   addSubUser ({ commit, getters }, subuserToAdd) {
     HTTP.post('addsubuser', subuserToAdd)
       .then(response => {
-        if (getters.user.subusers) {
-          var subusers = getters.user.subusers
+        var user = getters.user
+        if (user.subusers) {
+          var subusers = user.subusers
           subusers.push(subuserToAdd)
-          getters.user.subusers = subusers
+          user.subusers = subusers
         } else {
-          getters.user.subusers = [subuserToAdd]
+          user.subusers = [subuserToAdd]
         }
-        commit(types.SET_USER, getters.user)
+        commit(types.SET_USER, user)
       })
       .catch(function (error) {
         console.log(error)
@@ -89,14 +90,15 @@ const actions = {
   removeSubUser ({ commit, getters }, subuserToRemove) {
     HTTP.post('removesubuser', { email: subuserToRemove.email })
       .then(response => {
+        var user = getters.user
         if (getters.user.subusers) {
-          var subusers = getters.user.subusers
+          var subusers = user.subusers
           subusers = subusers.filter(
             item => item.email !== subuserToRemove.email
           )
-          getters.user.subusers = subusers
+          user.subusers = subusers
         }
-        commit(types.SET_USER, getters.user)
+        commit(types.SET_USER, user)
       })
       .catch(function (error) {
         console.log(error)
