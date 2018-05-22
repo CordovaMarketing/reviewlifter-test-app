@@ -44,35 +44,6 @@ export default {
     ])
   },
   methods: {
-    // signIn: function () {
-    //   Vue.googleAuth().directAccess()
-    //   // we will want to use direct access which will give back an object
-    //   Vue.googleAuth().signIn(this.onSignInSuccess, this.onSignInError)
-    // },
-    // onSignInSuccess: function (authorizationCode) {
-    //   console.log(authorizationCode)
-    //   HTTP.post('jsGoogle', { code: authorizationCode.Zi.id_token, redirect_uri: 'http://localhost:8080' }).then(function (response) {
-    //     if (response.data) {
-    //       var data = response.data
-    //       HTTP.defaults.headers.common['x-access-token'] = data.token
-    //       store.dispatch('setUser', data.user_data)
-    //       store.dispatch('setToken', data.token)
-    //       // this.$router.push({ name: 'home' })
-    //     }
-    //   }, function (response) {
-    //     alert('SIGN IN ERROR, TRY AGAIN')
-    //     var data = response.body
-    //     this.response = data.error
-    //     console.log(response, data)
-    //   })
-    // },
-    // onSignInError: function (error) {
-    //   this.response = 'Failed to sign-in'
-    //   console.log('GOOGLE SERVER - SIGN-IN ERROR', error)
-    // },
-    // resetResponse: function () {
-    //   this.response = ''
-    // }
     authenticate: function (provider) {
       this.$auth.authenticate(provider).then(function (response) {
         console.log(response)

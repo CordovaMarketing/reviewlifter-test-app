@@ -53,11 +53,19 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (
     to.path !== '/addcustomers' &&
+    to.path !== '/customers' &&
     store.getters.user &&
     store.getters.user.accttype === 'sub'
   ) {
     next('/addcustomers')
-  } else next()
+  } else if (to.path !== '/addcustomers' &&
+  to.path !== '/customers' &&
+  store.getters.user &&
+  store.getters.user.accttype === 'sub') {
+    next('/customers')
+  } else {
+    next()
+  }
 })
 
 export default router
