@@ -90,11 +90,11 @@ const actions = {
     HTTP.post('removesubuser', { email: subuserToRemove.email })
       .then(response => {
         if (getters.user.subusers) {
-          var subusers = JSON.parse(getters.user.subusers)
+          var subusers = getters.user.subusers
           subusers = subusers.filter(
             item => item.email !== subuserToRemove.email
           )
-          getters.user.subusers = JSON.stringify(subusers)
+          getters.user.subusers = subusers
         }
         commit(types.SET_USER, getters.user)
       })

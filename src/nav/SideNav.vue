@@ -34,12 +34,12 @@ export default {
       },
       {
         icon: 'person_pin',
-        title: 'Customers',
+        title: 'Invitations Sent',
         path: '/customers'
       },
       {
         icon: 'add',
-        title: 'Add Customers',
+        title: 'Send Invites',
         path: '/addcustomers'
       }]
     }
