@@ -108,7 +108,9 @@ export default {
     },
 
     save () {
-      this.$store.dispatch('addSubUser', this.editedItem)
+      var subusers = this.items()
+      subusers.push(this.editedItem)
+      this.$store.dispatch('addSubUser', {'newSubusers': subusers, 'newSubuser': this.editedItem})
       this.close()
     }
   }

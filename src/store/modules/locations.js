@@ -30,8 +30,12 @@ const actions = {
     } else {
       HTTP.post('location', place)
         .then(response => {
-          commit(types.ADD_PLACE, response.data)
-          commit(types.SHOW_SNACKBAR, 'Location saved!')
+          if (response.data.hasOwnProperty('status')) {
+            commit(types.SHOW_SNACKBAR, response.data.status)
+          } else {
+            commit(types.ADD_PLACE, response.data)
+            commit(types.SHOW_SNACKBAR, 'Location saved!')
+          }
         })
         .catch(function (error) {
           console.log(error)

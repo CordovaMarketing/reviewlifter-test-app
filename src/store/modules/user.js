@@ -70,16 +70,10 @@ const actions = {
       console.log(error)
     })
   },
-  addSubUser ({ commit, getters }, subuserToAdd) {
-    HTTP.post('addsubuser', subuserToAdd)
+  addSubUser ({ commit, getters }, subuser) {
+    HTTP.post('addsubuser', subuser)
       .then(response => {
-        if (getters.user.subusers) {
-          var subusers = getters.user.subusers
-          subusers.push(subuserToAdd)
-          getters.user.subusers = subusers
-        } else {
-          getters.user.subusers = [subuserToAdd]
-        }
+        getters.user.subusers = subuser.newSubusers
         commit(types.SET_USER, getters.user)
       })
       .catch(function (error) {
