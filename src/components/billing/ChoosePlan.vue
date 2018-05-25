@@ -2,47 +2,6 @@
 <v-container  fluid grid-list-md>
   <h2>All plans start with a 7 day free trial.</h2>
     <v-layout row wrap>
-
-      <v-flex
-        xs12
-        sm6
-        md4
-        lg3
-      >
-        <v-card>
-          <v-card-title>
-            <h2>Applegate</h2>
-            <v-spacer></v-spacer>
-            <h3>$35.71 Monthly per location</h3>
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-list subheader dense>
-            <v-card-text>
-              <v-list-tile-content><h4>Automated Review Requests to Customers</h4></v-list-tile-content>
-            </v-card-text>
-            <v-list-tile>
-              <v-list-tile-content><h4>Send Bulk Review Requests (coming soon)</h4></v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile>
-              <v-list-tile-content><h4>Multiple Location Management</h4></v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile>
-              <v-list-tile-content><h4>Review Requests for Google</h4></v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-        <div>
-            <v-btn @click="planDialog('Applegate')" block color="primary" dark> Start Getting Reviews</v-btn>
-            <small>By Clicking the "Start Getting Reviews!" button, you agree to our Terms of Service which can be viewed <a href='https://docs.google.com/document/d/1UEf68w9puYXrG2oI0KfdnWO5GlTenok4u5TYLKtjnDA/edit'>here.</a></small>
-        </div>
-        </v-card>
-    </v-flex>
-      
-    <v-flex
-        xs12
-        sm6
-        md4
-        lg3
-      >
         <v-card>
           <v-card-title>
             <h2>Basic</h2>
@@ -203,7 +162,7 @@
             <h3>Please give us your payment details:</h3>
             <card class='stripe-card'
             :class='{ complete }'
-            stripe='pk_live_h3cANxNnHs9grgvUEc80E8MZ '
+            stripe='pk_test_FWt0YuMpM9UbFRyaChHMAM83'
             :options='stripeOptions'
             @change='complete = $event.complete'
             />

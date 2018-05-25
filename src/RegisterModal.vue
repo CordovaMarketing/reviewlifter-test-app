@@ -13,20 +13,16 @@
         <AddLocation/>
         
         <v-btn color="primary" @click.native="step = 2">Continue</v-btn>
-        <v-btn flat>Cancel</v-btn>
+        <!-- <v-btn flat>Cancel</v-btn> -->
       </v-stepper-content>
       <v-stepper-content step="2">
         <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
         <v-btn color="primary" @click.native="step = 3">Continue</v-btn>
-        <v-btn flat>Cancel</v-btn>
+        <v-btn @click.native='step= 1' flat>Back</v-btn>
       </v-stepper-content>
       <v-stepper-content step="3">
           <ChoosePlan/>
-          <!-- <v-btn color="primary" @click="$emit('register')">Finish</v-btn>
-        <v-btn flat>Cancel</v-btn> -->
-
-        <!-- TODO: either send and receive registration info from server here and then emit it back up, 
-        or just emit that finish was clicked, and in root module handle registration -->
+          <v-btn @click.native='step= 2' flat>Back</v-btn>
       </v-stepper-content>
     </v-stepper-items>
   </v-stepper>

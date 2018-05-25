@@ -5,7 +5,7 @@
     <v-flex xs6>  
 <!-- Toolbar -->
     <v-icon large class="search-icon">search</v-icon>
-    <GmapAutocomplete :value="location.businessname" placeholder="search for your business" class="input display-1" @place_changed="setPlace">
+    <GmapAutocomplete :value="location.businessname" placeholder="search google for your business" class="input display-1" @place_changed="setPlace">
     </GmapAutocomplete>
     <br/>
 
@@ -25,6 +25,7 @@
 
     
     <v-form  v-if="location.businessname" class="fade-in" v-model="valid" ref="form" lazy-validation>
+      <h3 class="headline">Feel free to edit this informaiton</h3>
       <v-text-field
       label="Business Name (This will appear in text messages to customers)"
       v-model="location.businessname"
@@ -50,7 +51,7 @@
     <v-layout>
       <v-flex><v-text-field
       v-model="reviewtext"
-      label="Text message to customers"
+      label="Text message customers will receive"
       counter="500"
       max=500
       multi-line
