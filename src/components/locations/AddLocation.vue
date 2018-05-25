@@ -135,7 +135,7 @@ export default {
       }
     },
     buttonInfo () {
-      return this.button ? this.button : {'text':'Save','class':'success'}
+      return this.button ? this.button : { 'text': 'Save', 'class': 'success' }
     },
     centerOnUser () {
       if (this.userPosition) {
