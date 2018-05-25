@@ -2,6 +2,12 @@
 <v-container  fluid grid-list-md>
   <h2>All plans start with a 7 day free trial.</h2>
     <v-layout row wrap>
+          <v-flex
+        xs12
+        sm6
+        md4
+        lg3
+      >
         <v-card>
           <v-card-title>
             <h2>Basic</h2>

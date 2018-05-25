@@ -2,7 +2,7 @@
   <v-dialog  full-width fullscreen  hide-overlay v-model="visible" persistent>  
   <v-stepper v-model="step">
     <v-stepper-header>
-      <v-stepper-step step="1" class="headline" :complete="step > 1">Locations</v-stepper-step>
+      <v-stepper-step step="1" class="headline" :complete="step > 1">Find Your Business</v-stepper-step>
       <v-divider></v-divider>
       <v-stepper-step step="2" class="headline" :complete="step > 2">Video Tutorial</v-stepper-step>
       <v-divider></v-divider>
@@ -10,19 +10,19 @@
     </v-stepper-header>
     <v-stepper-items>
       <v-stepper-content step="1">
-        <AddLocation/>
+        <AddLocation :button="{'text':'Continue','class':'primary'}"/>
         
-        <v-btn color="primary" @click.native="step = 2">Continue</v-btn>
+        <!--<v-btn color="primary" @click.native="step = 2">Continue</v-btn>-->
         <!-- <v-btn flat>Cancel</v-btn> -->
       </v-stepper-content>
       <v-stepper-content step="2">
         <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
         <v-btn color="primary" @click.native="step = 3">Continue</v-btn>
-        <v-btn @click.native='step= 1' flat>Back</v-btn>
+        <v-btn @click.native='step= 1' color="primary" flat>Back</v-btn>
       </v-stepper-content>
       <v-stepper-content step="3">
           <ChoosePlan/>
-          <v-btn @click.native='step= 2' flat>Back</v-btn>
+          <v-btn color="primary" @click.native='step= 2' flat>Back</v-btn>
       </v-stepper-content>
     </v-stepper-items>
   </v-stepper>
@@ -31,6 +31,7 @@
 
 <script>
 import ChoosePlan from './components/billing/ChoosePlan'
+import { mapGetters } from 'vuex'
 export default {
   props: ['visible'],
   data () {
@@ -40,6 +41,16 @@ export default {
   },
   components: {
     ChoosePlan
+  },
+  computed: {
+    ...mapGetters([
+      'locations'
+    ])
+  },
+  watch: {
+    locations: function () {
+      this.step = 2
+    }
   }
 }
 </script>

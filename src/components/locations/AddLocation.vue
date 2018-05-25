@@ -25,7 +25,7 @@
 
     
     <v-form  v-if="location.businessname" class="fade-in" v-model="valid" ref="form" lazy-validation>
-      <h3 class="headline">Feel free to edit this informaiton</h3>
+      <p class="title mt-3">Feel free to edit this informaiton</p>
       <v-text-field
       label="Business Name (This will appear in text messages to customers)"
       v-model="location.businessname"
@@ -82,7 +82,7 @@
     
     
     <v-layout class="mt-3" right row wrap>
-      <v-btn @click="save" color="success">Save</v-btn>
+      <v-btn @click="save" :color="buttonInfo().class" v-text="buttonInfo().text"></v-btn>
       <small class="mt-2">You are charged on the same pricing/plan for each location added. 2 locations = 2 * monthly or annual cost. 
         You currently are on the {{ user.plan }} plan. After 7 free days using this location, you will be charged. </small>     
     </v-layout>
@@ -96,7 +96,7 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  props: ['editLocation'],
+  props: ['editLocation', 'button'],
   data () {
     return {
       valid: true,
@@ -133,6 +133,9 @@ export default {
       } else {
         this.clear()
       }
+    },
+    buttonInfo () {
+      return this.button ? this.button : {'text':'Save','class':'success'}
     },
     centerOnUser () {
       if (this.userPosition) {
