@@ -3,7 +3,6 @@
     <v-dialog v-model="dialog" lazy max-width="500px">
       <v-btn
       dark
-      fab
       fixed
       middle
       right
@@ -11,11 +10,21 @@
       slot="activator"
       @click.native="editItem(null)"      
       >
-      <v-icon>add</v-icon>
+      <v-icon class="mr-1">add</v-icon>
+      Send Invite
     </v-btn>
     <v-card v-if="dialog">
+      <v-toolbar :height="48" card color="white">
+        <v-card color="red" dark tile>
+          <v-btn flat icon @click.native="dialog = false">
+            <v-icon>close</v-icon>
+          </v-btn>
+        </v-card>        
+      </v-toolbar>
+
         <AddCustomers
-        v-bind:editCustomer="customer"/>
+        :editCustomer="customer"
+        :upload="false"/>
         <!-- :editLocation="location"/> -->
       </v-card>
     </v-dialog>

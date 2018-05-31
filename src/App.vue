@@ -21,7 +21,7 @@
     </v-toolbar>
 
     <v-content v-if="user">
-      <router-view/>
+      <router-view :upload="true"/>
     </v-content>
 
     <!-- <v-footer :fixed="fixed" app>

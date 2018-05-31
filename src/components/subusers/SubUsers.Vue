@@ -23,10 +23,10 @@
     </v-data-table>
   
     <v-dialog v-model="dialog" max-width="500px">
-        <v-btn color="primary" dark slot="activator" absolute class="mt-2">Add Employee</v-btn>
+        <v-btn color="primary" dark slot="activator" absolute class="mt-2">Invite Employee</v-btn>
       <v-card>
         <v-card-title>
-          <span class="headline">Add Employee</span>
+          <span class="headline">Invite Employee</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
@@ -46,7 +46,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="save">Save</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="save">Send Invite</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -110,7 +110,7 @@ export default {
     save () {
       var subusers = this.items()
       subusers.push(this.editedItem)
-      this.$store.dispatch('addSubUser', {'newSubusers': subusers, 'newSubuser': this.editedItem})
+      this.$store.dispatch('addSubUser', { 'newSubusers': subusers, 'newSubuser': this.editedItem })
       this.close()
     }
   }
