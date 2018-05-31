@@ -9,7 +9,6 @@
       >
        <v-btn
     dark
-    fab
     fixed
     middle
     right
@@ -17,16 +16,17 @@
     slot="activator"
     @click.native="editLocation(null)"
     >
-    <v-icon>add</v-icon>    
-  </v-btn>   
-      <v-toolbar card color="white">
+    <v-icon>add</v-icon>  
+    Add Location
+  </v-btn>
+  <v-card scrollable>
+      <v-toolbar :height="48" card color="white">
         <v-card color="red" dark tile>
           <v-btn flat icon @click.native="showModal = false">
             <v-icon>close</v-icon>
           </v-btn>
         </v-card>        
       </v-toolbar>
-      <v-card scrollable>
         <AddLocation
         v-if="showModal"
         :editLocation="location"/>

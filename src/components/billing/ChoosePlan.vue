@@ -168,7 +168,7 @@
             <h3>Please give us your payment details:</h3>
             <card class='stripe-card'
             :class='{ complete }'
-            stripe='pk_test_FWt0YuMpM9UbFRyaChHMAM83'
+            :stripe='cardToken'
             :options='stripeOptions'
             @change='complete = $event.complete'
             />
@@ -271,6 +271,7 @@ export default {
   computed: {
     ...mapGetters([
       'user',
+      'cardToken',
       'snackbar'
     ])
   },

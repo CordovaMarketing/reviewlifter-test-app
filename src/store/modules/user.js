@@ -8,7 +8,8 @@ const state = {
   user: null,
   token: {},
   snackbar: { show: false, text: '' },
-  cardInfo: {}
+  cardInfo: {},
+  cardToken: 'pk_test_FWt0YuMpM9UbFRyaChHMAM83'
 }
 
 // GETTERS
@@ -17,7 +18,8 @@ const getters = {
   user: s => s.user,
   token: s => s.token,
   snackbar: s => s.snackbar,
-  cardInfo: s => s.cardInfo
+  cardInfo: s => s.cardInfo,
+  cardToken: s => s.cardToken
 }
 
 // ACTIONS
@@ -64,11 +66,14 @@ const actions = {
     commit(types.SET_TOKEN, tokenToAdd)
   },
   signOut ({ commit, dispatch }) {
-    Vue.googleAuth().signOut(function () {
-      location.reload()
-    }, function (error) {
-      console.log(error)
-    })
+    Vue.googleAuth().signOut(
+      function () {
+        location.reload()
+      },
+      function (error) {
+        console.log(error)
+      }
+    )
   },
   addSubUser ({ commit, getters }, subuser) {
     HTTP.post('addsubuser', subuser)

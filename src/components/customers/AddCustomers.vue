@@ -44,43 +44,48 @@
           <v-btn
             @click="submit"
             :disabled="!valid"
+            color="success"
           >
-            submit
+            Send Invite
           </v-btn>
           <v-btn @click="clear">clear</v-btn>
         </v-form>
-        <v-dialog
-        v-model="showModal"
-        hide-overlay
-        fullscreen
-        transition="dialog-bottom-transition"
-        >
-            <v-btn
-            dark
-            fab
-            fixed
-            middle
-            right
-            color="red"
-            slot="activator"
-            @click.native="uploadCustomers"
-            >
-            <v-icon>cloud_upload</v-icon>
-            </v-btn>
-            <v-toolbar card color="white">
-              <v-card color="red" dark tile>
-                <v-btn flat icon @click.native="showModal = false">
-                  <v-icon>close</v-icon>
-                </v-btn>
-              </v-card>        
-            </v-toolbar>
-            <v-card v-if="location" scrollable>
-              <UploadCustomers :locationid="location.public_id"/>
-            </v-card>
-            <v-card v-else scrollable>
-              <h3 class="headline">Please select a location to upload customers to</h3>
-            </v-card>
-          </v-dialog>
+        <div v-if="upload">
+          <br>
+          <v-divider></v-divider>
+          <br>
+          <h4 class="title" v-text="uploadMessage()"></h4>
+          <br>
+          <v-dialog
+          v-model="showModal"
+          hide-overlay
+          fullscreen
+          transition="dialog-bottom-transition"
+          >
+              <v-btn
+              :disabled="!location"
+              fixed
+              middle
+              color="primary"
+              slot="activator"
+              @click.native="showModal = false"
+              >
+              <v-icon class="mr-2">cloud_upload</v-icon>
+              Upload CSV
+              </v-btn>
+              <v-card scrollable>
+              <v-toolbar :height="48" card color="white">
+                <v-card color="red" dark tile>
+                  <v-btn flat icon @click.native="showModal = false">
+                    <v-icon>close</v-icon>
+                  </v-btn>
+                </v-card>        
+              </v-toolbar>
+                <UploadCustomers :locationid="location ? location.public_id : null"/>
+              </v-card>
+
+            </v-dialog>
+          </div>
         </v-flex>
     </v-layout>
   </v-slide-y-transition>
@@ -92,7 +97,7 @@ import { mapGetters } from 'vuex'
 import UploadCustomers from './UploadCustomers'
 
 export default {
-  props: ['editCustomer'],
+  props: ['editCustomer', 'upload'],
   data () {
     return {
       valid: true,
@@ -128,6 +133,9 @@ export default {
     this.fillPreflocation()
   },
   methods: {
+    uploadMessage () {
+      return this.location ? 'Send multiple invites' : 'Select location to send multiple invites'
+    },
     submit () {
       if (this.$refs.form.validate()) {
         // Native form submission is not yet supported
@@ -135,9 +143,6 @@ export default {
         this.$store.dispatch('addCustomer', this.customer)
         this.savePrefferedLocation()
       }
-    },
-    uploadCustomers () {
-      this.showModal = true
     },
     savePrefferedLocation () {
       // This is being sent every time I submit a customer
@@ -198,5 +203,4 @@ export default {
 </script>
 
 <style>
-
 </style>

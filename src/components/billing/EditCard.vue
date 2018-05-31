@@ -13,7 +13,11 @@
         <div>
             <card class='stripe-card'
             :class='{ complete }'
+<<<<<<< HEAD
             stripe='pk_live_h3cANxNnHs9grgvUEc80E8MZ'
+=======
+            :stripe='cardToken'
+>>>>>>> dev
             :options='stripeOptions'
             @change='complete = $event.complete'
             />
@@ -67,6 +71,7 @@ export default {
   computed: {
     ...mapGetters([
       'user',
+      'cardToken',
       'snackbar',
       'cardInfo'
     ])
