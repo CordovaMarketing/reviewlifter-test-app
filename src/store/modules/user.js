@@ -9,7 +9,7 @@ const state = {
   token: {},
   snackbar: { show: false, text: '' },
   cardInfo: {},
-  cardToken: 'pk_test_FWt0YuMpM9UbFRyaChHMAM83'
+  cardToken: 'pk_live_h3cANxNnHs9grgvUEc80E8MZ'
 }
 
 // GETTERS
