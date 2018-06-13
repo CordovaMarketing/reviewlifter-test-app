@@ -63,7 +63,7 @@
 <script>
 import AddCustomers from './AddCustomers'
 import { mapGetters } from 'vuex'
-import { HTTP } from '../../http-common'
+
 export default {
   data: () => ({
     dialog: false,
