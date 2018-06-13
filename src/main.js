@@ -91,13 +91,15 @@ Vue.use(GoogleAuth, {
 Vue.googleAuth().load()
 
 Vue.use(VueAuthenticate, {
-  baseUrl: 'https://review-lifter-test-api.herokuapp.com/', // Your API domain
+  baseUrl: 'http://localhost:5000', // Your API domain
+  // https://review-lifter-test-api.herokuapp.com/
 
   providers: {
     google: {
       clientId:
         '548156398963-gmpe9plbplamq59nlov1d9u0kuuh3q01.apps.googleusercontent.com',
-      redirectUri: 'http://reviewlifterapp-test.s3-website-us-east-1.amazonaws.com' // Your client app URL
+      redirectUri: 'http://localhost:8080' // Your client app URL
+      // http://reviewlifterapp-test.s3-website-us-east-1.amazonaws.com
     }
   }
 })
