@@ -51,11 +51,8 @@
           <v-btn @click="clear">clear</v-btn>
         </v-form>
         <div v-if="upload">
-          <br>
-          <v-divider></v-divider>
-          <br>
-          <h4 class="title" v-text="uploadMessage()"></h4>
-          <br>
+          <v-divider class="mt-2"></v-divider>
+          <h5 class="title mt-2" v-text="uploadMessage()"></h5>
           <v-dialog
           v-model="showModal"
           hide-overlay

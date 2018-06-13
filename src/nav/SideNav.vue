@@ -41,6 +41,11 @@ export default {
         icon: 'add',
         title: 'Send Invites',
         path: '/addcustomers'
+      },
+      {
+        icon: 'settings',
+        title: 'Settings',
+        path: 'settings'
       }]
     }
   },
@@ -58,5 +63,5 @@ export default {
 </script>
 
 <style>
-
 </style>
+<v-icon class="text-lg-right" ></v-icon>
