@@ -34,7 +34,7 @@ const actions = {
             commit(types.SHOW_SNACKBAR, response.data.status)
           } else {
             commit(types.ADD_CUSTOMER, response.data)
-            commit(types.SHOW_SNACKBAR, 'Customer saved!')
+            commit(types.SHOW_SNACKBAR, 'Review Invite Sent')
           }
         })
         .catch(function (error) {
@@ -44,10 +44,12 @@ const actions = {
     }
   },
   uploadCustomers ({ commit, dispatch }, file) {
-    HTTP.post('/bulkupload', file, { headers: { 'Content-Type': 'multipart/form-data' } })
+    HTTP.post('/bulkupload', file, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
       .then(response => {
         response.data.forEach(customer => commit(types.ADD_CUSTOMER, customer))
-        commit(types.SHOW_SNACKBAR, 'Customers saved!')
+        commit(types.SHOW_SNACKBAR, 'Review Invites Sent')
       })
       .catch(function (error) {
         console.log(error)

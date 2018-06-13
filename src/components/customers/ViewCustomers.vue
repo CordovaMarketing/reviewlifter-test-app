@@ -54,12 +54,16 @@
         <h3 class="headline text-md-center grey--text grey--lighten-1">No customers to display.</h3>
       </template>
     </v-data-table>
+    <div class="text-xs-center">
+     <v-btn  color="primary" :href="downloadData()" download="customers.csv">Download CSV</v-btn>
+    </div>
   </v-container>
 </template>
 
 <script>
 import AddCustomers from './AddCustomers'
 import { mapGetters } from 'vuex'
+import { HTTP } from '../../http-common'
 export default {
   data: () => ({
     dialog: false,
@@ -75,6 +79,7 @@ export default {
       { text: 'Phone #', value: 'carbs' },
       { text: 'Actions', value: 'name', sortable: false }
     ],
+    customerData: null,
     customer: null
   }),
 
@@ -122,6 +127,16 @@ export default {
         this.desserts.push(this.editedItem)
       }
       this.close()
+    },
+
+    downloadData () {
+      var lineArray = ['data:text/csv;charset=utf-8,', 'Name, Location, Email, Phone, Attempted to send, Successfully sent']
+      this.customers.forEach((customer, index) => {
+        var infoArray = [customer.firstname + ' ' + customer.lastname, this.getLocation(customer.locationid).businessname, customer.email, customer.phone, customer.attempted, customer.success]
+        var line = infoArray.join(',')
+        lineArray.push(line)
+      })
+      return lineArray.join('\n')
     }
   },
   components: {

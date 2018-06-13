@@ -91,7 +91,7 @@ Vue.use(GoogleAuth, {
 Vue.googleAuth().load()
 
 Vue.use(VueAuthenticate, {
-  baseUrl: 'http://localhost:5000', // Your API domain
+  baseUrl: 'https://review-lifter-test-api.herokuapp.com/', // Your API domain
   // https://review-lifter-test-api.herokuapp.com/
 
   providers: {

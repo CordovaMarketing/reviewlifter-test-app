@@ -1,14 +1,13 @@
 <template>
   <v-toolbar flat class="transparent"> 
     <v-list class="pa-0">
-      <v-list-tile v-if="user" avatar :to="{path: '/settings'}">
+      <v-list-tile v-if="user" avatar>
         <v-list-tile-avatar>
           <img :src="user.avatar">
         </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title>{{user.firstname}} {{user.lastname}}</v-list-tile-title>
         </v-list-tile-content>
-          <v-icon class="text-lg-right" >settings</v-icon>
       </v-list-tile>
       <v-list-tile v-else avatar>
         <v-list-tile-avatar>
@@ -36,5 +35,4 @@ export default {
 </script>
 
 <style>
-
 </style>

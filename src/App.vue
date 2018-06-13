@@ -15,8 +15,11 @@
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <v-toolbar-title @click="logout">Logout</v-toolbar-title>
-      <v-icon >exit_to_app</v-icon>
+      <v-btn @click="logout" >
+      Sign out
+      <v-icon class="ml-2">exit_to_app</v-icon>
+      </v-btn>
+   
 
     </v-toolbar>
 
