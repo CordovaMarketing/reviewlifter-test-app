@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // https://review-lifter-test-api.herokuapp.com/
 export const HTTP = axios.create({
-  baseURL: `https://review-lifter-test-api.herokuapp.com/`
+  baseURL: `https://review-lifter-prod-api.herokuapp.com/`
 })
 
 export const intercept = HTTP.interceptors.response.use(null, (error) => {
