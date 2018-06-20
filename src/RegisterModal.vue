@@ -16,7 +16,9 @@
         <!-- <v-btn flat>Cancel</v-btn> -->
       </v-stepper-content>
       <v-stepper-content step="2">
-        <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
+        <v-card color="grey lighten-1" class="mb-5" height="200px">
+          <iframe width="520" height="379" src="https://www.youtube.com/embed/FN2BGs6b_rQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </v-card>
         <v-btn color="primary" @click.native="step = 3">Continue</v-btn>
         <v-btn @click.native='step= 1' color="primary" flat>Back</v-btn>
       </v-stepper-content>
