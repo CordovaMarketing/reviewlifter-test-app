@@ -8,15 +8,14 @@
           <v-flex class="text-xs-center">
             <v-card-title class="headline">Review Lifter</v-card-title>
               <v-card-text>Use your Google account to sign up or login to Review Lifter.</v-card-text>
-            <v-btn class="signin-button" color="blue" dark  v-on:click="authenticate('google')">
-              <v-icon dark left>fab fa-google</v-icon>
-              Create account
-            </v-btn>
             <v-btn class="signin-button" color="deep-orange" dark  v-on:click="authenticate('google')">
               <v-icon dark left>fab fa-google</v-icon>
               Sign in with Google
             </v-btn>
           </v-flex>
+          <v-card-text>
+          <p class="text-xs-center">Don't have an account? <a v-on:click="authenticate('google')"><strong>Sign up</strong> </a></p>
+          </v-card-text>
           <br>
         </v-card>
       </v-layout>
