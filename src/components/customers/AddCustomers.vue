@@ -50,6 +50,7 @@
           </v-btn>
           <v-btn @click="clear">clear</v-btn>
         </v-form>
+
         <div v-if="upload">
           <v-divider class="mt-2"></v-divider>
           <h5 class="title mt-2" v-text="uploadMessage()"></h5>
@@ -104,7 +105,7 @@ export default {
         lastname: '',
         email: '',
         phone: '',
-        locationid: this.location ? this.location.public_id : null
+        locationid: this.location ? this.location.public_id : null,
       },
       firstNameRules: [
         v => !!v || 'Name is required',
@@ -122,7 +123,7 @@ export default {
         v => /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(v) || 'Please enter a valid mobile number'
       ],
       checkbox: false,
-      select: []
+      select: [],
     }
   },
   mounted () {

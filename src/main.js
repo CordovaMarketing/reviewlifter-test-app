@@ -35,7 +35,8 @@ import {
   VCheckbox,
   VDataIterator,
   VSwitch,
-  VDataTable
+  VDataTable,
+  VMenu
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 import colors from 'vuetify/es5/util/colors'
@@ -65,7 +66,8 @@ Vue.use(Vuetify, {
     VCheckbox,
     VDataIterator,
     VSwitch,
-    VDataTable
+    VDataTable,
+    VMenu
   },
   theme: {
     primary: colors.blue.darken1, // #E53935

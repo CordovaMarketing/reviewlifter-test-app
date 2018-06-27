@@ -1,57 +1,72 @@
 <template>
   <div>
-      <h2 class="text-md-center">Employees</h2>
-    <v-data-table
-      :headers="headers"
-      :items="items()"
-      hide-actions
-      class="elevation-1"
-    >
-      <template slot="items" slot-scope="props">
-        <td>{{ props.item.firstname }}</td>
-        <td>{{ props.item.lastname }}</td>
-        <td class="justify-center">{{ props.item.email }}</td>
-        <td class="justify-center">
-          <v-btn icon class="mx-0" @click="deleteItem(props.item)">
-            <v-icon color="pink">delete</v-icon>
-          </v-btn>
-        </td>
-      </template>
-      <template slot="no-data">
-        <h3 class="headline text-md-center grey--text grey--lighten-1">No registered employees.</h3>
-      </template>
-    </v-data-table>
-  
-    <v-dialog v-model="dialog" max-width="500px">
-        <v-btn color="primary" dark slot="activator" absolute class="mt-2">Invite Employee</v-btn>
-      <v-card>
+
+  <v-card>
+    <v-container fluid grid-list-lg>
         <v-card-title>
-          <span class="headline">Invite Employee</span>
+          <h2 class="text-md-center">Employees</h2>
         </v-card-title>
+        <v-divider></v-divider>
         <v-card-text>
-          <v-container grid-list-md>
-            <v-layout wrap>
-              <v-flex xs12 sm6 md4>
-                <v-text-field label="First Name" v-model="editedItem.firstname"></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-text-field label="Last Name" v-model="editedItem.lastname"></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-text-field label="Email" v-model="editedItem.email"></v-text-field>
-              </v-flex>
-            </v-layout>
-          </v-container>
+            <v-data-table
+            :headers="headers"
+            :items="items()"
+            hide-actions
+            class="elevation-1"
+          >
+            <template slot="items" slot-scope="props">
+              <td>{{ props.item.firstname }}</td>
+              <td>{{ props.item.lastname }}</td>
+              <td class="justify-center">{{ props.item.email }}</td>
+              <td class="justify-center">
+                <v-btn icon class="mx-0" @click="deleteItem(props.item)">
+                  <v-icon color="pink">delete</v-icon>
+                </v-btn>
+              </td>
+            </template>
+            <template slot="no-data">
+              <h3 class="headline text-md-center grey--text grey--lighten-1">No registered employees.</h3>
+            </template>
+          </v-data-table>
         </v-card-text>
+
+        
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="save">Send Invite</v-btn>
+          <v-dialog v-model="dialog" max-width="500px">
+              <v-btn color="primary" dark slot="activator">Invite Employee</v-btn>
+            <v-card>
+              <v-card-title>
+                <span class="headline">Invite Employee</span>
+              </v-card-title>
+              <v-card-text>
+                <v-container grid-list-md>
+                  <v-layout wrap>
+                    <v-flex xs12 sm6 md4>
+                      <v-text-field label="First Name" v-model="editedItem.firstname"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6 md4>
+                      <v-text-field label="Last Name" v-model="editedItem.lastname"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6 md4>
+                      <v-text-field label="Email" v-model="editedItem.email"></v-text-field>
+                    </v-flex>
+                  </v-layout>
+                </v-container>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
+                <v-btn color="blue darken-1" flat @click.native="save">Send Invite</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-card-actions>
-      </v-card>
-    </v-dialog>
+    </v-container>
+    </v-card>
   </div>
 </template>
+
+
 
 <script>
 import { mapGetters } from 'vuex'
