@@ -91,21 +91,13 @@ Vue.use(GoogleAuth, {
 Vue.googleAuth().load()
 
 Vue.use(VueAuthenticate, {
-<<<<<<< HEAD
   baseUrl: 'https://review-lifter-prod-api.herokuapp.com/', // Your API domain
-=======
-  baseUrl: 'https://review-lifter-test-api.herokuapp.com/', // Your API domain
->>>>>>> 1a1e0a21198786eb93f9829a0d4ac31a0ae5036c
 
   providers: {
     google: {
       clientId:
         '548156398963-gmpe9plbplamq59nlov1d9u0kuuh3q01.apps.googleusercontent.com',
-<<<<<<< HEAD
       redirectUri: 'https://druo0vibxg7ct.cloudfront.net' // Your client app URL
-=======
-      redirectUri: 'http://localhost:8080' // Your client app URL
->>>>>>> 1a1e0a21198786eb93f9829a0d4ac31a0ae5036c
     }
   }
 })
